@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Окна в Дом - Монтаж и ремонт окон ПВХ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Onest',sans-serif;background:#EFF6FB;color:#1652C4;overflow-x:hidden}
+:root{--bg:#EFF6FB;--white:#FFFFFF;--card:#D8EDF7;--dark:#1652C4;--blue:#3E8EC4;--blue-l:#6AB4D4;--blue-ll:#B8DDEF;--mid:#3A6280;--muted:#7AAABE;--border:#B0D5E9;--green:#1A6B3C;--r:12px;--rL:20px}
+
+@keyframes openLeft{0%{transform:perspective(1200px) rotateY(0)}100%{transform:perspective(1200px) rotateY(-82deg);box-shadow:-8px 2px 24px rgba(0,50,110,.2)}}
+@keyframes openRight{0%{transform:perspective(1200px) rotateY(0)}100%{transform:perspective(1200px) rotateY(82deg);box-shadow:8px 2px 24px rgba(0,50,110,.2)}}
+@keyframes floatA{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}50%{transform:translateY(-18px) rotate(calc(var(--rot,0deg) + 1.5deg))}}
+@keyframes floatB{0%,100%{transform:translateY(0) rotate(var(--rot,0deg))}40%{transform:translateY(-12px) rotate(calc(var(--rot,0deg)+1deg))}}
+@keyframes floatSlow{0%,100%{transform:translateY(0) translateX(0) rotate(var(--rot,0deg))}50%{transform:translateY(-8px) translateX(3px) rotate(calc(var(--rot,0deg)+.8deg))}}
+@keyframes glassShine{0%,55%,100%{left:-90%}25%,35%{left:130%}}
+@keyframes drop{0%{transform:translateY(0) scaleY(.5);opacity:0}8%{opacity:.75}85%{opacity:.55}100%{transform:translateY(300px) scaleY(1.3);opacity:0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(62,142,196,.25)}50%{box-shadow:0 0 0 8px rgba(62,142,196,0)}}
+@keyframes blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
+@keyframes shimmerSweep{0%,60%,100%{transform:translateX(-200%) skewX(-20deg);opacity:0}30%{transform:translateX(300%) skewX(-20deg);opacity:.4}}
+@keyframes winAppear{from{opacity:0;transform:scale(.96) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes windRain{0%{transform:translate(0,0);opacity:0}5%{opacity:.6}90%{opacity:.4}100%{transform:translate(-36px,100vh);opacity:0}}
+@keyframes lineGrow{from{width:0}to{width:100%}}
+@keyframes secWinDrift{0%,100%{transform:translate(0,0) rotate(var(--rot,0deg))}50%{transform:translate(var(--dx,4px),var(--dy,-12px)) rotate(calc(var(--rot,0deg)+1deg))}}
+@keyframes typeAnim{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* SCROLL TOP */
+.up{position:fixed;bottom:88px;right:24px;width:40px;height:40px;border-radius:50%;background:var(--dark);color:#fff;border:none;font-size:14px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;z-index:998;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(22,82,196,.3)}
+.up.on{opacity:1;pointer-events:all}
+
+/* HEADER */
+#hdr{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:200;height:56px;display:flex;align-items:center;background:rgba(255,255,255,.94);backdrop-filter:blur(20px);border:1px solid rgba(176,213,233,.8);border-radius:100px;padding:0 10px 0 16px;white-space:nowrap;box-shadow:0 4px 24px rgba(22,82,196,.1);transition:all .3s;gap:4px;max-width:calc(100vw - 32px)}
+.logo{display:flex;align-items:center;text-decoration:none;margin-right:16px;flex-shrink:0}
+.logo-img{height:36px;width:auto;border-radius:4px}
+nav{display:flex;gap:2px;margin-right:12px}
+nav a{padding:6px 12px;font-size:13px;font-weight:500;color:var(--mid);text-decoration:none;border-radius:100px;transition:all .2s;white-space:nowrap}
+nav a:hover{background:var(--card);color:var(--dark)}
+.hdr-tel{font-size:13px;font-weight:600;color:var(--dark);text-decoration:none;margin-right:6px;padding:0 4px;white-space:nowrap}
+.hdr-tel:hover{color:var(--blue)}
+.btn-hdr{padding:9px 18px;background:var(--dark);color:#fff;border:none;border-radius:100px;font-family:'Onest',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.btn-hdr:hover{background:#1E68E0;transform:translateY(-1px)}
+
+/* HERO - SPLIT LAYOUT */
+#hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;background:linear-gradient(150deg,#EBF4FB 0%,#DFF0F9 50%,#E8F5FD 100%)}
+#hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(22,82,196,.12) 1px,transparent 1px);background-size:30px 30px;opacity:.5;pointer-events:none;z-index:0}
+#hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 110% 80% at 20% 50%,transparent 40%,#EFF6FB 95%);pointer-events:none;z-index:0}
+.hero-left{display:flex;flex-direction:column;justify-content:center;padding:100px 3% 70px 7%;position:relative;z-index:1}
+.hero-right{display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;z-index:1;padding:80px 6% 60px 2%}
+/* Floating bg windows (in hero-left) */
+.float-wins{position:absolute;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.fw{position:absolute;border:1.5px solid rgba(22,82,196,.1);border-radius:2px;background:rgba(106,180,212,.04);animation:floatA 8s ease-in-out infinite}
+.fw::before,.fw::after{content:'';position:absolute;background:rgba(22,82,196,.1)}
+.fw::before{top:0;bottom:0;left:50%;width:1.5px;margin-left:-.75px}
+.fw::after{left:0;right:0;top:50%;height:1.5px;margin-top:-.75px}
+.rain-line{position:absolute;width:1.5px;background:linear-gradient(transparent,rgba(140,195,230,.3),transparent);animation:windRain linear infinite;pointer-events:none;z-index:0}
+
+/* HERO WINDOW */
+.hero-win-outer{width:clamp(220px,32vw,390px);height:clamp(180px,28vw,340px);position:relative;animation:winAppear 1s ease .4s both;border:4.5px solid rgba(22,82,196,.7);border-radius:4px;overflow:hidden;box-shadow:0 0 50px rgba(22,82,196,.12),0 20px 60px rgba(22,82,196,.1)}
+.hw-city{position:absolute;inset:0;z-index:0}
+.hw-city svg{width:100%;height:100%;display:block}
+.hwp{position:absolute;z-index:2;overflow:hidden}
+.hwp-tl{top:0;left:0;width:calc(50% - 2.25px);height:calc(50% - 2.25px);transform-origin:right center;animation:openLeft 2.8s cubic-bezier(.4,0,.2,1) 1.2s both}
+.hwp-tr{top:0;right:0;width:calc(50% - 2.25px);height:calc(50% - 2.25px);transform-origin:left center;animation:openRight 2.8s cubic-bezier(.4,0,.2,1) 1.2s both}
+.hwp-bl{bottom:0;left:0;width:calc(50% - 2.25px);height:calc(50% - 2.25px)}
+.hwp-br{bottom:0;right:0;width:calc(50% - 2.25px);height:calc(50% - 2.25px)}
+.hwg{position:absolute;inset:0;background:rgba(190,228,248,.28)}
+.hws{position:absolute;top:-40%;left:-20%;width:36%;height:180%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-22deg);animation:glassShine 7s ease-in-out 5s infinite}
+.hws-r{animation-delay:6.5s}
+.hw-bar-v{position:absolute;left:50%;top:0;bottom:0;width:4.5px;margin-left:-2.25px;background:rgba(22,82,196,.75);z-index:5}
+.hw-bar-h{position:absolute;top:50%;left:0;right:0;height:4.5px;margin-top:-2.25px;background:rgba(22,82,196,.75);z-index:5}
+.hw-handle-pair{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:6;display:flex;gap:4px;margin-top:-2px}
+.hw-h{width:10px;height:28px;background:#2B6CB0;border-radius:5px;box-shadow:0 2px 8px rgba(22,82,196,.5)}
+.hw-sill{position:absolute;bottom:-14px;left:-18px;right:-18px;height:20px;background:rgba(200,225,245,.9);border:1px solid rgba(22,82,196,.2);border-radius:3px;z-index:3}
+.hw-drop{position:absolute;z-index:4;width:4px;background:rgba(140,205,240,.65);border-radius:50% 50% 50% 50%/30% 30% 70% 70%;animation:drop 5s ease-in infinite;top:0}
+
+/* HERO CONTENT */
+.hero-inner{position:relative;z-index:1}
+.h-pill{display:inline-flex;align-items:center;gap:8px;background:var(--white);border:1px solid var(--border);border-radius:100px;padding:6px 16px 6px 8px;margin-bottom:28px;font-size:13px;font-weight:500;color:var(--mid)}
+.h-pill-dot{width:22px;height:22px;border-radius:50%;background:#C6EDD6;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#166534}
+h1.ht{font-size:clamp(34px,4vw,62px);font-weight:300;color:var(--dark);line-height:1.06;letter-spacing:-.03em;margin-bottom:20px}
+h1.ht strong{font-weight:700}
+h1.ht em{font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.08em;color:var(--blue)}
+.h-sub{font-size:15px;font-weight:400;color:var(--mid);line-height:1.78;max-width:420px;margin-bottom:38px}
+.hero-acts{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:48px}
+.btn-main{padding:14px 28px;background:var(--dark);color:#fff;text-decoration:none;font-size:14px;font-weight:600;border-radius:100px;transition:all .25s;border:none;cursor:pointer;font-family:'Onest',sans-serif;box-shadow:0 6px 20px rgba(22,82,196,.3);animation:pulse 3s ease-in-out 4s infinite}
+.btn-main:hover{background:#1E68E0;transform:translateY(-2px);box-shadow:0 10px 28px rgba(22,82,196,.4)}
+.btn-out{padding:13px 24px;background:rgba(255,255,255,.7);color:var(--dark);text-decoration:none;font-size:14px;font-weight:500;border-radius:100px;border:1.5px solid var(--border);transition:all .2s;backdrop-filter:blur(8px)}
+.btn-out:hover{border-color:var(--dark);background:var(--white)}
+.hero-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:var(--rL);background:rgba(255,255,255,.82);overflow:hidden;backdrop-filter:blur(12px);width:fit-content}
+.hs{padding:16px 22px;text-align:center;border-right:1px solid var(--border)}
+.hs:last-child{border-right:none}
+.hs-n{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:400;color:var(--dark);line-height:1;margin-bottom:4px}
+.hs-l{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+
+/* SECTIONS */
+.sec{padding:88px 6%;position:relative;overflow:hidden}
+.sec.w{background:var(--white)}
+.sec.bl{background:linear-gradient(160deg,#E4F1FA 0%,#D6EBF6 100%)}
+/* Decorative window silhouettes in sections */
+.sdw{position:absolute;pointer-events:none;z-index:0;border:2px solid rgba(22,82,196,.06);border-radius:2px;background:rgba(106,180,212,.025);animation:secWinDrift ease-in-out infinite}
+.sdw::before,.sdw::after{content:'';position:absolute;background:rgba(22,82,196,.06)}
+.sdw::before{top:0;bottom:0;left:50%;width:1.5px;margin-left:-.75px}
+.sdw::after{left:0;right:0;top:50%;height:1.5px;margin-top:-.75px}
+.sec-hd{margin-bottom:52px;position:relative;z-index:1}
+.sec-hd.cr{text-align:center}
+.sec-hd.cr .st{margin:0 auto}
+.sec-hd.cr .ss{margin:12px auto 0;max-width:520px}
+.ey{font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:block}
+h2.st{font-size:clamp(26px,3vw,44px);font-weight:300;color:var(--dark);line-height:1.2;letter-spacing:-.025em}
+h2.st strong{font-weight:700}
+h2.st em{font-style:italic;font-family:'Cormorant Garamond',serif;font-size:1.1em}
+p.ss{font-size:15px;font-weight:400;color:var(--mid);line-height:1.8;max-width:440px}
+
+/* SERVICES */
+.srv-ac{position:relative;z-index:1}
+.sa-item{border-radius:var(--r);overflow:hidden;margin-bottom:8px;background:var(--white);border:1.5px solid var(--border);transition:all .25s}
+.sa-item.open{border-color:var(--dark);box-shadow:0 4px 20px rgba(22,82,196,.1)}
+.sa-h{display:grid;grid-template-columns:52px 1fr auto auto;align-items:center;gap:0;padding:0 20px 0 0;cursor:pointer;min-height:64px}
+.sa-num{padding:0 0 0 20px;font-size:12px;font-weight:600;color:var(--blue);letter-spacing:.08em}
+.sa-title{font-size:15px;font-weight:500;color:var(--dark);padding:16px;transition:color .2s}
+.sa-item.open .sa-title{color:var(--blue)}
+.sa-price{font-size:13px;font-weight:600;color:var(--mid);margin-right:16px;white-space:nowrap}
+.sa-ico{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);transition:all .3s;flex-shrink:0;line-height:1}
+.sa-item.open .sa-ico{background:var(--dark);border-color:var(--dark);color:#fff;transform:rotate(45deg)}
+.sa-body{max-height:0;overflow:hidden;transition:max-height .38s ease}
+.sa-in{padding:0 22px 22px 88px;font-size:14px;font-weight:400;color:var(--mid);line-height:1.78;border-top:1px solid var(--card)}
+
+/* CALCULATOR */
+.calc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;position:relative;z-index:1}
+.clbl{display:block;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.copts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:0}
+.co{padding:8px 16px;border:1.5px solid var(--border);border-radius:100px;font-family:'Onest',sans-serif;font-size:13px;font-weight:500;cursor:pointer;background:var(--white);color:var(--mid);transition:all .2s}
+.co:hover{border-color:var(--blue);color:var(--blue)}
+.co.on{background:var(--dark);border-color:var(--dark);color:#fff}
+.rrow{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.rrow label{font-size:12px;font-weight:500;color:var(--muted);width:66px;flex-shrink:0;text-transform:uppercase;letter-spacing:.06em}
+.rrow input[type=range]{flex:1;accent-color:var(--dark);cursor:pointer;height:3px}
+.rval{font-size:14px;font-weight:600;color:var(--dark);min-width:78px;text-align:right}
+.cc2{display:flex;flex-direction:column;gap:8px}
+.ci{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;border-radius:10px;border:1.5px solid var(--border);background:var(--white);transition:all .15s;user-select:none}
+.ci:hover{border-color:var(--blue);background:var(--card)}
+.ci input{accent-color:var(--dark);width:16px;height:16px;cursor:pointer;flex-shrink:0}
+.ci .cn{flex:1;font-size:14px;font-weight:500;color:var(--dark)}
+.ci .cp{font-size:12px;font-weight:600;color:var(--muted)}
+.cres{background:var(--dark);border-radius:var(--rL);padding:32px;color:#fff;position:sticky;top:88px;overflow:hidden}
+.cres::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:rgba(62,142,196,.15);border-radius:50%;pointer-events:none}
+.cr-lbl{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:8px;position:relative}
+.cr-price{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1;letter-spacing:-.02em;margin-bottom:6px;position:relative}
+.cr-note{font-size:12px;color:rgba(255,255,255,.38);margin-bottom:22px;font-weight:300;position:relative}
+.cr-sep{height:1px;background:rgba(255,255,255,.12);margin-bottom:16px;position:relative}
+.cr-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;font-size:13px;position:relative}
+.cr-row span:first-child{color:rgba(255,255,255,.5);font-weight:300}
+.cr-row span:last-child{font-weight:500}
+.btn-cr{display:block;width:100%;margin-top:18px;padding:13px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:100px;font-family:'Onest',sans-serif;font-size:13px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;transition:all .2s;position:relative}
+.btn-cr:hover{background:rgba(255,255,255,.22)}
+
+/* PROCESS */
+.proc{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative;z-index:1}
+.proc-line-wrap{position:relative;height:2px;margin-bottom:-2px;z-index:0}
+.proc-line{width:0;height:100%;background:linear-gradient(90deg,var(--dark),var(--blue-l));animation:lineGrow 1.5s cubic-bezier(.4,0,.2,1) 1.5s forwards;margin-left:15%;margin-right:15%}
+.pc{background:var(--white);border-radius:var(--rL);padding:28px 22px;border:1.5px solid var(--border);transition:all .3s;position:relative;overflow:hidden}
+.pc::before{content:attr(data-n);position:absolute;top:-12px;right:12px;font-family:'Cormorant Garamond',serif;font-size:88px;font-weight:300;color:var(--card);line-height:1;pointer-events:none}
+.pc::after{content:'';position:absolute;bottom:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--dark),var(--blue-l));transition:width .4s}
+.pc:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(22,82,196,.1);border-color:var(--blue-ll)}
+.pc:hover::after{width:100%}
+.pc h3{font-size:15px;font-weight:600;color:var(--dark);margin-bottom:9px;position:relative}
+.pc p{font-size:13px;font-weight:400;color:var(--mid);line-height:1.65;position:relative}
+
+/* GALLERY */
+.gal{column-count:3;column-gap:14px;position:relative;z-index:1}
+.gi{break-inside:avoid;margin-bottom:14px;border-radius:var(--r);overflow:hidden;position:relative;cursor:pointer}
+.gi-bg{width:100%;display:block;transition:transform .45s;position:relative}
+.gi:hover .gi-bg{transform:scale(1.04)}
+.gi::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent);transform:translateX(-200%) skewX(-20deg);pointer-events:none}
+.gi:hover::after{animation:shimmerSweep .7s ease forwards}
+.gi-label{position:absolute;bottom:0;left:0;right:0;padding:14px 18px;background:linear-gradient(transparent,rgba(22,82,196,.65));opacity:0;transition:opacity .3s;border-radius:0 0 var(--r) var(--r)}
+.gi:hover .gi-label{opacity:1}
+.gi-label h4{color:#fff;font-size:13px;font-weight:600;margin-bottom:2px}
+.gi-label span{color:rgba(255,255,255,.7);font-size:12px}
+
+/* AI SECTION */
+#ai-section{background:linear-gradient(145deg,#1652C4 0%,#1C60D4 50%,#2470DC 100%);padding:80px 6%;position:relative;overflow:hidden}
+#ai-section::before{content:'';position:absolute;top:-80px;right:-80px;width:400px;height:400px;background:rgba(106,180,212,.12);border-radius:50%;pointer-events:none}
+#ai-section::after{content:'';position:absolute;bottom:-100px;left:-50px;width:320px;height:320px;background:rgba(62,142,196,.1);border-radius:50%;pointer-events:none}
+.ai-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:center;position:relative;z-index:1}
+.ai-l .ey{color:rgba(255,255,255,.45)}
+.ai-l h2{font-size:clamp(26px,2.8vw,42px);font-weight:300;color:#fff;line-height:1.2;letter-spacing:-.02em;margin-bottom:14px}
+.ai-l h2 strong{font-weight:700}
+.ai-l p{font-size:15px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:26px;font-weight:300}
+.ai-chips{display:flex;flex-wrap:wrap;gap:8px}
+.ai-chip{padding:7px 15px;border:1px solid rgba(255,255,255,.2);border-radius:100px;font-size:13px;font-weight:500;color:rgba(255,255,255,.7);cursor:pointer;transition:all .2s;background:transparent}
+.ai-chip:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.45);color:#fff}
+.chat-win{background:#fff;border-radius:var(--rL);overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,.25)}
+.chat-head{padding:15px 20px;background:var(--card);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:var(--dark);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:700;flex-shrink:0}
+.chat-head-info strong{display:block;font-size:14px;font-weight:600;color:var(--dark)}
+.chat-head-info span{font-size:12px;color:var(--green)}
+.chat-msgs{height:280px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.6;font-weight:400;white-space:pre-line;animation:typeAnim .25s ease}
+.msg.bot{background:var(--card);color:var(--dark);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.usr{background:var(--dark);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.msg.typing{background:var(--card);align-self:flex-start;padding:14px 18px}
+.typing-dots{display:flex;gap:4px}
+.typing-dots span{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1.2s ease-in-out infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+.chat-inp{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--border);background:var(--white)}
+.chat-inp input{flex:1;border:1.5px solid var(--border);border-radius:100px;padding:10px 15px;font-family:'Onest',sans-serif;font-size:14px;color:var(--dark);outline:none;transition:border-color .2s;background:var(--bg)}
+.chat-inp input:focus{border-color:var(--blue)}
+.chat-inp button{width:38px;height:38px;border-radius:50%;background:var(--dark);color:#fff;border:none;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+.chat-inp button:hover{background:var(--blue)}
+.chat-inp button:disabled{opacity:.4;cursor:default}
+
+/* FLOAT AI */
+#ai-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.ai-fb{width:52px;height:52px;border-radius:50%;background:var(--dark);color:#fff;border:none;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(22,82,196,.35);transition:all .3s;animation:pulse 3s ease-in-out 2s infinite}
+.ai-fb:hover{transform:scale(1.08)}
+.ai-panel{width:310px;background:#fff;border-radius:var(--rL);border:1px solid var(--border);box-shadow:0 20px 60px rgba(22,82,196,.2);overflow:hidden;transform-origin:bottom right;transform:scale(0);opacity:0;transition:all .25s;max-height:470px}
+.ai-panel.open{transform:scale(1);opacity:1}
+.aip-head{padding:13px 17px;background:var(--dark);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.aip-hinfo{display:flex;align-items:center;gap:10px}
+.aip-av{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.aip-hinfo span{font-size:13px;font-weight:600;color:#fff}
+.aip-close{background:none;border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;padding:0;transition:color .2s;line-height:1}
+.aip-close:hover{color:#fff}
+.aip-msgs{height:240px;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.aip-msgs .msg{font-size:13px;padding:9px 12px}
+.aip-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 10px 10px}
+.aip-chip{padding:5px 11px;background:var(--card);border:none;border-radius:100px;font-family:'Onest',sans-serif;font-size:12px;font-weight:500;color:var(--mid);cursor:pointer;transition:all .2s}
+.aip-chip:hover{background:var(--border);color:var(--dark)}
+.aip-inp{display:flex;gap:6px;padding:9px 10px;border-top:1px solid var(--border)}
+.aip-inp input{flex:1;border:1.5px solid var(--border);border-radius:100px;padding:8px 13px;font-family:'Onest',sans-serif;font-size:13px;color:var(--dark);outline:none;background:var(--bg)}
+.aip-inp input:focus{border-color:var(--blue)}
+.aip-inp button{width:32px;height:32px;border-radius:50%;background:var(--dark);color:#fff;border:none;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.aip-inp button:disabled{opacity:.35;cursor:default}
+
+/* REVIEWS */
+.rev-track{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;z-index:1}
+.rv{background:var(--white);border-radius:var(--rL);padding:26px;border:1.5px solid var(--border);transition:all .25s;position:relative;overflow:hidden}
+.rv::after{content:'';position:absolute;bottom:0;left:0;width:0;height:3px;background:linear-gradient(90deg,var(--dark),var(--blue-l));transition:width .35s}
+.rv:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(22,82,196,.1);border-color:var(--blue-ll)}
+.rv:hover::after{width:100%}
+.rv-stars{color:#F59E0B;font-size:14px;margin-bottom:13px}
+.rv-q{font-family:'Cormorant Garamond',serif;font-size:16px;font-style:italic;color:var(--dark);line-height:1.65;margin-bottom:18px}
+.rv-who{display:flex;align-items:center;gap:10px}
+.rv-av{width:38px;height:38px;border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rv-who strong{display:block;font-size:13px;font-weight:600;color:var(--dark)}
+.rv-who span{font-size:12px;color:var(--muted)}
+
+/* BOOKING */
+.book-inner{max-width:640px;margin:0 auto;position:relative;z-index:1}
+.consult-grid{max-width:640px;margin:0 auto 28px;display:grid;grid-template-columns:repeat(2,1fr);gap:12px;position:relative;z-index:1}
+.cg-card{background:rgba(255,255,255,.72);border:1.5px solid var(--border);border-radius:var(--r);padding:16px 18px;backdrop-filter:blur(8px);transition:all .2s}
+.cg-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(22,82,196,.08)}
+.cg-card.accent{background:rgba(22,82,196,.07);border-color:var(--blue-ll)}
+.cg-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:7px}
+.cg-val{font-size:15px;font-weight:700;color:var(--dark)}
+.cg-note{font-size:12px;color:var(--muted);margin-top:3px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:7px}
+.fg.full{grid-column:1/-1}
+.fg label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.fg input,.fg select,.fg textarea{padding:12px 15px;border:1.5px solid var(--border);background:var(--white);border-radius:var(--r);font-family:'Onest',sans-serif;font-size:14px;color:var(--dark);outline:none;transition:border-color .2s}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--dark);box-shadow:0 0 0 3px rgba(22,82,196,.07)}
+.fg textarea{resize:vertical;min-height:80px}
+.form-sub{grid-column:1/-1;background:var(--dark);color:#fff;border:none;padding:14px;border-radius:100px;font-family:'Onest',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;box-shadow:0 6px 20px rgba(22,82,196,.2)}
+.form-sub:hover{background:#1E68E0;transform:translateY(-1px)}
+.ok-msg{display:none;grid-column:1/-1;padding:18px;text-align:center;background:#ECFDF5;border:1.5px solid #6EE7B7;border-radius:var(--r);font-size:14px;font-weight:600;color:var(--green)}
+.form-note{grid-column:1/-1;font-size:12px;color:var(--muted);text-align:center}
+
+/* FAQ */
+.faq-w{max-width:720px;margin:0 auto;position:relative;z-index:1}
+.fi{border-bottom:1px solid var(--border)}
+.fi:first-child{border-top:1px solid var(--border)}
+.fq{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;gap:12px}
+.fq h4{font-size:15px;font-weight:500;color:var(--dark);flex:1;transition:color .2s}
+.fi.open .fq h4{color:var(--blue)}
+.fi-ico{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--muted);transition:all .3s;flex-shrink:0;line-height:1}
+.fi.open .fi-ico{background:var(--dark);border-color:var(--dark);color:#fff;transform:rotate(45deg)}
+.fa{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.fa-in{padding:0 0 16px;font-size:14px;font-weight:400;color:var(--mid);line-height:1.8;max-width:600px}
+
+/* FOOTER */
+footer{background:var(--dark);padding:56px 6% 30px;position:relative;overflow:hidden}
+footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:240px;border:2px solid rgba(255,255,255,.04);border-radius:3px;transform:rotate(15deg);pointer-events:none}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px;margin-bottom:44px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.1)}
+.ftb p{font-size:14px;font-weight:300;color:rgba(255,255,255,.45);line-height:1.8;margin:13px 0 18px;max-width:260px}
+.ft-ph{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;text-decoration:none;display:block;font-style:italic}
+.ft-phn{font-size:12px;color:rgba(255,255,255,.3);margin-top:4px;display:block;font-weight:300}
+.ftc h4{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px}
+.ftc ul{list-style:none}
+.ftc li{margin-bottom:9px}
+.ftc a{font-size:14px;font-weight:300;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+.ftc a:hover{color:#fff}
+.ft-bot{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:300;color:rgba(255,255,255,.28)}
+.ft-logo-img{height:34px;width:auto;border-radius:4px;filter:brightness(0) invert(1);opacity:.8}
+
+/* FADE */
+.fade{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease}
+.fade.in{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:1100px){nav{display:none}#hdr{padding:0 10px 0 14px}#hero{grid-template-columns:1fr;min-height:auto}.hero-left{padding:88px 5% 30px}.hero-right{padding:20px 5% 60px;justify-content:center}.hero-win-outer{width:clamp(200px,60vw,360px);height:clamp(160px,48vw,300px)}.hero-stats{flex-wrap:wrap}.hs{padding:14px 18px}.calc-wrap{grid-template-columns:1fr}.proc{grid-template-columns:1fr 1fr;gap:16px}.proc-line-wrap{display:none}.gal{column-count:2}.rev-track{grid-template-columns:1fr}.ai-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr 1fr;gap:28px}.consult-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.sec{padding:60px 4%}h1.ht{font-size:clamp(32px,8vw,48px)}.hero-stats{flex-direction:column;border-radius:var(--r);width:100%}.hs{border-right:none;border-bottom:1px solid var(--border)}.hs:last-child{border-bottom:none}.hero-win-outer{width:min(86vw,300px);height:min(68vw,240px)}.gal{column-count:1}.proc{grid-template-columns:1fr}.fg2{grid-template-columns:1fr}.consult-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr;gap:24px}.ft-bot{flex-direction:column;gap:6px;text-align:center}.ai-panel{width:calc(100vw - 32px)}.sa-h{grid-template-columns:40px 1fr auto}.sa-price{display:none}}
+</style>
+</head>
+<body>
+
+<!-- FLOATING AI -->
+<div id="ai-float">
+  <div class="ai-panel" id="aip">
+    <div class="aip-head">
+      <div class="aip-hinfo"><div class="aip-av">ИИ</div><span>Ассистент - Окна в Дом</span></div>
+      <button class="aip-close" onclick="toggleAI()">&#215;</button>
+    </div>
+    <div class="aip-msgs" id="aipMsgs">
+      <div class="msg bot">Здравствуйте! Отвечу на вопросы об установке и ремонте окон. Спрашивайте!</div>
+    </div>
+    <div class="aip-chips">
+      <button class="aip-chip" onclick="askBot('Сколько стоит установка окна?')">Цена окна</button>
+      <button class="aip-chip" onclick="askBot('Как проходит замер и выезд?')">Замер</button>
+      <button class="aip-chip" onclick="askBot('Какая гарантия на монтаж?')">Гарантия</button>
+      <button class="aip-chip" onclick="askBot('Работаете ли вы в выходные?')">Выходные</button>
+    </div>
+    <div class="aip-inp">
+      <input type="text" id="aipIn" placeholder="Ваш вопрос..." onkeydown="if(event.key==='Enter')sendFloat()">
+      <button id="aipBtn" onclick="sendFloat()">&#8593;</button>
+    </div>
+  </div>
+  <button class="ai-fb" onclick="toggleAI()" id="aiFab">&#128172;</button>
+</div>
+
+<button class="up" id="up" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#8593;</button>
+
+<!-- HEADER -->
+<header id="hdr">
+  <a href="#hero" class="logo">    <img src="data:image/jpeg;base64,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" alt="Окна в Дом" class="logo-img">  </a>
+  <nav>
+    <a href="#services">Услуги</a>
+    <a href="#calc">Калькулятор</a>
+    <a href="#gallery">Работы</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#booking">Запись</a>
+  </nav>
+  <a href="tel:89611812248" class="hdr-tel">8 961 181-22-48</a>
+  <a href="#booking" class="btn-hdr">Записаться</a>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- LEFT: text + bg animations -->
+  <div class="hero-left">
+    <div class="float-wins" aria-hidden="true">
+      <div class="rain-line" style="left:8%;height:70px;top:5%;animation-duration:3.2s;animation-delay:.5s;transform:rotate(-14deg)"></div>
+      <div class="rain-line" style="left:25%;height:55px;top:0%;animation-duration:2.9s;animation-delay:1.5s;transform:rotate(-14deg)"></div>
+      <div class="rain-line" style="left:45%;height:80px;top:8%;animation-duration:3.5s;animation-delay:2.2s;transform:rotate(-14deg)"></div>
+      <div class="rain-line" style="left:65%;height:60px;top:2%;animation-duration:3s;animation-delay:.9s;transform:rotate(-14deg)"></div>
+      <div class="fw" style="width:60px;height:80px;top:12%;left:4%;--rot:-5deg;animation-duration:9s;animation-delay:0s"></div>
+      <div class="fw" style="width:40px;height:54px;top:62%;left:2%;--rot:2deg;animation-duration:11s;animation-delay:2.5s;animation-name:floatB"></div>
+      <div class="fw" style="width:50px;height:66px;bottom:13%;left:10%;--rot:-3deg;animation-duration:8s;animation-delay:1.2s"></div>
+      <div class="fw" style="width:32px;height:44px;top:38%;left:52%;--rot:1deg;animation-duration:13s;animation-delay:4s;animation-name:floatSlow"></div>
+    </div>
+    <div class="hero-inner">
+      <div class="h-pill"><div class="h-pill-dot">v</div>Стаж 20+ лет - Замер при договоре бесплатно</div>
+      <h1 class="ht">Монтаж окон,<br>которому <strong>доверяют.</strong><br><em>Тепло с гарантией.</em></h1>
+      <p class="h-sub">Профессиональная установка и ремонт окон ПВХ. Гарантия 2 года на монтаж. Выезд при заключении договора - бесплатно.</p>
+      <div class="hero-acts">
+        <a href="#booking" class="btn-main">Оставить заявку &#8594;</a>
+        <a href="#calc" class="btn-out">Рассчитать цену</a>
+      </div>
+      <div class="hero-stats fade">
+        <div class="hs"><div class="hs-n" data-count="20" data-suffix="+">20+</div><div class="hs-l">Лет опыта</div></div>
+        <div class="hs"><div class="hs-n" data-count="800" data-suffix="+">800+</div><div class="hs-l">Объектов</div></div>
+        <div class="hs"><div class="hs-n">2 года</div><div class="hs-l">Гарантия</div></div>
+        <div class="hs"><div class="hs-n">7 дней</div><div class="hs-l">Работаем</div></div>
+      </div>
+    </div>
+  </div>
+  <!-- RIGHT: animated window illustration -->
+  <div class="hero-right">
+    <div class="hero-win-outer">
+      <div class="hw-city"><svg viewBox="0 0 540 440" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#9ECCE6"/>
+              <stop offset="45%" stop-color="#BDD8EC"/>
+              <stop offset="100%" stop-color="#CBE3F0"/>
+            </linearGradient>
+          </defs>
+          <!-- Sky -->
+          <rect width="540" height="440" fill="url(#skyG)"/>
+          <!-- Far background buildings (very light) -->
+          <rect x="0"   y="280" width="28" height="160" fill="#9ABFD8" rx="1"/>
+          <rect x="32"  y="260" width="24" height="180" fill="#8EB5D0" rx="1"/>
+          <rect x="60"  y="295" width="26" height="145" fill="#9ABFD8" rx="1"/>
+          <rect x="92"  y="270" width="30" height="170" fill="#8EB5D0" rx="1"/>
+          <rect x="127" y="250" width="22" height="190" fill="#9ABFD8" rx="1"/>
+          <rect x="155" y="285" width="25" height="155" fill="#8EB5D0" rx="1"/>
+          <rect x="185" y="260" width="33" height="180" fill="#9ABFD8" rx="1"/>
+          <rect x="223" y="275" width="27" height="165" fill="#8EB5D0" rx="1"/>
+          <rect x="255" y="245" width="30" height="195" fill="#9ABFD8" rx="1"/>
+          <rect x="290" y="268" width="24" height="172" fill="#8EB5D0" rx="1"/>
+          <rect x="320" y="255" width="31" height="185" fill="#9ABFD8" rx="1"/>
+          <rect x="356" y="278" width="27" height="162" fill="#8EB5D0" rx="1"/>
+          <rect x="388" y="248" width="34" height="192" fill="#9ABFD8" rx="1"/>
+          <rect x="427" y="265" width="29" height="175" fill="#8EB5D0" rx="1"/>
+          <rect x="461" y="288" width="79" height="152" fill="#9ABFD8" rx="1"/>
+          <!-- Mid buildings -->
+          <rect x="5"   y="185" width="46" height="255" fill="#6A9EC0" rx="1"/>
+          <rect x="56"  y="155" width="52" height="285" fill="#5A8DB0" rx="1"/>
+          <rect x="114" y="120" width="38" height="320" fill="#6A9EC0" rx="1"/>
+          <rect x="158" y="162" width="50" height="278" fill="#5A8DB0" rx="1"/>
+          <rect x="214" y="132" width="43" height="308" fill="#6A9EC0" rx="1"/>
+          <rect x="262" y="168" width="48" height="272" fill="#5A8DB0" rx="1"/>
+          <rect x="316" y="108" width="40" height="332" fill="#6A9EC0" rx="1"/>
+          <rect x="361" y="145" width="53" height="295" fill="#5A8DB0" rx="1"/>
+          <rect x="420" y="172" width="46" height="268" fill="#6A9EC0" rx="1"/>
+          <rect x="472" y="126" width="68" height="314" fill="#5A8DB0" rx="1"/>
+          <!-- Foreground tall buildings (dark blue) -->
+          <rect x="0"   y="65"  width="60" height="375" fill="#2E5A8A" rx="1"/>
+          <rect x="66"  y="28"  width="70" height="412" fill="#234E82" rx="2"/>
+          <rect x="142" y="82"  width="56" height="358" fill="#2E5A8A" rx="1"/>
+          <rect x="204" y="38"  width="82" height="402" fill="#234E82" rx="2"/>
+          <rect x="292" y="72"  width="62" height="368" fill="#2E5A8A" rx="1"/>
+          <rect x="360" y="18"  width="75" height="422" fill="#234E82" rx="2"/>
+          <rect x="442" y="58"  width="98" height="382" fill="#2E5A8A" rx="1"/>
+          <!-- Building windows amber -->
+          <rect x="8"  y="78"  width="8" height="6" fill="rgba(255,210,80,.7)" rx="1"/>
+          <rect x="22" y="78"  width="8" height="6" fill="rgba(255,210,80,.45)" rx="1"/>
+          <rect x="8"  y="96"  width="8" height="6" fill="rgba(255,210,80,.35)" rx="1"/>
+          <rect x="22" y="112" width="8" height="6" fill="rgba(255,210,80,.7)" rx="1"/>
+          <rect x="8"  y="128" width="8" height="6" fill="rgba(255,210,80,.55)" rx="1"/>
+          <rect x="22" y="145" width="8" height="6" fill="rgba(255,210,80,.4)" rx="1"/>
+          <rect x="8"  y="162" width="8" height="6" fill="rgba(255,210,80,.65)" rx="1"/>
+          <rect x="76" y="40"  width="9" height="6" fill="rgba(255,210,80,.75)" rx="1"/>
+          <rect x="91" y="40"  width="9" height="6" fill="rgba(255,210,80,.5)" rx="1"/>
+          <rect x="105" y="56" width="9" height="6" fill="rgba(255,210,80,.6)" rx="1"/>
+          <rect x="76" y="58"  width="9" height="6" fill="rgba(255,210,80,.38)" rx="1"/>
+          <rect x="91" y="75"  width="9" height="6" fill="rgba(255,210,80,.72)" rx="1"/>
+          <rect x="105" y="90" width="9" height="6" fill="rgba(255,210,80,.48)" rx="1"/>
+          <rect x="76" y="108" width="9" height="6" fill="rgba(255,210,80,.6)" rx="1"/>
+          <rect x="91" y="122" width="9" height="6" fill="rgba(255,210,80,.42)" rx="1"/>
+          <rect x="214" y="50" width="10" height="7" fill="rgba(255,210,80,.72)" rx="1"/>
+          <rect x="230" y="50" width="10" height="7" fill="rgba(255,210,80,.42)" rx="1"/>
+          <rect x="248" y="68" width="10" height="7" fill="rgba(255,210,80,.58)" rx="1"/>
+          <rect x="214" y="70" width="10" height="7" fill="rgba(255,210,80,.5)" rx="1"/>
+          <rect x="230" y="88" width="10" height="7" fill="rgba(255,210,80,.72)" rx="1"/>
+          <rect x="248" y="104" width="10" height="7" fill="rgba(255,210,80,.34)" rx="1"/>
+          <rect x="214" y="106" width="10" height="7" fill="rgba(255,210,80,.62)" rx="1"/>
+          <rect x="230" y="124" width="10" height="7" fill="rgba(255,210,80,.46)" rx="1"/>
+          <rect x="370" y="30" width="9"  height="6" fill="rgba(255,210,80,.7)" rx="1"/>
+          <rect x="385" y="30" width="9"  height="6" fill="rgba(255,210,80,.5)" rx="1"/>
+          <rect x="400" y="48" width="9"  height="6" fill="rgba(255,210,80,.62)" rx="1"/>
+          <rect x="370" y="50" width="9"  height="6" fill="rgba(255,210,80,.38)" rx="1"/>
+          <rect x="385" y="68" width="9"  height="6" fill="rgba(255,210,80,.72)" rx="1"/>
+          <rect x="400" y="86" width="9"  height="6" fill="rgba(255,210,80,.48)" rx="1"/>
+          <rect x="370" y="88" width="9"  height="6" fill="rgba(255,210,80,.6)" rx="1"/>
+          <rect x="452" y="70" width="9"  height="6" fill="rgba(255,210,80,.65)" rx="1"/>
+          <rect x="468" y="70" width="9"  height="6" fill="rgba(255,210,80,.42)" rx="1"/>
+          <rect x="484" y="86" width="9"  height="6" fill="rgba(255,210,80,.7)" rx="1"/>
+          <rect x="452" y="90" width="9"  height="6" fill="rgba(255,210,80,.5)" rx="1"/>
+          <rect x="468" y="108" width="9" height="6" fill="rgba(255,210,80,.62)" rx="1"/>
+          <!-- Glass reflections (decorative streaks) -->
+          <rect x="148" y="0" width="14" height="440" fill="rgba(255,255,255,.07)" transform="skewX(-6)"/>
+          <rect x="318" y="0" width="9"  height="440" fill="rgba(255,255,255,.05)" transform="skewX(-6)"/>
+          <!-- Plant on sill (bottom-right) -->
+          <ellipse cx="490" cy="435" rx="16" ry="7" fill="#5A3B1A" opacity=".85"/>
+          <ellipse cx="490" cy="429" rx="14" ry="6" fill="#7A5225"/>
+          <line x1="490" y1="422" x2="484" y2="404" stroke="#2D6A30" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="483" cy="400" r="9" fill="#3A8040" opacity=".9"/>
+          <line x1="490" y1="420" x2="498" y2="402" stroke="#2D6A30" stroke-width="3" stroke-linecap="round"/>
+          <circle cx="499" cy="398" r="8" fill="#3A8040" opacity=".8"/>
+          <line x1="490" y1="416" x2="488" y2="394" stroke="#265A28" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="488" cy="391" rx="6" ry="8" fill="#4A9048" opacity=".85"/>
+        </svg></div>
+      <div class="hwp hwp-tl"><div class="hwg"></div><div class="hws"></div></div>
+      <div class="hwp hwp-tr"><div class="hwg"></div><div class="hws hws-r"></div></div>
+      <div class="hwp hwp-bl"><div class="hwg" style="background:rgba(190,228,248,.2)"></div></div>
+      <div class="hwp hwp-br"><div class="hwg" style="background:rgba(190,228,248,.2)"></div></div>
+      <div class="hw-bar-v"></div>
+      <div class="hw-bar-h"></div>
+      <div class="hw-handle-pair"><div class="hw-h"></div><div class="hw-h"></div></div>
+      <div class="hw-sill"></div>
+      <div class="hw-drop" style="left:16%;animation-delay:3s;height:12px"></div>
+      <div class="hw-drop" style="left:44%;animation-delay:5.5s;height:9px"></div>
+      <div class="hw-drop" style="left:72%;animation-delay:7.8s;height:14px"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sec w" id="services">
+  <div class="sdw fade" style="width:88px;height:116px;top:6%;right:3%;--rot:-4deg;--dx:5px;--dy:-14px;animation-duration:14s;animation-delay:0s" aria-hidden="true"></div>
+  <div class="sdw fade" style="width:56px;height:74px;bottom:8%;left:2%;--rot:3deg;--dx:-4px;--dy:-10px;animation-duration:18s;animation-delay:2s" aria-hidden="true"></div>
+  <div class="sec-hd fade">
+    <span class="ey">Что мы делаем</span>
+    <h2 class="st">Услуги по <strong>окнам ПВХ</strong><br>под <em>любую задачу</em></h2>
+  </div>
+  <div class="srv-ac fade">
+    <div class="sa-item open">
+      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">01</span><span class="sa-title">Монтаж окон ПВХ</span><span class="sa-price">от 3 500 руб.</span><div class="sa-ico">+</div></div>
+      <div class="sa-body" style="max-height:300px">
+        <div class="sa-in">Профессиональная установка однокамерных, двухкамерных и энергосберегающих стеклопакетов. Работаем с профилями Rehau, KBE и Veka. Монтаж за 1 день.<br><br>
+          <strong>Уборка после монтажа</strong> (по договорённости):<br>
+          - Эконом: вывоз строительного мусора и упаковки<br>
+          - Стандарт: уборка рабочей зоны + вывоз мусора<br>
+          - Всё включено: полная уборка, мойка стёкол и откосов</div>
+      </div>
+    </div>
+    <div class="sa-item">
+      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">02</span><span class="sa-title">Регулировка и ремонт окон</span><span class="sa-price">от 500 руб.</span><div class="sa-ico">+</div></div>
+      <div class="sa-body"><div class="sa-in">Устраняем продуваемость, заедание ручек, нарушения прижима за один визит. Замена уплотнителей, регулировка петель, восстановление геометрии.</div></div>
+    </div>
+    <div class="sa-item">
+      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">03</span><span class="sa-title">Замена стеклопакетов</span><span class="sa-price">от 2 200 руб.</span><div class="sa-ico">+</div></div>
+      <div class="sa-body"><div class="sa-in">Меняем разбитые, запотевшие или потёкшие стеклопакеты без демонтажа рамы. Изготовление по вашим размерам за 1-2 дня.</div></div>
+    </div>
+    <div class="sa-item">
+      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">04</span><span class="sa-title">Остекление балкона и лоджии</span><span class="sa-price">от 18 000 руб.</span><div class="sa-ico">+</div></div>
+      <div class="sa-body"><div class="sa-in">Холодное и тёплое остекление, укладка ламината на стены и потолок, утепление пола. Балкон под ключ за 1-2 дня.</div></div>
+    </div>
+    <div class="sa-item">
+      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">05</span><span class="sa-title">Откосы, подоконники, сетки, фурнитура</span><span class="sa-price">от 500 руб.</span><div class="sa-ico">+</div></div>
+      <div class="sa-body"><div class="sa-in">Чистовая отделка откосов пластиком, замена подоконников, москитные сетки любых размеров. Установка детских замков. Замена фурнитуры ROTO, SIEGENIA, MACO.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="sec bl" id="calc">
+  <div class="sdw fade" style="width:70px;height:94px;top:5%;right:2%;--rot:3deg;--dx:4px;--dy:-12px;animation-duration:16s;animation-delay:1s" aria-hidden="true"></div>
+  <div class="sec-hd fade">
+    <span class="ey">Рассчитайте цену</span>
+    <h2 class="st">Калькулятор <strong>стоимости</strong><br><em>онлайн</em></h2>
+  </div>
+  <div class="calc-wrap fade">
+    <div style="display:flex;flex-direction:column;gap:26px">
+      <div><label class="clbl">Тип конструкции</label><div class="copts" id="tO"><button class="co on" data-v="1" data-n="Одностворчатое">Одностворчатое</button><button class="co" data-v="1.35" data-n="Двустворчатое">Двустворчатое</button><button class="co" data-v="1.65" data-n="Трёхстворчатое">Трёхстворчатое</button><button class="co" data-v="2.1" data-n="Балконный блок">Балконный блок</button><button class="co" data-v="0.82" data-n="Глухое">Глухое</button></div></div>
+      <div><label class="clbl">Размеры</label>
+        <div class="rrow"><label>Ширина</label><input type="range" id="rW" min="600" max="2000" step="50" value="1000"><span class="rval" id="vW">1000 мм</span></div>
+        <div class="rrow"><label>Высота</label><input type="range" id="rH" min="500" max="1800" step="50" value="1400"><span class="rval" id="vH">1400 мм</span></div>
+      </div>
+      <div><label class="clbl">Профиль</label><div class="copts" id="pO"><button class="co on" data-v="1" data-n="Стандарт">Стандарт</button><button class="co" data-v="1.25" data-n="Rehau / KBE">Rehau / KBE</button><button class="co" data-v="1.6" data-n="Rehau Synego">Rehau Synego</button></div></div>
+      <div><label class="clbl">Стеклопакет</label><div class="copts" id="gO"><button class="co on" data-v="1" data-n="Однокамерный">Однокамерный</button><button class="co" data-v="1.2" data-n="Двухкамерный">Двухкамерный</button><button class="co" data-v="1.4" data-n="Энергосберегающий">Энергосберегающий</button></div></div>
+      <div><label class="clbl">Дополнительно</label><div class="cc2">
+        <label class="ci"><input type="checkbox" data-p="3500"><span class="cn">Установка откосов</span><span class="cp">+3 500 руб.</span></label>
+        <label class="ci"><input type="checkbox" data-p="2500"><span class="cn">Подоконник</span><span class="cp">+2 500 руб.</span></label>
+        <label class="ci"><input type="checkbox" data-p="900"><span class="cn">Москитная сетка</span><span class="cp">+900 руб.</span></label>
+        <label class="ci"><input type="checkbox" data-p="1500"><span class="cn">Демонтаж старого окна</span><span class="cp">+1 500 руб.</span></label>
+        <label class="ci"><input type="checkbox" data-p="500"><span class="cn">Детский замок</span><span class="cp">+500 руб.</span></label>
+      </div></div>
+    </div>
+    <div class="cres">
+      <div class="cr-lbl">Итого от</div>
+      <div class="cr-price" id="cTot">-</div>
+      <div class="cr-note">* Точная цена - после консультации и замера</div>
+      <div class="cr-sep"></div>
+      <div class="cr-row"><span>Тип</span><span id="cTyp">-</span></div>
+      <div class="cr-row"><span>Размер</span><span id="cSz">-</span></div>
+      <div class="cr-row"><span>Профиль</span><span id="cPr">-</span></div>
+      <div class="cr-row"><span>Стеклопакет</span><span id="cGl">-</span></div>
+      <div class="cr-row"><span>Окно + монтаж</span><span id="cWn">-</span></div>
+      <div class="cr-row"><span>Доп. опции</span><span id="cEx">-</span></div>
+      <a href="#booking" class="btn-cr">Узнать точную стоимость &#8594;</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec w" id="process">
+  <div class="sdw fade" style="width:94px;height:122px;top:8%;right:2%;--rot:-3deg;--dx:5px;--dy:-14px;animation-duration:15s;animation-delay:.5s" aria-hidden="true"></div>
+  <div class="sec-hd cr fade"><span class="ey">Как мы работаем</span><h2 class="st"><strong>4 шага</strong> от звонка<br>до <em>тёплого окна</em></h2></div>
+  <div class="proc-line-wrap fade"><div class="proc-line"></div></div>
+  <div class="proc fade">
+    <div class="pc" data-n="1"><h3>Заявка</h3><p>Звонок или форма на сайте. Перезваниваем в течение дня</p></div>
+    <div class="pc" data-n="2"><h3>Замер</h3><p>Выезд при договоре бесплатно. Без договора - от 1 500 руб. Подбираем профиль и стеклопакет</p></div>
+    <div class="pc" data-n="3"><h3>Монтаж за 1 день</h3><p>Устанавливаем окно. Уборка по договорённости - на выбор три варианта</p></div>
+    <div class="pc" data-n="4"><h3>Гарантия и акт</h3><p>Акт выполненных работ. Гарантия 2 года на монтаж, до 7 лет от производителя</p></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="sec bl" id="gallery">
+  <div class="sec-hd fade"><span class="ey">Наши работы</span><h2 class="st">Избранные <strong>объекты</strong><br><em>из портфолио</em></h2></div>
+  <div class="gal fade">
+    <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#C8DFF0 0%,#A0C8E4 100%);height:280px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 220 200" width="55%" opacity=".3"><rect x="10" y="10" width="200" height="180" fill="none" stroke="#1652C4" stroke-width="2.5"/><rect x="24" y="24" width="80" height="152" fill="rgba(22,82,196,.1)" stroke="#1652C4" stroke-width="1.5"/><rect x="116" y="24" width="80" height="152" fill="rgba(22,82,196,.1)" stroke="#1652C4" stroke-width="1.5"/><line x1="24" y1="100" x2="104" y2="100" stroke="#1652C4" stroke-width="1"/><line x1="116" y1="100" x2="196" y2="100" stroke="#1652C4" stroke-width="1"/></svg></div><div class="gi-label"><h4>Двустворчатое окно</h4><span>Rehau Synego - квартира</span></div></div>
+    <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#B8D8F5 0%,#7BB0E8 100%);height:200px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 200 180" width="55%" opacity=".28"><rect x="10" y="10" width="180" height="160" fill="none" stroke="#1A5C42" stroke-width="2.5"/><rect x="24" y="24" width="70" height="132" fill="rgba(26,92,66,.1)" stroke="#1A5C42" stroke-width="1.5"/><rect x="106" y="24" width="70" height="132" fill="rgba(26,92,66,.1)" stroke="#1A5C42" stroke-width="1.5"/></svg></div><div class="gi-label"><h4>Балконный блок</h4><span>KBE - дверь + окно</span></div></div>
+    <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#C8E0F8 0%,#92BEED 100%);height:240px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 300 200" width="65%" opacity=".28"><rect x="10" y="10" width="280" height="180" fill="none" stroke="#6B3A1A" stroke-width="2.5"/><rect x="24" y="24" width="80" height="152" fill="rgba(107,58,26,.08)" stroke="#6B3A1A" stroke-width="1.5"/><rect x="116" y="24" width="80" height="152" fill="rgba(107,58,26,.08)" stroke="#6B3A1A" stroke-width="1.5"/><rect x="208" y="24" width="68" height="152" fill="rgba(107,58,26,.08)" stroke="#6B3A1A" stroke-width="1.5"/></svg></div><div class="gi-label"><h4>Трёхстворчатое</h4><span>Загородный дом</span></div></div>
+    <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#AFC8F5 0%,#6898D8 100%);height:200px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 200 180" width="55%" opacity=".28"><rect x="10" y="10" width="180" height="160" fill="none" stroke="#4C1D95" stroke-width="2.5"/><rect x="24" y="24" width="72" height="68" fill="rgba(76,29,149,.1)" stroke="#4C1D95" stroke-width="1"/><rect x="108" y="24" width="58" height="68" fill="rgba(76,29,149,.1)" stroke="#4C1D95" stroke-width="1"/><rect x="24" y="104" width="72" height="52" fill="rgba(76,29,149,.08)" stroke="#4C1D95" stroke-width="1"/><rect x="108" y="104" width="58" height="52" fill="rgba(76,29,149,.08)" stroke="#4C1D95" stroke-width="1"/></svg></div><div class="gi-label"><h4>Замена стеклопакетов</h4><span>Двухкамерный энергосберегающий</span></div></div>
+    <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#C5DCF8 0%,#82AEEE 100%);height:260px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 220 200" width="60%" opacity=".28"><rect x="10" y="10" width="200" height="180" fill="none" stroke="#0F766E" stroke-width="2.5"/><rect x="24" y="24" width="172" height="152" fill="rgba(15,118,110,.08)" stroke="#0F766E" stroke-width="1.5"/><line x1="24" y1="100" x2="196" y2="100" stroke="#0F766E" stroke-width="1.5"/></svg></div><div class="gi-label"><h4>Остекление лоджии</h4><span>Тёплое - ламинат на стенах</span></div></div>
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<section id="ai-section">
+  <div class="ai-grid">
+    <div class="ai-l fade">
+      <span class="ey">Умный помощник</span>
+      <h2><strong>Ответим на любой вопрос</strong><br>об окнах мгновенно</h2>
+      <p>Встроенный ИИ-ассистент знает всё о ценах, профилях, гарантиях и типичных проблемах. Ответ - без ожидания.</p>
+      <div class="ai-chips">
+        <button class="ai-chip" onclick="secAsk('Сколько стоит двустворчатое окно под ключ?')">Цена двустворчатого</button>
+        <button class="ai-chip" onclick="secAsk('Какой профиль лучше выбрать?')">Выбор профиля</button>
+        <button class="ai-chip" onclick="secAsk('Как проходит замер и выезд?')">Замер и выезд</button>
+        <button class="ai-chip" onclick="secAsk('Что входит в остекление балкона?')">Балкон под ключ</button>
+        <button class="ai-chip" onclick="secAsk('Продувает окно - что делать?')">Продувает окно</button>
+      </div>
+    </div>
+    <div class="fade">
+      <div class="chat-win">
+        <div class="chat-head">
+          <div class="chat-avatar">ИИ</div>
+          <div class="chat-head-info"><strong>Ассистент Окна в Дом</strong><span>онлайн</span></div>
+        </div>
+        <div class="chat-msgs" id="secMsgs">
+          <div class="msg bot">Здравствуйте! Задайте любой вопрос об окнах - отвечу подробно.</div>
+        </div>
+        <div class="chat-inp">
+          <input type="text" id="secIn" placeholder="Ваш вопрос об окнах..." onkeydown="if(event.key==='Enter')sendSec()">
+          <button id="secBtn" onclick="sendSec()">&#8593;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec w" id="reviews">
+  <div class="sdw fade" style="width:74px;height:98px;top:8%;left:2%;--rot:4deg;--dx:-4px;--dy:-12px;animation-duration:17s;animation-delay:3s" aria-hidden="true"></div>
+  <div class="sec-hd cr fade"><span class="ey">Отзывы</span><h2 class="st">Нас <strong>рекомендуют</strong><br><em>соседям</em></h2></div>
+  <div class="rev-track fade">
+    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Приехали по рекомендации - и не пожалели. Монтаж за три часа, чисто, никаких следов. Третий год стоит без вопросов.»</p><div class="rv-who"><div class="rv-av" style="background:#D8EDF7;color:#1652C4">МК</div><div><strong>Марина К.</strong><span>Замена двух окон + откосы</span></div></div></div>
+    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Балкон под ключ за два дня. Остекление, ламинат, утепление. Цена ниже трёх других компаний.»</p><div class="rv-who"><div class="rv-av" style="background:#ECFDF5;color:#065F46">ДП</div><div><strong>Дмитрий П.</strong><span>Тёплое остекление балкона</span></div></div></div>
+    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Продувало старое окно - приехали на следующий день, отрегулировали, поменяли уплотнитель. Быстро и по-человечески.»</p><div class="rv-who"><div class="rv-av" style="background:#FEF3C7;color:#92400E">ОС</div><div><strong>Ольга С.</strong><span>Ремонт и регулировка</span></div></div></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="sec bl" id="booking">
+  <div class="sdw fade" style="width:64px;height:86px;top:5%;right:2%;--rot:-2deg;--dx:4px;--dy:-10px;animation-duration:19s;animation-delay:1.5s" aria-hidden="true"></div>
+  <div class="sec-hd cr fade">
+    <span class="ey">Запись на замер</span>
+    <h2 class="st">Оставьте заявку -<br><strong>перезвоним</strong> <em>в течение дня</em></h2>
+    <p class="ss">Звонок и консультация - бесплатно. Выезд при заключении договора - бесплатно</p>
+  </div>
+  <div class="consult-grid fade">
+    <div class="cg-card"><div class="cg-lbl">По телефону</div><div class="cg-val">Бесплатно</div><div class="cg-note">Консультация, ответы на вопросы</div></div>
+    <div class="cg-card"><div class="cg-lbl">Выезд без договора</div><div class="cg-val">от 1 500 руб.</div><div class="cg-note">Выездная консультация и замер</div></div>
+    <div class="cg-card accent"><div class="cg-lbl">При заключении договора</div><div class="cg-val">Бесплатно</div><div class="cg-note">Выезд и замер в день договора</div></div>
+    <div class="cg-card"><div class="cg-lbl">Гарантия монтажа</div><div class="cg-val">2 года</div><div class="cg-note">До 7 лет от производителя</div></div>
+  </div>
+  <div class="book-inner fade">
+    <form id="bForm" onsubmit="doSub(event)">
+      <div class="fg2">
+        <div class="fg"><label>Имя *</label><input type="text" placeholder="Иван Иванов" required></div>
+        <div class="fg"><label>Телефон *</label><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
+        <div class="fg full"><label>Услуга</label><select><option value="">- Выберите услугу -</option><option>Монтаж новых окон ПВХ</option><option>Регулировка и ремонт</option><option>Замена стеклопакетов</option><option>Остекление балкона / лоджии</option><option>Откосы и подоконники</option><option>Москитные сетки / фурнитура</option><option>Консультация по телефону (бесплатно)</option></select></div>
+        <div class="fg"><label>Дата</label><input type="date"></div>
+        <div class="fg"><label>Время</label><select><option>Любое</option><option>08:00 - 12:00</option><option>12:00 - 16:00</option><option>16:00 - 20:00</option><option>После 20:00</option></select></div>
+        <div class="fg full"><label>Адрес</label><input type="text" placeholder="Город, улица, дом, квартира"></div>
+        <div class="fg full"><label>Комментарий</label><textarea placeholder="Количество окон, этаж, тип дома - любая полезная информация"></textarea></div>
+        <button type="submit" class="form-sub">Отправить заявку - это бесплатно</button>
+        <div class="ok-msg" id="okMsg">Заявка отправлена! Александр перезвонит вам в течение дня.</div>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec w" id="faq">
+  <div class="sec-hd cr fade"><span class="ey">Вопросы и ответы</span><h2 class="st"><em>Часто спрашивают</em></h2></div>
+  <div class="faq-w fade">
+    <div class="fi"><div class="fq" onclick="togFaq(this)"><h4>Сколько стоит выезд замерщика?</h4><div class="fi-ico">+</div></div><div class="fa"><div class="fa-in">Телефонная консультация - бесплатно. Выездная консультация без договора - от 1 500 руб. При заключении договора - выезд и замер бесплатны.</div></div></div>
+    <div class="fi"><div class="fq" onclick="togFaq(this)"><h4>Как долго устанавливается одно окно?</h4><div class="fi-ico">+</div></div><div class="fa"><div class="fa-in">Монтаж стандартного окна - 1-2 часа. С откосами и подоконником - 3-4 часа. Изготовление окна - 1-3 рабочих дня.</div></div></div>
+    <div class="fi"><div class="fq" onclick="togFaq(this)"><h4>Работаете в выходные и праздники?</h4><div class="fi-ico">+</div></div><div class="fa"><div class="fa-in">Да, ежедневно с 8:00 до 22:00, включая субботу, воскресенье и праздники. Доплата за выходные отсутствует.</div></div></div>
+    <div class="fi"><div class="fq" onclick="togFaq(this)"><h4>Какая гарантия на монтаж?</h4><div class="fi-ico">+</div></div><div class="fa"><div class="fa-in">2 года гарантии на монтажные работы. На профиль и стеклопакет - от 3 до 7 лет по гарантии производителя. После установки подписываем акт и выдаём гарантийный талон.</div></div></div>
+    <div class="fi"><div class="fq" onclick="togFaq(this)"><h4>Убираете ли за собой после монтажа?</h4><div class="fi-ico">+</div></div><div class="fa"><div class="fa-in">Уборка по договорённости. Три варианта: Эконом - вывоз мусора; Стандарт - уборка рабочей зоны; Всё включено - полная уборка и мойка стёкол.</div></div></div>
+    <div class="fi"><div class="fq" onclick="togFaq(this)"><h4>Что делать, если окно продувает?</h4><div class="fi-ico">+</div></div><div class="fa"><div class="fa-in">Чаще всего нужна регулировка прижима или замена уплотнителя - от 500 руб. Позвоните по тел. 8 961 181-22-48, мастер приедет в удобное время.</div></div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div class="ftb">      <a href="#hero"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAFQAf8DASIAAhEBAxEB/8QAHQABAAIBBQEAAAAAAAAAAAAAAAcIBgIDBAUJAf/EAFQQAAEDAgIFBAwKBwYFAwUAAAABAgMEBQYRBwgSITETQXOxFCIzNjdRYXFydIGTFRYyNDVUVZGy0RcYI0J1ocEkQ1JWlLMlYpLh4jhTpGNkZoLC/8QAGgEBAAIDAQAAAAAAAAAAAAAAAAQFAQIDBv/EAC0RAQACAQMDBAMAAgICAwAAAAABAgMEETESIXEFEzIzIkFRYYEjkRQ0QlKh/9oADAMBAAIRAxEAPwC5YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABtunha9I3SsR68Gq7eGJmIbgCLmAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADS97WtVzlRETiqmK4hx3ZLSjmNnSqnT+7iXPf5VN6Y7XnasbueTLTHG952ZZn4zo8Q4qs1kjXsuqasnNEztnL7CJ8SY/vd0e6OnelFTr+7GvbKnlUxKSR8iq6Ryucu9VVc1LLD6bM98kqjP6vHGKP8AbPsRaTLlU7UdrjbSRr++u9//AGMJnr66ap7KkrJ3TKue2r1zOLnma4U7dieVCzpgx4q7Vqqcmoy5Z3tZmmHtIt4t+xFXZVsKc7vlp7SR8O40sl5yZHUpDOv91L2q+zxnV3fR9Z7pRxy0zVo6hWIu0z5KrlzoR9fcE32zudJyK1ETd6SQ78vLlxQrZrptRx+MrSt9Xpdt46qp5RyKmaKiofUUgOwY0vtmejEqHTwouSxTb8vbxQkjDukOz3FGx1arRT8MpF7VfMpFzaHLj7xG8JuD1HFl7TO0s0BohmimjSSKRr2rwVq5oprIawidwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHDud0oLbAs1dUxwMRP3nZZkf4j0owMR0Nmpllfw5WXc1PMnOdsWDJln8YR82qxYY3tKR6mpgpo1knlZExEzVznIiGEYj0lWqhc6C3NWtmT95NzE9vORXeb7dbxKr6+sfIme5ueTU9h1i8Szw+m1jvkndT5/V7W7Y42ZDiDFt7vO02eqdHCq9yjXZb/3MeXjnzgFnSlaRtWNlTfJa872ncVeYAGzQNcPdGekhoNcPdGekhi3Es15WZovmcPoN6jeVEVMlTcbVCn9jh6NvUbx5OeXtq/GGOYhwZZLyjnyUyQzrwlj3L7fGRviPR1d7ejpaJW1sKb8m7np7CaxkScOsy4uJ7ImfQ4s0d42lXe1X++4fn2IKiaLZXfDJnl9ykhYd0n0U+zDd4HUz13cozez2+IzC94dtF4iVldRse7meiZOT2kc4i0YVUKvmtE6Tx8Uik3OTzLzkuM2m1Ha8bSgzg1Wl7456oSnQV9JXQpLSVEczF52OzOSVybJfcOVmTXVNFK1eC5oi/0UzfDek+ViNivVOj0Tdy0SZL7UOWX0+8R1UneHfD6pSZ6ckdMpWB1tmvlru8SSUNXHLn+6i9snnQ7IgTWaztKyraLRvEgAMNgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+OVETNVA+gxvEONLJZs2S1KTTp/dRdsvt8RG2I9I94uCuiocqGBeGxveqeclYdHly8R2Qs+vw4eZ3lK98xDabPEr62sjYqcGIubl8yIRziLSfVT7UNog5BnBJX73fdzEeVE0tRIsk8j5Hrxc5c1NpVLXD6djp3t3lS6j1TLk7V7Q5dwr6u4TunrKmSeRf3nuzOKAT4iI4V02mZ3kAAagAAAAAa4e6M9JDQa4e6M9JDFuJbV5WaofmkPRt6jeNmh+Zw9G3qN48nPL21OIAAYbAAA4lzttDcoFgraaOeNeZzczAMRaMIJEfLZ6hYncUik3ovtJKB2xZ8mL4yj5tLizR+UK619nvmHqzbmgnpXtXtZGLuXzKhkmHdJVzotmK5RpWRIuW1nk9E/qTDU08NRGsc8TJGLxa5M0MKxJo3tVcjpre5aKZd+SJmxfYTq6zFm7Zq/7VltBmwT1YLf6d5h/FlkvTE7FrGtlXjFJ2rkO+RUXgpX6+YTvtjesr6d7o2rmk0O9E/I5mHce3u1q1ksiVkCcWS8UTyKYvoItHVhtu3x+p2pPTnrsnUGJYex9Y7ojWSSrSTru2JeGfkUytj2PajmORzV4KilffHak7WhaY81Msb0ndqABo6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAceurqShhWarqI4Y04ue7IRG87QxMxHeXIU0TSxwsWSV7WMTequXJCP8Q6TqCnV8NqhdVScEkduYn9VI3vuJbzeJXdmVr1YvCNvatT2E7DoMmTvPaFdqPU8WLtXvKV8SaRLNbEdFSOWuqE3ZR/JRfKv5EbYixxfLyjo1nWmgX+7iXLPzrzmM84XMtcOixYu+28qXUa/Nm7b7R/gVyuXNd6+NQATEH/IADDIAAwAAAAAAAAGuHujPSQ0GuHujPSQxbiW1eVmaH5pD0beo3zZofmkPRt6jePJzy9tT4wAAw2AAAAAAAAaXMa5qtciKi8UUxXEOBLJddqRsPYs6/vxJlv8AKhlgN6ZLUnes7OeTFTJG143QZiLR/e7XtSwMStp037Ufyk86HAsmKb9YZEiiqJFY1d8M2ap9y8CwSpmmSnR3/C1mvLF7LpGpIvCRibLk9pPx6+LR05Y3hWZPTbUnqwW2ljuHNJVtrFbDc2LRSru2uLF9vMZxS1NPUxJLTzMlYvBzHZoRFiLRpcaTaltcvZcSb9hdz0/MxeiuN8w9Vq2GaopJEXfG9FRF9im9tJhzRvhs0rrs+CenPX/axYIxw7pQjVrYbzT7DuHKx70XzoSDa7rQXOFJaGqinaqZ9q7ensIGXBkxfKFjg1WLNG9Zc0HxD6cUkAAAAAAAAAAAAAAAAAAAAAAAAAAAAADrrxe7ZaYlkrquKJOZFXevsME0p4wuVtuHwRbnpB2iOfKidtv5k8RF1TUz1Uqy1E75XrxVy5qWOn9PtkiLWnaFTqvVIxWmlI3lJGJNKD3bUVkptlOHLS8fYhH12utwukvLV9XLO7PdtO3J5k5jg8x9LbDpseL4wpM2qy5p/KXz2n0AkbowADAAAAAAAAAAAAAAAAAGuHujPSQ0GuHujPSQxbiW1eVmqH5nD0beo3jZoV/skPRt6jePJzy9tTiAAGGwAAAAAAAAAAAAAZHX3izW27QrFX0kUycyqm9PMp2AMxMxO8MWrFo2mEW4j0Xr28tmqc+dIZf6KYJPSXzDtYjnx1NFK1dzmqqIvtTcpY049ZRUtZE6KqgjmYvFrm5k7Fr71jpv3hWZvTKWnqxz0yifDuk6uplbFdoUqY+HKM3O/wC5I9ixNZ7zEjqKtY568Y3Lk5PYpi2I9GVvqtqa1SupJV37C72L+RHl4w5fcPTcpNTytai7pos1T704Hb2tNqfhO0o8ZtXpfsjqhYVAQ/o9xpdfheltdZL2TBM7Ya5/ymr5yYEzy3kHPgtgt02Wmm1NNRXqqAA4JAAAAAAAAAAAAAAAAAAAAAAAACDtMPfnJ0TOow1DMtMPflJ0TOowxD1Gl+ivh47Wffby+gA7IwAAAAAAAAAAAAAAAAAAAAAGuHujPSQ0GuHujPSQxbiW1eVmqH5nD0beo3jYoc+xIfQTqN88nPL21eIDGdJeM7VgPCs+ILvyjoI1RrY40zc9y8EQyYgjXc8EsPr8f9TpgpGTJFZ/bGS3TWZdlo91isB4pnSkq55bLVquTWVeWw7zOTd95MFLUwVUDZ6aaOaJyZtexyKi+1Dywz3mZ4B0oY1wTO11lvMyQIubqaZduJ3kyXh7Czy+mRPfHKLTU/8A2ekIK6aONaPD10SKkxbRutNSuSLPHm6FV8fjQnyx3q1XyhZXWmvp62membZIXo5P5FZkw3xz+UJVclbcOeADk3AAAAAAAAAAAONdGNdbqlHNRU5J25fMck2Ll9H1PRO6lM15hi3Eq/4M3YyoE/8AuCwzeBXnBnfnQ9OWGbwLL1P5V8Kn0f67eX0AFYtwAAAAAAAAAAAAAAAAAAAAAAAEHaYe/KTomdRhmW8zPTD35SdEzqMMzPUaX6a+HjtZ99vL6ADsjAAAAAAAAAAAAAAAAAAAAAAa4e6M9JDQa4e6M9JDFuJbV5WaofmcPRt6jeNih+Zw9G3qN88nPL21PjAQRrueCWH1+P8AqTuQRrueCWH1+PqU76T7q+WuX4SpEvE7O24evtyoZa632itqqWHuksULnNb51Q6xx6Gat9DRwaFMONhpomJLS7cmTU7dyuXNV8ZeavUexWLbboGLF7k7PPNzXNcrXNVrk3KipkqHeYRxfiTCdclXYLvVUUme9GP7V3nTgpejSToNwNjRkk0lvbbq929KqkRGLn5U4KVj0kaueNsL8rVWqJL5QNzXap2/tGp5WfkcsesxZo6bNrYb07wz3RrrUyMdFRY3tu0zgtbSpvTyuZ+RY7B+NcMYto21VgvFNWtVM1a12T2+dq70PM+ogmp5nQ1ET4pWLk5j2q1UXyopybPdblaKxtZa6+oo52Lm2SGRWqn3Gmb0+l+9OzamotXtZ6kApjo31oMR2dsVFiykbeKVuSdkM7SZE8vM4spo80sYJxvG1tou8LatUzWlmVGSp7F4+wq8uly4uY7JVM1bM6B8Rcz6R3UAAAAADYuX0fU9E7qU3zYuX0fU9E7qUzXmGLcSr/gzv0oPWELDN4FecGd+lB6whYZvAsvU/nXwqfR/rt5fQAVi3AAAAAAAAAAAAAAAAAAAAAAAAQdph78pOiZ1GGmZaYe/KTomdRhh6jS/TXw8drPvt5fQAdkcAAYAAAAAAAAAAAAAAAAAAANcPdGekhoNcPdGekhi3Etq8rNUK/2SHo29RvGzQ/M4ejb1G8eTnl7avEBBGu54JYfX4/6k7kEa7nglh9fj6lO+k+6vlrl+EqRKeimrsqfoWwx6kn4lPOtT0R1cvAphj1NPxKWfqn1x5RdLzKQz4qcyn0FInMF0g6KsFY2ict4tEKVSpklVCmxKntTj7SpWnzQdW6N6Zt5oq9K+zyy8nm5uzJEq8EXx+cveQprnKiaF6nPnrIcvvJuk1GSuSKxPaXDNjr0zOyiy8TcgllgmbNBK+KRq5tcxyoqe0unoX0LYCuGia2VF3skNbWXGmSaaoeq7aK7hsqnDIwTSTqsVlNylZgm4dkx8Uo6pcnp5EdwX2lpGuxTaaz2RJwWiN4YLo71h8c4VWKmrp0vVA3csdSvbonkdxLM6ONPmBMYMjgkrUtNwciItPVqjUVf+V3BSjWKMN33DNwdQX211VBUN/dlYqIvlReCnUoqoqKi5L4zGTR4c3eO3hmua9O0vVGGSOWNJIntexyZo5q5oprPO3R1pjx1gmVjbfdpKqiRe2pKpeUjVPJnvT2Fl9HGs1hK/clSYjjdY6x2SK9y7UKr6XN7SszaHJj7x3hKpnrbsnsHGttwoblSR1dvq4aqnkTNkkT0c1U86HJIUxs77hsXL6Pqeid1Kb5sXL6Pqeid1KZrzDFuJV/wZ36UHrCFhm8CvODO/Sg9YQsM3gWXqfzr4VPo/128voAKxbgAAAAAAAAAAAAAAAAAAAAAAAIO0w9+UnRM6jDUMy0w9+UnRM6jDMj1Gl+mvh47Wffby+gA7I4AAwAAAAAAAAAAAAAAAAAAAa4e6M9JDQa4e6M9JDFuJbV5WZofmkPoJ1G+bND8zh6NvUbx5OeXtqfGAgjXc8EsPr8fUpO5BGu54JYfX4/6nfSfdXy1y/CVIlPRHVy8CuGfU0/Ep53KeiOrl4FMMepp+JS09T+uPKLpuZSGACjTghPXQ8C8/rkPWpNhCWuj4F5/XIetTvpfur5c8vwlnOg9c9EuGsvs+PqMzyMH0C+CDDPqLDOTnlj858s04h1GJcN2TElC6ivdspq6BU+TKxFy8y8xXvSVqsW+qSWtwVcFo5lzclJUrnGvkR3FCzYN8WfJineslsdbcvNHG2A8V4Oq3U9/s9RTIi5JKjVdG7zOTcYzlvPUm6W2gulK+luNHDVQPTJ0crEci/eQJpX1aMNXWnqrnhR7rTXIxz0p89qB6omeWX7vsLTD6jW3bJCJk00x8VWcD6QMVYLrWVNju1RAxq5uhVyrG9PErV3HolgS8uxDg20Xx8fJurqOKdzfErmoqp955k1cD6eomp5UykicrHJ4lRclPSDQn4I8K/wALg/Ahp6nSsRW0Q20szvMMwNi5fR9T0TupTfNi5fR9T0TupSprzCXbiVf8Gd+lB6whYZvArzgzv0oPWELDN4Fl6n86+FT6P9dvL6ACsW4AAAAAAAAAAAAAAAAAAAAAAACDtMPflJ0TOowzMzPTD35SdEzqMMPUaX6a+HjtZ99vL6ADsjgADAAAAAAAAAAAAAAAAAAABrh7oz0kNBrh7oz0kMW4ltXlZqhT+xw9G3qN42aH5pD0beo3jyc8vbU+MBBGu54JYfX4/wCpO5BGu54JYfX4+pTvpPur5a5fhKkS8T0N1a5Wy6EsNOaqLlSq1cl8TlPPJSyurxYNNtPg+K6YUulFT2eZznwUtcu02TfvVqZdrmqFxr6dePnbuhae20rfghL9IOl6wbsSaNluMTeM9rl2s08ezvOZbNYfA75kpr5DdLDUZ5OZWUrkRq+dClnBf9Rv4Tvcr+0wkJ66PgXn9dh61JMw/jbCd/ai2fEFuq1yz2WTt2vu4kUa61yootEraJ9RGk9TWx8lHnvciZqqm+mrMZq7x+2uWYmks+0CeB/DPqDDOTBdAvggwz6iwzo45fst5b0+MAANGwbdV83k9Feo3Dbqvm8nor1BieHmDivvmuvrcv4lPRLQp4JMK/wuD8CHnbizvmuvrcv4lPRLQp4JMK/wuD8CFx6l9dUTTfOzMDYuX0fU9E7qU3zYuX0fU9E7qUqK8wl24lX/AAZ36UHrCFhm8CvODO/Sg9YQsM3gWXqfzr4VPo/128voAKxbgAAAAAAAAAAAAAAAAAAAAAAAIO0w9+UnRM6jDDM9MPflJ0TOow09Rpfpr4eO1n328gAOyOAAMAAAAAAAAAAAAAAAAAAAGuHujPSQ0GuHujPSQxbiW1eVmqH5nD0beo3jYoc+xIejb1G+eTnl7anxgII13PBLD6/H1KTuQRrueCWH1+P+p30n3V8tcvwlSNT0T1dkT9C2F/Uk/Ep51qeiurx4FcLepJ1qWfqn1x5RdLzLPstx111sdnukax3G10dW1UyVJYWu6zsgUkTMcJuyMb9oK0c3R6zR2b4Pn4pLRSLEqL7CvWs7oedguzUuIKK+V9xolm5F0VY/bdEqpmmS+LcXTyIL12PA+3+IRdTibpc94y1jfs5ZaR0zOyPNX/F2maiwVC2zYXhvdip82wLM/k35c6MXnQlCk06/B68njHA+ILI5PlSNh5aPPzpkZHq5tRNDGG8kRM6ROHnUkCSGKVmxLGx7V5nNRTXNlpN53qUpbbtLBsPaX9Hd7ySlxLSRyLu5OoXknp7HGa0lbR1caSUtVDOxUzRY3o5P5GM4j0a4GxA13wnhi2yvcmSyNhRj/wDqbkpg1Zq/WSmlWowriXEGH5k3sSnq3OYi+ZV4HLbFP72bb3j9JnNuq+byeivUQwzDWnLDjf8AhWMbdf4G8IrhBsvVPSQ6fGuk7S/h7DtWl00ctbMkTk7NppFlhZu+Vkma7vKbVwTafxmJYtk2jvCoGLO+a6+ty/jU9EtCngkwr/C4PwIeb9XNJU1E1TK7aklcr3r41Vc1PSDQp4JMK/wuD8CFh6nG1Ko+mne0yzA2Ll9H1PRO6lN82Ll9H1PRO6lKivMJluJV/wAGd+lB6whYZvArzgzv0oPWELDN4Fl6n86+FT6P9dvL6ACsW4AAAAAAAAAAAAAAAAAAAAAAACDtMPflJ0TOowwzPTD35SdEzqMMzPUaX6a+HjtZ99vL6ADsjAAAAAAAAAAAAAAAAAAAAAAa4e6M9JDQa4e6M9JDFuJbV5WaofmcPRt6jeNmh+Zw9G3qN48nPL21PjAQRrueCWH1+P8AqTuQRrueCWH1+P8Aqd9J91fLXL8JUiU9FdXjwK4W9STrU86nHorq8eBXC3qSdaln6p9ceUXS8yz8AFHCcEF67HgfT+IRdTidCC9djwPp/EIupxI0321c8vwlmOrp4F8NeqJ1qSGnAjzV08DGGvVE61JDTgaZfslmnxgABzbipmbNZGySlljkYjmuYqORUzRUyN426juL/RXqEcsTw8wcWsZFii7RRtRrG1cqNaibkTaU9EtCngkwr/C4PwIeeGM++28euS/jU9D9Cngkwr/C4PwIXHqX11RNN87MwNi5fR9T0TupTfNi5fR9T0TupSorzCXbiVf8Gd+lB6whYZvArzgzv0oPWELDN4Fl6n86+FT6P9dvL6ACsW4AAAAAAAAAAAAAAAAAAAAAAACDtMPflJ0TOowwzPTD35SdEzqMMzPUaX6a+HjtZ99vL6ADsjgADAAAAAAAAAAAAAAAAAAABrh7oz0kNBrh7oz0kMW4ltXlZqh+aQ9G3qN42aH5nD0beo3jyc8vbU+MBBGu54JYfX4/6k7kEa7nglh9fj6lO+k+6vlrl+EqRKeiurx4FcL+pJ1qedTj0U1ePAthf1FOtSz9U+uPKLpeZSAACkTggvXY8D6fxCLqcToQXrseB9P4hF1OO+m+2rnl+Esx1dPAvhr1ROtSQyPNXPwL4a9UTrUkNOBpl+cs0+MAAObcNuo7i/0V6jcNufuT/RUMS8xMZ99t49dl/Gp6H6FPBJhX+FwfgQ88MZ99t49dl/Gp6H6FPBJhX+FwfgQuPUvrqiaf5yzA2Ll9H1PRO6lN82Ll9H1PRO6lKivMJduJV/wZ36UHrCFhm8CvODO/Sg9YQsM3gWXqfzr4VPo/128voAKxbgAAAAAAAAAAAAAAAAAAAAAAAIO0w9+cnRM6jDTNdMcUjcXue5io10TNleZTCtk9Rpfpr4eP1kf89vID7kMjujbPgPuQyBs+A+5DIGz4D7kMgbPgPuQyBs+A+5DIGz4D7kMgbPgPuQyBs+A+5DIGz4a4e6M9JDTkbtLG+Spijjar3ueiIiJvVczW3Dasd1lqH5pD0beo3zapEVtLE1UyVGIip7DdPJzy9rXiAgjXc8EsPr8f9SdyGdcGyXO9aJXttdHLVyU1UyaSOJqudsJxVETeuR20sxGasz/WuX4SoipYLRDrIzYMwdS4culhW4Mo0VlPLFKjF2M88lRU5syBnW+vRyotFUoqcUWJ35HzsCu+pVPunfkehy4qZY2srq2tXhav9bq3f5Qqv9U38h+t1bv8oVf+qb+RVTsCu+p1Hul/IdgV31Oo9078iP8A+Dp/5/8Arf3sn9Wr/W6tv+UKr/VN/IjHT3pzqNJdnpbNSWlbbQxS8tIj5Ntz3ImScOCJmRF2BXfUqn3TvyHYFd9SqPdO/I3ppMNLdUR3YnLe0bTKcNEmsdc8FYTgw7W2OK5Q0va08iSrG5rc+C7lzMxTW6//AA7/AOX/AOJV7sCu+p1HunfkOwK76nUe6d+Ri2kwWneYZjNkjtutD+t0v+Tv/l/+I/W6X/Jyf6v/AMSr3YFd9SqfdO/IdgV31Kp9078jH/hYP4e9kWh/W6X/ACcn+r/8Th3nW0rai2Tw2/CsVPUyMVrJZKhXNYqpxyREzK1dgV31Oo9078h2BXfUqn3TvyEaLB/D3sk/tt1tRLV1c9XO7almer3r41Vc1PSDQp4JMK/wuD8CHnRSWe61lQympbbWTTSLssYyFyqq/cekei621Vn0dYftdczk6mlt8MUrfE5GpmhG9TmOmsQ66XfqmWSGxcvo+p6J3UpvmxcEV1BUNamarE5ET2FRXmEy3Eq/4M79KD1hCwzeBX3BcEzsb0TEjdtMnzcmXDLjmWCbwLH1Ofzr4VPpEbY7eX0AFatwAAAAAAAAAAAAAAAAAAAAAAAHFrrdQ12XZdJDPs8NtqLkcX4vWP7LpfdodoDaL2jiWk46z3mHV/F6x/ZdL7tB8XrH9l0vu0O0Bn3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Hxesf2XS+7Q7QD3L/wBPap/IdX8XrH9l0vu0Nynstpp5Ulgt9NHI3g5saIqHYAe5b+nt0/gADRuBURUyVM0AA43wfQ8Vo6f3afkPg+g+pU/ukOSDO8sbQ43wfQfUqb3SD4PoPqVP7pDkgbybQ43wfQfUqf3SfkPg+g+pU/uk/I5IG8m0ON8H0H1Kn90g+D6D6lT+6T8jkgbybQ43wfQfUqf3SfkPg+g+pU/um/kckDeTZxvg+g+pU/um/kPg+g+pU/uk/I5IG8m0OOyio2ORzKWBrk4KkaIpyADDIFTNAAONDb6KGodURUsLJnfKe1iIq+05IBmZmeWIiI4AAYZAAAAAAAAAAAAAAAAAAAAAAAAFVETNSIdJ2n/BmC6qS3xuku9xjzR0NMqbLF8TncMzh62mkSrwXgmO32mZYrndXLEyROMcafKVPLvyMX1YNC9rhsVNjPFdIy4XKtTlqeKobtNiavByovFy8SXiw0inuZOP1H9cbXmbdNXBXWnuqryzNHlStLx2+Wdw8+zkZ7oz1hcGYwrIrdUctZrjIuyyKpVNh6+JHcPvJbSjpEi5FKWFI8stlI0yy8xAOszoWtFxw9V4swzQx0N3omLNMynbstnYm9VyT95PGZrbBknpmuzExkrG++6wrVRyZouaB7tlqu8RBWqDpDrMW4Snsl3qHT3C07LWyPXN0kS7m5+NUyyzJzm7k7zKR8uOcd5pLrW3VXeEZaL9Mlqx7i+5YbobVV0k1A17nySvarXbL9lcsvKSc97WMV73I1qJmqrzFQ9UV7Y9NuLXvcjWpFPmqruT9sd5p00s3bGF9do20apJUyTu5Gqq4f3/ABtaqcGpzqScul/5emnGznXJ+O8s7vWsJh6nxr8VbHZ6+/1fKJEj6RzdlX86JnxRPGTBQTTT0kUs9OtPI9qOdErtpWL4syL9Auh216O7YlXUpHWX2ob+3qVTPY/5WeJPLzkrJlzHDN7cTtT/ALb06tt7Iw0s6ZLVo8xJbrHXWmrrJa9qOY+J7URubtnfmSbTyJNAyVEyR7UcntKja6HhXwt0Lf8AdLaWz6Opuib1G+bHWmOlo5lrS0zaYn9NdXMlPSyzuTNI2K5U8yZkb6IdMNp0j3q52u32uro5Le3ae6Z7VR3bKm7LzEhXr6IrOgf+FSquo9384s6NP9xTGLHW2K9p5gvaYtEf1bUA4t2rqa222puFXIkVPTxOlkevBGomakfl1Rjpd05Ye0c4gp7LXUNTXVEsaSP5B7USJFXdnmSVYLpS3qzUl1ono+nqomyxr5FTMpfY8KVum6/47xlOsqMghetA3/6ib2N/6UX7yWdSzGT7lhCqwhXyL2ZZ5F5NruPJOVd3sXNCdm01K4968xyj48szbvxKwoAIKQHHudU2ht1TWvarmwROlVE4qjUVcv5HIOsxX3r3X1Ob8CmY5hieEBt1tMMqqo3C13dlxykYpybfrXYOmq2RV1iu1FG7jI7Zdl7DEdRagoqyXFHZdJBUbPI7PKxo7L5XjLBY+wHg2/4braa72a3sjSFypOkLWOiyTPaRyJuyJ+aunx36JrP/AGj1nJaN4l3GDcU2PF1nZdrDXR1dK/dtN4tXxKnMp3RVHUXlrI7/AIpoYZHyWxjGK137u2jlRFTyqha4jajFGLJNYdsduqu4ADg3dfiO6RWSxVt2mjdJHSQOmcxvFyNTPJCv/wCtrhnflha6Ll4pWE1aVMk0c4gz+z5vwqQLqPWq2XDC1/fX2+lqXNrWI1ZYmuVE2ebNCXgpj9u17xvs4ZLW6orDsP1tMNf5VuvvWkjaF9Lts0nvuDbda6qh7B2dvlnI7a2s+GXmMixRhzD7MN3N7LJb2uSklVFSmZmnaL5Cvmofl2birLxxdbjea4cmK1qV2mP8kTetoiZWrOFfLrbrJbJrldayKkpIW7UksjskRDmlOtYjEd60maX6bRtYZX9hU1S2nc1q9q+X997vGjd/3EfBh92236/bfJfphnuKdaWwUte6iw1Yay9OauXKq7k2u8yZKqnV0utVNT1DfhzAdZSU7l+W2Vc0Tx9s1MyY9F+jDC+BLNDSW+3wSVeynL1b2Iskjudc14J5DJ7zYrReKGSiudtpaunkTJ0csSORUO05NPE7RXePLSK5Jjfd0GjfSRhXH9Gs9gr2vlYmctNJ2ssfnb/UzFOBSvTNg+v0HaQ7di3CM0kNsqZFVjM1yY5N7oneNFTgW6wPf6bFGE7bf6Rf2NbTtlRP8Kqm9PYuaGmfDFYi9J7S2x3mZmJ5cbSTiylwTg6txJWU0tTDSIiujjVEc7NUTdn5yO9FmsLhvHmLYcOU9qrLfUTsc6J88jVa5Wpns7ufLM7TWr8Bt+9GP8aFOLXba3CtgwppGtznIvZ72yLv3Ojci5e1uZ302mx5cUzPO/ZplyWrbs9GjiXm4U1qtVVc6x6Mp6WF00jl5mtTNeo2ML3emvuHqC8Uj0fDVwMlaqeVMyG9c3FzrJo4bYaSRW1d5kSJUbxSJN7vv3IQ8eOb3ijra21epx8Oaz+G75iSislNh+5MfWVDYGSOkbspmuSKpPqLmh5/W3Cy4S0uYIt8jVSonbSVU6KvB73KuX3ZHoEnBCTrMNMfT0ftzw3tbfcABCdwAAAAAAAAAAAAAAAAAAAAAAAFP9eVXvx9h6KRV5Hsb2fL3lrcLsijw3bY4MuSbSxozLxbKEJa5+BqzEGEaXEdshWaotDlWZjUzcsK8VTzLvO01X9KdqxThClsFfVxwXy3RpC6KRyIszETJrm+PdxQnZInJp6zX9OEfjknf9psOPcmRyW+ojla10bonI5F4KmW839pMs80If1ldKVrwbg6rtlHWRS3yvjWGGFjs3RoqZK93i3ETHS17REOtrREIZ1KXvj0s3+Gn30y0kmeXDdKmyXEl7k7zKV11J8EVlnw9XYruMLoZbpkyna9MnLEi57XtXqLFTdxd5iRrLRbNOzniiYo8/cHWzFt2xHjimwhVLDVJHO6eNm580STdsxq8yku6l16wdSLV2Kpom0eKnPdtTTLm6ZqL8lufBU50Oq1QkT9N2LM/wD25/8AeMj1mNEVTTVjtI2B45Ke4U7kmq4afc5VT+8Zlz+NCdmyVtacNu28R3cIrMfnCzKcNx9IX1cNMlNjy2JZ7zJHBiCmbk9q9r2QifvNTx+NCaCpyY7Y7dNkutotG8Ke68CT/pJw72Kv7daVOT9LlN38zsqal1pux4+Sqf2eymz28XDLccTXQ8K+Fuhb/uFs7b9H0/RN6iwvm9vDTtE+UeKdV7d9lVquk1pOxZeXqf2Wwu328Xyct5x9RXlExhidJu68g3b8+2uf8y192T/hVX0L/wAKlVdSHv7xZ0af7imK5vcwX7RHHBNOm9e+62hA+uZjL4CwBHh6lkVKy8O2FRq70iT5X37kJ3kc1jHPcqI1qZqq8yFIcdQ3fTrp8rbZZqlkdLRtdDTyvzVkcca73Ll43Z/yOGjxxbJ1W4ju6ZrTEbRzKyerjhFmEtFVspJo0bV1cfZNVnx2npnl7EyQgS7Ofoc1pW1iKsdmusqPXxclKuTv+lxkLdAmlxrUa3SZKiImSJ2TN+ZhWmDQfj2x4XnxPfMTJfWUDUzar5HvYxV3qiu4IhKxRj653vE9Tlbq2j8eF2YntkjbIxyOa5M0VOdDURRqt4zXF+i2i7Il5SttyJSz5rmq7Kdqq+dCVytyUmlprP6Sa26o3DrMWd6919Tm/Ap2Z1mK+9e6+pzfgU1rzDM8KLaAY9Kj5Lt+jV8bfkdmbas8uz8r2maY9teshXWaSHELayptip/aIaF7Np7OdO13neahioj8U5qib4f/AOi0dbWUdHTPqKuphghjTae+R6NaieVVLTU6mceaY6YlFx4+qvKEtU/E2BJrHNhzDtBPa7pB+0q4KlyOllVNyu2skzy8XMTsU10UVUF61uqq5YcbnbnTzyPdGmTVZsqiu8yuyLlEXWU6cm/97u2Gd42AAq5Jmu5CI6sI0717LbokxHVPciIlE9qZ86u3In8yMNRejdFo4udY5FTsi4KieZrU/M4mutjWGHDlJgegek1bcJWyztYuatjavaovnXL7iUtAWGUwfoqs1om2G1KxcvUJn++/tlT2Z5ewm7TTTbT/APKXDffL4ZXivvYunqcv4FK0ah/zzFXni63FlcVyR/Fm6du35nLz/wDIpWjURcja3FWaom+LrcYw/wDr5P8ARef+Sq1cqqkblTjkuRS/Vl2ajWYu0tXk6dH1rkV3Hb21z/qXS4lL9LVvuOh7WDhxrQ0z32yrqFqm7KdqqP7rHnzLvVfahnR7TF6fuY7GaOJ/i6CA6LBeKrLi2xU93s1ZFPBMxHbKOTaYvO1ycyod1NNFDG6SWRsbGpm5zlyRCFNZidp5domJjdCGuvHA/Q8kkqN5RlfFyarxRd+eXsOz1QJJn6DrUk2eTZZkjz/w7a/9yGNaLHa6R8V23AOEVWuggqO3ki3pNMu7dlzN37y0GjDDMeEMCWjD0ao5aOna17v8T13uX71UnZY6NNWk8zO7jXvkmYYnrV+A2/ehH+NpE+jLCDcZ6oVZbWM2qqGonqaVeflGKi5e1M09pLGtX4Dr96Mf42nTambUdoSp2qmaLWT5p7UM47TTTdUfqxaN8m3+HU6luL/hTBFVharkyrbPMqNa7jyTl3fcqKhheLkXS3rUU1kiV0tnsb0SZUXNqpGu0/73dqYzjOurdCGnm9VdBTu7EuFNI6JibkVsiKqL/wDq4lHUqwxJDhy54zrWL2Tdp3Nje5N6sRc1X2uz+462rGOJzx++HOu9tqT+mE6dWIzWyw4xrUa1vYSIicybSlwE4IVC08/+rbD3no/xKW9TgcNV8Mfh1xcyAAhOwAAAAAAAAAAAAAAAAAAAAAAADRNGyWJ0UjWvY9FRzVTNFReYr3pM1a6K43aS+4IurrHXPcr1hyXk9rxtVN7f5lhwdMeW+Od6y1tSLcqnJou1iGx9hJjFVgy2drs53D7szJdHWrVT092jvmPbu6+VbXI9KdFXk1d/zOXe7+RYwHa2syTG0dmkYa/tt00EVPCyGGNscbERrWtTJGonMiGqRM2Ob40yNQIv+XTZCehTQ3c8BY/vOI6y70tZDcGyIyOONWq3ak2t6qTS9rXtVrkRUVMlRec1g3yZLZJ3sxFYiNld8e6u1TUY9ZirAl8hsMiv5Z0ascqNkz4tyXci+InfDUd2hstNDe54J7gxiNmlgaqMeqc6IvDM7EG181rxEW/RWkV4Qpp30OXPSHjG0Xyiu9LRx0EbWujljc5XZP2t2RM9LGsVLFEq5qxiNVfMhuAxbJa1YrP6IrETMtqtiWejmgRclkjc1F8WaZEO6v8AofumjjEV5udfdqWtZcGojGxRq1W9sq781JnBiuS1azWOJJrEzEumxtQXK64UuVttFVHSV1TA6KGaRFVsaruVck8mZHGrxoek0Z/CdVcbhBcbhWuREljYrUYxN+W/nVd5MAFclq1mscSTWJncOFfbZS3iz1drrGI+nqoXRSNXnRyZHNBrE7d4bIQ0A6HsQaMcTXGoffaSstNbGrVgZG5rkci9o7jlnlmik3gG2TJbJbqty1rWKxtAcS9Uzq2z1lGxyNdPA+NHKmaIrmqmf8zlg0bKnWjVlx1aXSOtOO6eh5TLb5BsjNrLhnkpzX6tuOLm9Ir7pIknpV+U1Ekfu8yuyLSAlTrcs/ty9mrA9EuizDeje3vitEb5qyZESermyWSTyeRPIZ4gBHve153tPd0isR2gOh0hySQ4EvssT3MkZb51a5q5Ki7C70O+OuxLbvhfD1wtSScn2XTSQ7eWeztNVM/5is7Wjctwo3ol0R4k0sUVXiGHEkdPLS1CQK6p23vVURFRUXPykmJq76TMsv0krl6cv5kw6BdGj9GWH661vuaXBaqq5fbSPY2e1RMsvYSPkTcutv1fjPZwphjbuqs/V00lPY5j9I+01yZKivlVFTxcSM8bYBxHohxbY6R2IeV+EpmOctIr40VEeiZO37+JfYijTZojfpExBZLo27toUti5qxYtrb7ZHezgZw623VteexfD23rylSnVVhZn/hQ6XG+ErHjKxy2e/UTKmmkTdnucxf8AE1eZTu427LGt8SZGogRMxO8O8xvG0qq3PV0xzhm5SVOjzGDooHLm2OSR0T0TxKqbl+440uhnTliPKixDjNI6JV7faqnPRU9FMsy2YyJUa3J+9v8Apz9mqLNDehXDejpvZke1cbw9Mn1kyb2+NGJ+6n8yU04AEa97ZJ3tLetYrwxDTFhSoxto+uWGqSqipZqtGo2WRqq1uTkXeieY4OgrA9Xo9wFDh2trIqyVk8kqyxNVrVRy+JTPQZ9y3R0fo6Y33RHrD6IP0nQ2yWjrYKCtonua6WRiu24l4t3eXehI2ELJSYcwzb7HRMRsFFTshblz5JvX2rvO2AnJaaxSZ7QRSIndCWkbQ3dMT6Z7ZjqC70tPTUawbVO+Nyvdyaqq788t5NqcABfJa8RE/oisRwAA0bAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/9k=" alt="Окна в Дом" class="ft-logo-img"></a>      <p>Профессиональный монтаж и ремонт окон ПВХ. Работаем без выходных. Гарантия 2 года на монтаж.</p>
+      <a href="tel:89611812248" class="ft-ph">8 961 181-22-48</a>
+      <span class="ft-phn">Александр - пн-вс, 8:00-22:00</span>
+    </div>
+    <div class="ftc"><h4>Услуги</h4><ul><li><a href="#services">Монтаж окон ПВХ</a></li><li><a href="#services">Ремонт и регулировка</a></li><li><a href="#services">Замена стеклопакетов</a></li><li><a href="#services">Остекление балкона</a></li><li><a href="#services">Откосы, москитки</a></li></ul></div>
+    <div class="ftc"><h4>Информация</h4><ul><li><a href="#calc">Калькулятор</a></li><li><a href="#process">Как работаем</a></li><li><a href="#gallery">Наши работы</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+    <div class="ftc"><h4>Контакты</h4><ul><li><a href="tel:89611812248">8 961 181-22-48</a></li><li><a href="#booking">Записаться</a></li><li><a href="#ai-section">Умный помощник</a></li></ul></div>
+  </div>
+  <div class="ft-bot"><span>© 2025 Окна в Дом. Все права защищены.</span><span>Александр - профессиональный монтаж</span></div>
+</footer>
+
+<script>
+// CALCULATOR
+var tM=1,tN='Одностворчатое',pM=1,pN='Стандарт',gM=1,gN='Однокамерный';
+function grp(id,cb){
+  document.getElementById(id).querySelectorAll('.co').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.getElementById(id).querySelectorAll('.co').forEach(function(x){x.classList.remove('on')});
+      b.classList.add('on');cb(parseFloat(b.dataset.v),b.dataset.n);
+    });
+  });
+}
+grp('tO',function(v,n){tM=v;tN=n;rc()});
+grp('pO',function(v,n){pM=v;pN=n;rc()});
+grp('gO',function(v,n){gM=v;gN=n;rc()});
+var rW=document.getElementById('rW'),rH=document.getElementById('rH');
+rW.oninput=function(){document.getElementById('vW').textContent=rW.value+' мм';rc()};
+rH.oninput=function(){document.getElementById('vH').textContent=rH.value+' мм';rc()};
+document.querySelectorAll('.cc2 input').forEach(function(el){el.addEventListener('change',rc)});
+function rc(){
+  var w=rW.value/1000,h=rH.value/1000,a=+(w*h).toFixed(2);
+  var win=Math.round(Math.max(7500,a*13500*tM*pM*gM)/100)*100;
+  var ext=0;
+  document.querySelectorAll('.cc2 input:checked').forEach(function(el){ext+=parseInt(el.dataset.p)});
+  var tot=win+ext;
+  document.getElementById('cTyp').textContent=tN;
+  document.getElementById('cSz').textContent=rW.value+' x '+rH.value+' мм';
+  document.getElementById('cPr').textContent=pN;
+  document.getElementById('cGl').textContent=gN;
+  document.getElementById('cWn').textContent=win.toLocaleString('ru-RU')+' руб.';
+  document.getElementById('cEx').textContent=ext>0?ext.toLocaleString('ru-RU')+' руб.':'-';
+  document.getElementById('cTot').textContent=tot.toLocaleString('ru-RU')+' руб.';
+}
+rc();
+
+// ACCORDION
+function togSrv(hdr){
+  var item=hdr.closest('.sa-item'),body=item.querySelector('.sa-body'),open=item.classList.contains('open');
+  document.querySelectorAll('.sa-item').forEach(function(i){i.classList.remove('open');i.querySelector('.sa-body').style.maxHeight='0'});
+  if(!open){item.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';}
+}
+// FAQ
+function togFaq(hdr){
+  var fi=hdr.parentElement,fa=fi.querySelector('.fa'),open=fi.classList.contains('open');
+  document.querySelectorAll('.fi').forEach(function(f){f.classList.remove('open');f.querySelector('.fa').style.maxHeight='0'});
+  if(!open){fi.classList.add('open');fa.style.maxHeight=fa.scrollHeight+'px';}
+}
+// FORM
+function doSub(e){
+  e.preventDefault();
+  e.target.querySelectorAll('input,select,textarea,button').forEach(function(el){el.style.display='none'});
+  document.getElementById('okMsg').style.display='block';
+}
+// SCROLL REVEAL
+var io=new IntersectionObserver(function(en){
+  en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{threshold:.08,rootMargin:'0px 0px -24px 0px'});
+document.querySelectorAll('.fade').forEach(function(el){io.observe(el)});
+window.addEventListener('scroll',function(){document.getElementById('up').classList.toggle('on',window.scrollY>600)});
+// COUNTER
+function animCount(el){
+  var target=parseInt(el.dataset.count)||0,suffix=el.dataset.suffix||'',start=performance.now(),dur=1800;
+  (function step(now){var p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);el.textContent=Math.round(ease*target)+suffix;if(p<1)requestAnimationFrame(step);})(start);
+}
+var sObs=new IntersectionObserver(function(en){
+  en.forEach(function(e){if(e.isIntersecting){e.target.querySelectorAll('[data-count]').forEach(animCount);sObs.unobserve(e.target);}});
+},{threshold:.5});
+var sEl=document.querySelector('.hero-stats');if(sEl)sObs.observe(sEl);
+
+// LOCAL FAQ BOT
+var qaBase=[
+  {k:/цена|стоимост|сколько|дорог|бюджет|прайс/i,a:'Ориентировочные цены на монтаж:\n- Одностворчатое (стандарт): от 8 000 руб.\n- Двустворчатое (Rehau/KBE): от 14 000 руб.\n- Балконный блок: от 25 000 руб.\n\nТочная цена после замера. Тел: 8 961 181-22-48'},
+  {k:/двустворчат/i,a:'Двустворчатое окно ~1200x1400 мм со стандартным профилем и двухкамерным стеклопакетом - ориентировочно 14 000-18 000 руб. с монтажом. С откосами и подоконником: +5 000-8 000 руб.'},
+  {k:/трёхстворчат|трехстворчат/i,a:'Трёхстворчатое окно от 18 000 руб. с монтажом. Точную цену назовём после замера.'},
+  {k:/балкон|лоджи/i,a:'Остекление балкона/лоджии - от 18 000 руб.\n- Холодное или тёплое остекление\n- Ламинат на стены и потолок\n- Утепление пола\nПод ключ за 1-2 дня.'},
+  {k:/замер|измер|приехать|выехать|выезд|консульт/i,a:'Условия замера:\n- Телефонная консультация - бесплатно\n- Выезд без договора - от 1 500 руб.\n- Выезд при заключении договора - бесплатно\n\nТел: 8 961 181-22-48'},
+  {k:/гарант/i,a:'Гарантия:\n- На монтажные работы: 2 года\n- На профиль Rehau: до 10 лет\n- На профиль KBE: до 5 лет\n- На стеклопакеты: 3-7 лет'},
+  {k:/профил|rehau|kbe|veka|какой выбрать/i,a:'Профили:\n- Стандарт: хорошая цена, базовые характеристики\n- Rehau / KBE: немецкое качество, 5-камерный профиль\n- Rehau Synego: премиум, максимальная теплоизоляция'},
+  {k:/стеклопакет|однокамерн|двухкамерн|энергосберег/i,a:'Стеклопакеты:\n- Однокамерный: для подсобных помещений\n- Двухкамерный: оптимален для квартир\n- Энергосберегающий (i-стекло): снижает теплопотери до 40%'},
+  {k:/продуват|холодно|дует|щель|уплотнит/i,a:'Продувает окно? Нужна регулировка прижима или замена уплотнителя - от 500 руб. Приедем и устраним. Тел: 8 961 181-22-48'},
+  {k:/не закрывает|заедает|не открывает|ручка болт|фурнитур/i,a:'Ручка болтается или окно заедает? Регулировка петель - от 700 руб. Замена фурнитуры ROTO, SIEGENIA, MACO - от 700 руб.'},
+  {k:/запотел|влага внутри|конденсат/i,a:'Запотевание внутри стеклопакета - нарушение герметичности. Замена стеклопакета от 2 200 руб. без демонтажа рамы.'},
+  {k:/трещин|разбит|лопнул/i,a:'Трещина в стекле? Заменим стеклопакет от 2 200 руб. без демонтажа рамы за 1-2 дня.'},
+  {k:/откос|подоконник/i,a:'Откосы - от 1 200 руб./сторону. Подоконники - от 2 500 руб.'},
+  {k:/москитн/i,a:'Москитные сетки - от 900 руб. Изготовление под любой размер.'},
+  {k:/детск.*замок|безопасност/i,a:'Детские замки и ограничители - от 500 руб. Защищают от случайного открытия ребёнком.'},
+  {k:/ремонт|регулировк|починить/i,a:'Ремонт и регулировка - от 500 руб. Устраняем большинство неисправностей за один визит.'},
+  {k:/как долго|срок|дней|быстро/i,a:'Сроки:\n- Консультация - сразу по телефону\n- Изготовление - 1-3 рабочих дня\n- Монтаж - 1 день'},
+  {k:/выходн|суббот|воскрес|праздник|график/i,a:'Работаем 7 дней в неделю с 8:00 до 22:00. Доплат за выходные нет.'},
+  {k:/уборк|мусор/i,a:'Уборка по договорённости:\n- Эконом: вывоз мусора\n- Стандарт: уборка зоны + вывоз\n- Всё включено: полная уборка + мойка стёкол'},
+  {k:/записаться|заявка|заказать/i,a:'Позвоните Александру: 8 961 181-22-48 (ежедн. 8:00-22:00) или оставьте заявку на сайте.'},
+  {k:/привет|здравств|добрый/i,a:'Здравствуйте! Отвечу на любые вопросы об окнах. Спрашивайте!'},
+  {k:/опыт|стаж|надёжн/i,a:'Александр занимается окнами более 20 лет. Выполнено 800+ объектов.'},
+  {k:/скрипит|шумит/i,a:'Скрип при открытии - износ уплотнителя или нужна смазка петель. Регулировка от 500 руб.'},
+];
+function getAnswer(q){
+  var lq=q.toLowerCase().trim();
+  for(var i=0;i<qaBase.length;i++){if(qaBase[i].k.test(lq))return qaBase[i].a;}
+  return 'Не нашёл точного ответа. Позвоните Александру: 8 961 181-22-48 (ежедн. 8:00-22:00) - ответит на любой вопрос по окнам.';
+}
+function addMsg(c,cls,txt){var m=document.createElement('div');m.className='msg '+cls;m.textContent=txt;c.appendChild(m);c.scrollTop=c.scrollHeight;return m;}
+function addTyping(c){var m=document.createElement('div');m.className='msg typing';m.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';c.appendChild(m);c.scrollTop=c.scrollHeight;return m;}
+function botReply(q,c){
+  addMsg(c,'usr',q);
+  var t=addTyping(c);
+  setTimeout(function(){t.remove();addMsg(c,'bot',getAnswer(q));},700+Math.random()*500);
+}
+function sendSec(){var i=document.getElementById('secIn'),c=document.getElementById('secMsgs'),q=i.value.trim();if(!q)return;i.value='';botReply(q,c);}
+function secAsk(q){document.getElementById('secIn').value=q;sendSec();document.getElementById('ai-section').scrollIntoView({behavior:'smooth'});}
+function sendFloat(){var i=document.getElementById('aipIn'),c=document.getElementById('aipMsgs'),q=i.value.trim();if(!q)return;i.value='';botReply(q,c);}
+function askBot(q){document.getElementById('aipIn').value=q;sendFloat();}
+var aiOpen=false;
+function toggleAI(){aiOpen=!aiOpen;document.getElementById('aip').classList.toggle('open',aiOpen);document.getElementById('aiFab').innerHTML=aiOpen?'&#215;':'&#128172;';}
+</script>
+</body>
+</html>
