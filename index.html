@@ -29,7 +29,7 @@ body{font-family:'Onest',sans-serif;background:#EFF6FB;color:#1652C4;overflow-x:
 @keyframes typeAnim{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 
 /* SCROLL TOP */
-.up{position:fixed;bottom:88px;right:24px;width:40px;height:40px;border-radius:50%;background:var(--dark);color:#fff;border:none;font-size:14px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;z-index:998;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(22,82,196,.3)}
+.up{position:fixed;bottom:32px;left:24px;width:40px;height:40px;border-radius:50%;background:var(--dark);color:#fff;border:none;font-size:14px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;z-index:998;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(22,82,196,.3)}
 .up.on{opacity:1;pointer-events:all}
 
 /* HEADER */
@@ -300,8 +300,8 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 .ft-logo-img{height:34px;width:auto;border-radius:4px;filter:brightness(0) invert(1);opacity:.8}
 
 /* FADE */
-.fade{opacity:0;transform:translateY(16px);transition:opacity .65s ease,transform .65s ease}
-.fade.in{opacity:1;transform:translateY(0)}
+.fade{opacity:1;transform:none}.fade.an{animation:fadeUp .65s ease both}@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
 
 /* RESPONSIVE */
 @media(max-width:1100px){nav{display:none}#hdr{padding:0 10px 0 14px}#hero{grid-template-columns:1fr;min-height:auto}.hero-left{padding:88px 5% 30px}.hero-right{padding:20px 5% 60px;justify-content:center}.hero-win-outer{width:clamp(200px,60vw,360px);height:clamp(160px,48vw,300px)}.hero-stats{flex-wrap:wrap}.hs{padding:14px 18px}.calc-wrap{grid-template-columns:1fr}.proc{grid-template-columns:1fr 1fr;gap:16px}.proc-line-wrap{display:none}.gal{column-count:2}.rev-track{grid-template-columns:1fr}.ai-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr 1fr;gap:28px}.consult-grid{grid-template-columns:1fr 1fr}}
@@ -347,6 +347,33 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 }
 @media(max-width:380px){.sp-grid{grid-template-columns:1fr}}
 
+
+/* ── PROFILE CARDS ── */
+.sp-prof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:18px}
+.sp-prof-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:14px 14px 12px;transition:all .22s;cursor:default;text-align:center;position:relative;overflow:hidden}
+.sp-prof-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2.5px;background:linear-gradient(90deg,var(--dark),var(--blue-l));transition:width .35s}
+.sp-prof-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(22,82,196,.1);border-color:var(--blue-ll)}
+.sp-prof-card:hover::after{width:100%}
+.sp-prof-card.sp-prof-premium{border-color:var(--blue-ll);background:rgba(22,82,196,.03)}
+.sp-prof-name{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.sp-prof-origin{display:inline-block;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);background:var(--card);border-radius:100px;padding:2px 8px;margin-bottom:8px}
+.sp-prof-origin.ru{color:var(--green);background:#ECFDF5}
+.sp-prof-desc{font-size:11px;color:var(--muted);line-height:1.5}
+/* Calc profile row */
+.calc-prof-row{display:flex;flex-wrap:wrap;gap:6px}
+.cpo{padding:7px 13px;border:1.5px solid var(--border);border-radius:100px;font-family:'Onest',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--white);color:var(--mid);transition:all .2s}
+.cpo:hover{border-color:var(--dark);color:var(--dark)}
+.cpo.on{background:var(--dark);border-color:var(--dark);color:#fff}
+@media(max-width:520px){.sp-prof-grid{grid-template-columns:repeat(2,1fr)}}
+
+@media(max-width:430px){#hdr{padding:0 8px 0 10px}.hdr-tel{display:none}.btn-hdr{padding:8px 14px;font-size:12px}.logo-img{height:30px}.hero-left{padding:76px 4% 18px}.sp-grid{grid-template-columns:1fr}.fg2{grid-template-columns:1fr}.consult-grid{grid-template-columns:1fr}.proc{grid-template-columns:1fr}.ft{grid-template-columns:1fr}.ai-panel{width:calc(100vw - 16px)}.hero-stats{max-width:100%}}
+
+/* ── CHAT FIXES ── */
+.chat-msgs{height:260px;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px;scroll-behavior:smooth}
+.msg.bot{background:var(--card);color:var(--dark);border-bottom-left-radius:4px;align-self:flex-start;max-width:88%;white-space:pre-line;animation:msgIn .2s ease}
+.msg.usr{background:var(--dark);color:#fff;border-bottom-right-radius:4px;align-self:flex-end;max-width:88%;animation:msgIn .2s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(max-width:680px){.chat-msgs{height:200px}}
 </style>
 </head>
 <body>
@@ -391,6 +418,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
   <a href="#booking" class="btn-hdr">Записаться</a>
 </header>
 
+
 <!-- HERO -->
 <section id="hero">
   <!-- LEFT: text + bg animations -->
@@ -406,7 +434,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
       <div class="fw" style="width:32px;height:44px;top:38%;left:52%;--rot:1deg;animation-duration:13s;animation-delay:4s;animation-name:floatSlow"></div>
     </div>
     <div class="hero-inner">
-      <div class="h-pill"><div class="h-pill-dot">v</div>Стаж 20+ лет - Замер при договоре бесплатно</div>
+      <div class="h-pill">Стаж 20+ лет - Замер при договоре бесплатно</div>
       <h1 class="ht">Монтаж окон,<br>которому <strong>доверяют.</strong><br><em>Тепло с гарантией.</em></h1>
       <p class="h-sub">Профессиональная установка и ремонт окон ПВХ. Гарантия 2 года на монтаж. Выезд при заключении договора - бесплатно.</p>
       <div class="hero-acts">
@@ -539,7 +567,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
   <div class="sdw fade" style="width:56px;height:74px;bottom:8%;left:2%;--rot:3deg;--dx:-4px;--dy:-10px;animation-duration:18s;animation-delay:2s" aria-hidden="true"></div>
   <div class="sec-hd fade">
     <span class="ey">Услуги и цены</span>
-    <h2 class="st">Актуальный <strong>прайс-лист</strong></h2>
+    <h2 class="st">Полный <strong>спектр услуг</strong></h2>
   </div>
   <div class="srv-info-row fade">
     <div class="sip">Минимальный выезд - <strong>от 1 500 руб.</strong></div>
@@ -665,8 +693,45 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
             <p>Для нестандартных проёмов, складной механизм</p>
           </div>
         </div>
-        <div class="sp-profiles-row">
-          <strong>Профильные системы:</strong> Века, Винтек, Бруксбокс, Рехау, Профекта, Профлекс
+        <div style="margin-top:20px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px">Профильные системы</div>
+          <div class="sp-prof-grid">
+            <div class="sp-prof-card sp-prof-premium">
+              <div class="sp-prof-name">Рехау</div>
+              <div class="sp-prof-origin">Германия</div>
+              <div class="sp-prof-desc">5-камерный профиль, 40+ лет срок службы, премиум-сегмент</div>
+            </div>
+            <div class="sp-prof-card">
+              <div class="sp-prof-name">Века</div>
+              <div class="sp-prof-origin">Германия</div>
+              <div class="sp-prof-desc">Немецкое качество, 5-камерный профиль, популярный выбор</div>
+            </div>
+            <div class="sp-prof-card">
+              <div class="sp-prof-name">Бруксбокс</div>
+              <div class="sp-prof-origin ru">Россия</div>
+              <div class="sp-prof-desc">Армированный профиль, высокая морозостойкость</div>
+            </div>
+            <div class="sp-prof-card">
+              <div class="sp-prof-name">Грюндер</div>
+              <div class="sp-prof-origin ru">Россия / DE</div>
+              <div class="sp-prof-desc">Немецкие технологии, российское производство</div>
+            </div>
+            <div class="sp-prof-card">
+              <div class="sp-prof-name">Винтек</div>
+              <div class="sp-prof-origin ru">Россия</div>
+              <div class="sp-prof-desc">Надёжный российский производитель, оптимальное качество/цена</div>
+            </div>
+            <div class="sp-prof-card">
+              <div class="sp-prof-name">Профекта</div>
+              <div class="sp-prof-origin ru">Россия</div>
+              <div class="sp-prof-desc">Оптимален для жилых помещений, хорошая теплоизоляция</div>
+            </div>
+            <div class="sp-prof-card">
+              <div class="sp-prof-name">Профлекс</div>
+              <div class="sp-prof-origin ru">Россия</div>
+              <div class="sp-prof-desc">Широкий модельный ряд, нестандартные конфигурации</div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- ─── TAB 3: Доп. работы ─── -->
@@ -748,9 +813,23 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
           <button class="co" data-v="7000" data-n="Глухое (7 000 руб/м²)">Глухое</button>
         </div>
       </div>
+      <!-- Профиль -->
+      <div>
+        <label class="clbl">Профильная система</label>
+        <div class="calc-prof-row" id="profO">
+          <button class="cpo on" data-n="Рехау">Рехау</button>
+          <button class="cpo" data-n="Века">Века</button>
+          <button class="cpo" data-n="Бруксбокс">Бруксбокс</button>
+          <button class="cpo" data-n="Грюндер">Грюндер</button>
+          <button class="cpo" data-n="Винтек">Винтек</button>
+          <button class="cpo" data-n="Профекта">Профекта</button>
+          <button class="cpo" data-n="Профлекс">Профлекс</button>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:5px">Влияет на итоговый расчёт в комплексе с изделием</div>
+      </div>
       <!-- Ламинация -->
       <div>
-        <label class="clbl">Ламинация стеклопакета</label>
+        <label class="clbl">Ламинация рамы</label>
         <label class="ci" style="max-width:360px">
           <input type="checkbox" id="lamCheck" onchange="rc()">
           <span class="cn">Ламинация</span>
@@ -816,13 +895,56 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 
 <!-- GALLERY -->
 <section class="sec bl" id="gallery">
-  <div class="sec-hd fade"><span class="ey">Наши работы</span><h2 class="st">Избранные <strong>объекты</strong><br><em>из портфолио</em></h2></div>
+  <div class="sec-hd fade"><span class="ey">Наши работы</span><h2 class="st">Наши <strong>работы</strong><br><em>из портфолио</em></h2></div>
   <div class="gal fade">
     <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#C8DFF0 0%,#A0C8E4 100%);height:280px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 220 200" width="55%" opacity=".3"><rect x="10" y="10" width="200" height="180" fill="none" stroke="#1652C4" stroke-width="2.5"/><rect x="24" y="24" width="80" height="152" fill="rgba(22,82,196,.1)" stroke="#1652C4" stroke-width="1.5"/><rect x="116" y="24" width="80" height="152" fill="rgba(22,82,196,.1)" stroke="#1652C4" stroke-width="1.5"/><line x1="24" y1="100" x2="104" y2="100" stroke="#1652C4" stroke-width="1"/><line x1="116" y1="100" x2="196" y2="100" stroke="#1652C4" stroke-width="1"/></svg></div><div class="gi-label"><h4>Двустворчатое окно</h4><span>Rehau Synego - квартира</span></div></div>
     <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#B8D8F5 0%,#7BB0E8 100%);height:200px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 200 180" width="55%" opacity=".28"><rect x="10" y="10" width="180" height="160" fill="none" stroke="#1A5C42" stroke-width="2.5"/><rect x="24" y="24" width="70" height="132" fill="rgba(26,92,66,.1)" stroke="#1A5C42" stroke-width="1.5"/><rect x="106" y="24" width="70" height="132" fill="rgba(26,92,66,.1)" stroke="#1A5C42" stroke-width="1.5"/></svg></div><div class="gi-label"><h4>Балконный блок</h4><span>KBE - дверь + окно</span></div></div>
     <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#C8E0F8 0%,#92BEED 100%);height:240px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 300 200" width="65%" opacity=".28"><rect x="10" y="10" width="280" height="180" fill="none" stroke="#6B3A1A" stroke-width="2.5"/><rect x="24" y="24" width="80" height="152" fill="rgba(107,58,26,.08)" stroke="#6B3A1A" stroke-width="1.5"/><rect x="116" y="24" width="80" height="152" fill="rgba(107,58,26,.08)" stroke="#6B3A1A" stroke-width="1.5"/><rect x="208" y="24" width="68" height="152" fill="rgba(107,58,26,.08)" stroke="#6B3A1A" stroke-width="1.5"/></svg></div><div class="gi-label"><h4>Трёхстворчатое</h4><span>Загородный дом</span></div></div>
     <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#AFC8F5 0%,#6898D8 100%);height:200px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 200 180" width="55%" opacity=".28"><rect x="10" y="10" width="180" height="160" fill="none" stroke="#4C1D95" stroke-width="2.5"/><rect x="24" y="24" width="72" height="68" fill="rgba(76,29,149,.1)" stroke="#4C1D95" stroke-width="1"/><rect x="108" y="24" width="58" height="68" fill="rgba(76,29,149,.1)" stroke="#4C1D95" stroke-width="1"/><rect x="24" y="104" width="72" height="52" fill="rgba(76,29,149,.08)" stroke="#4C1D95" stroke-width="1"/><rect x="108" y="104" width="58" height="52" fill="rgba(76,29,149,.08)" stroke="#4C1D95" stroke-width="1"/></svg></div><div class="gi-label"><h4>Замена стеклопакетов</h4><span>Двухкамерный энергосберегающий</span></div></div>
     <div class="gi"><div class="gi-bg" style="background:linear-gradient(150deg,#C5DCF8 0%,#82AEEE 100%);height:260px;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 220 200" width="60%" opacity=".28"><rect x="10" y="10" width="200" height="180" fill="none" stroke="#0F766E" stroke-width="2.5"/><rect x="24" y="24" width="172" height="152" fill="rgba(15,118,110,.08)" stroke="#0F766E" stroke-width="1.5"/><line x1="24" y1="100" x2="196" y2="100" stroke="#0F766E" stroke-width="1.5"/></svg></div><div class="gi-label"><h4>Остекление лоджии</h4><span>Тёплое - ламинат на стенах</span></div></div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="sec w" id="booking">
+  <div class="sdw fade" style="width:64px;height:86px;top:5%;right:2%;--rot:-2deg;--dx:4px;--dy:-10px;animation-duration:19s;animation-delay:1.5s" aria-hidden="true"></div>
+  <div class="sec-hd cr fade">
+    <span class="ey">Запись на замер</span>
+    <h2 class="st">Оставьте заявку -<br><strong>перезвоним</strong> <em>в течение дня</em></h2>
+    <p class="ss">Звонок и консультация - бесплатно. Выезд при заключении договора - бесплатно</p>
+  </div>
+  <div class="consult-grid fade">
+    <div class="cg-card"><div class="cg-lbl">По телефону</div><div class="cg-val">Бесплатно</div><div class="cg-note">Консультация, ответы на вопросы</div></div>
+    <div class="cg-card"><div class="cg-lbl">Выезд без договора</div><div class="cg-val">от 1 500 руб.</div><div class="cg-note">Выездная консультация и замер</div></div>
+    <div class="cg-card accent"><div class="cg-lbl">При заключении договора</div><div class="cg-val">Бесплатно</div><div class="cg-note">Выезд и замер в день договора</div></div>
+    <div class="cg-card"><div class="cg-lbl">Гарантия от производителя</div><div class="cg-val">до 7 лет</div><div class="cg-note">Гарантия монтажа - 2 года</div></div>
+  </div>
+  <div class="book-inner fade">
+    <form id="bForm" onsubmit="doSub(event)">
+      <div class="fg2">
+        <div class="fg"><label>Имя *</label><input type="text" placeholder="Иван Иванов" required></div>
+        <div class="fg"><label>Телефон *</label><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
+        <div class="fg full"><label>Услуга</label><select><option value="">- Выберите услугу -</option><option>Монтаж новых окон ПВХ</option><option>Регулировка и ремонт</option><option>Замена стеклопакетов</option><option>Остекление балкона / лоджии</option><option>Откосы и подоконники</option><option>Москитные сетки / фурнитура</option><option>Консультация по телефону (бесплатно)</option></select></div>
+        <div class="fg"><label>Дата</label><input type="date"></div>
+        <div class="fg"><label>Время</label><select><option>Любое</option><option>08:00 - 12:00</option><option>12:00 - 16:00</option><option>16:00 - 20:00</option><option>После 20:00</option></select></div>
+        <div class="fg full"><label>Адрес</label><input type="text" placeholder="Город, улица, дом, квартира"></div>
+        <div class="fg full"><label>Комментарий</label><textarea placeholder="Количество окон, этаж, тип дома - любая полезная информация"></textarea></div>
+        <button type="submit" class="form-sub">Отправить заявку - это бесплатно</button>
+        <div class="ok-msg" id="okMsg">Заявка отправлена! Александр перезвонит вам в течение дня.</div>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec w" id="reviews">
+  <div class="sdw fade" style="width:74px;height:98px;top:8%;left:2%;--rot:4deg;--dx:-4px;--dy:-12px;animation-duration:17s;animation-delay:3s" aria-hidden="true"></div>
+  <div class="sec-hd cr fade"><span class="ey">Отзывы</span><h2 class="st">Нас <strong>рекомендуют</strong><br><em>соседям</em></h2></div>
+  <div class="rev-track fade">
+    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Приехали по рекомендации - и не пожалели. Монтаж за три часа, чисто, никаких следов. Третий год стоит без вопросов.»</p><div class="rv-who"><div class="rv-av" style="background:#D8EDF7;color:#1652C4">МК</div><div><strong>Марина К.</strong><span>Замена двух окон + откосы</span></div></div></div>
+    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Балкон под ключ за два дня. Остекление, ламинат, утепление. Цена ниже трёх других компаний.»</p><div class="rv-who"><div class="rv-av" style="background:#ECFDF5;color:#065F46">ДП</div><div><strong>Дмитрий П.</strong><span>Тёплое остекление балкона</span></div></div></div>
+    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Продувало старое окно - приехали на следующий день, отрегулировали, поменяли уплотнитель. Быстро и по-человечески.»</p><div class="rv-who"><div class="rv-av" style="background:#FEF3C7;color:#92400E">ОС</div><div><strong>Ольга С.</strong><span>Ремонт и регулировка</span></div></div></div>
   </div>
 </section>
 
@@ -859,49 +981,6 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
   </div>
 </section>
 
-<!-- REVIEWS -->
-<section class="sec w" id="reviews">
-  <div class="sdw fade" style="width:74px;height:98px;top:8%;left:2%;--rot:4deg;--dx:-4px;--dy:-12px;animation-duration:17s;animation-delay:3s" aria-hidden="true"></div>
-  <div class="sec-hd cr fade"><span class="ey">Отзывы</span><h2 class="st">Нас <strong>рекомендуют</strong><br><em>соседям</em></h2></div>
-  <div class="rev-track fade">
-    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Приехали по рекомендации - и не пожалели. Монтаж за три часа, чисто, никаких следов. Третий год стоит без вопросов.»</p><div class="rv-who"><div class="rv-av" style="background:#D8EDF7;color:#1652C4">МК</div><div><strong>Марина К.</strong><span>Замена двух окон + откосы</span></div></div></div>
-    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Балкон под ключ за два дня. Остекление, ламинат, утепление. Цена ниже трёх других компаний.»</p><div class="rv-who"><div class="rv-av" style="background:#ECFDF5;color:#065F46">ДП</div><div><strong>Дмитрий П.</strong><span>Тёплое остекление балкона</span></div></div></div>
-    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Продувало старое окно - приехали на следующий день, отрегулировали, поменяли уплотнитель. Быстро и по-человечески.»</p><div class="rv-who"><div class="rv-av" style="background:#FEF3C7;color:#92400E">ОС</div><div><strong>Ольга С.</strong><span>Ремонт и регулировка</span></div></div></div>
-  </div>
-</section>
-
-<!-- BOOKING -->
-<section class="sec bl" id="booking">
-  <div class="sdw fade" style="width:64px;height:86px;top:5%;right:2%;--rot:-2deg;--dx:4px;--dy:-10px;animation-duration:19s;animation-delay:1.5s" aria-hidden="true"></div>
-  <div class="sec-hd cr fade">
-    <span class="ey">Запись на замер</span>
-    <h2 class="st">Оставьте заявку -<br><strong>перезвоним</strong> <em>в течение дня</em></h2>
-    <p class="ss">Звонок и консультация - бесплатно. Выезд при заключении договора - бесплатно</p>
-  </div>
-  <div class="consult-grid fade">
-    <div class="cg-card"><div class="cg-lbl">По телефону</div><div class="cg-val">Бесплатно</div><div class="cg-note">Консультация, ответы на вопросы</div></div>
-    <div class="cg-card"><div class="cg-lbl">Выезд без договора</div><div class="cg-val">от 1 500 руб.</div><div class="cg-note">Выездная консультация и замер</div></div>
-    <div class="cg-card accent"><div class="cg-lbl">При заключении договора</div><div class="cg-val">Бесплатно</div><div class="cg-note">Выезд и замер в день договора</div></div>
-    <div class="cg-card"><div class="cg-lbl">Гарантия от производителя</div><div class="cg-val">до 7 лет</div><div class="cg-note">Гарантия монтажа - 2 года</div></div>
-  </div>
-  <div class="book-inner fade">
-    <form id="bForm" onsubmit="doSub(event)">
-      <div class="fg2">
-        <div class="fg"><label>Имя *</label><input type="text" placeholder="Иван Иванов" required></div>
-        <div class="fg"><label>Телефон *</label><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
-        <div class="fg full"><label>Услуга</label><select><option value="">- Выберите услугу -</option><option>Монтаж новых окон ПВХ</option><option>Регулировка и ремонт</option><option>Замена стеклопакетов</option><option>Остекление балкона / лоджии</option><option>Откосы и подоконники</option><option>Москитные сетки / фурнитура</option><option>Консультация по телефону (бесплатно)</option></select></div>
-        <div class="fg"><label>Дата</label><input type="date"></div>
-        <div class="fg"><label>Время</label><select><option>Любое</option><option>08:00 - 12:00</option><option>12:00 - 16:00</option><option>16:00 - 20:00</option><option>После 20:00</option></select></div>
-        <div class="fg full"><label>Адрес</label><input type="text" placeholder="Город, улица, дом, квартира"></div>
-        <div class="fg full"><label>Комментарий</label><textarea placeholder="Количество окон, этаж, тип дома - любая полезная информация"></textarea></div>
-        <button type="submit" class="form-sub">Отправить заявку - это бесплатно</button>
-        <div class="ok-msg" id="okMsg">Заявка отправлена! Александр перезвонит вам в течение дня.</div>
-        <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
-      </div>
-    </form>
-  </div>
-</section>
-
 <!-- FAQ -->
 <section class="sec w" id="faq">
   <div class="sec-hd cr fade"><span class="ey">Вопросы и ответы</span><h2 class="st"><em>Часто спрашивают</em></h2></div>
@@ -914,6 +993,9 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
     <div class="fi"><div class="fq" onclick="togFaq(this)"><h4>Что делать, если окно продувает?</h4><div class="fi-ico">+</div></div><div class="fa"><div class="fa-in">Чаще всего нужна регулировка прижима или замена уплотнителя - от 500 руб. Позвоните по тел. 8 961 181-22-48, мастер приедет в удобное время.</div></div></div>
   </div>
 </section>
+
+<!-- FOOTER -->
+
 
 <!-- FOOTER -->
 <footer>
@@ -931,17 +1013,27 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 
 <script>
 // CALCULATOR
-var tM=2000,tN='по ТУ',gM=10300,gN='2 стекла';
+var tM=2000,tN='по ТУ',gM=10300,gN='2 стекла',pN='Рехау';
 function grp(id,cb){
-  document.getElementById(id).querySelectorAll('.co').forEach(function(b){
+  var el=document.getElementById(id);
+  if(!el)return;
+  el.querySelectorAll('.co').forEach(function(b){
     b.addEventListener('click',function(){
-      document.getElementById(id).querySelectorAll('.co').forEach(function(x){x.classList.remove('on')});
+      el.querySelectorAll('.co').forEach(function(x){x.classList.remove('on')});
       b.classList.add('on');cb(parseFloat(b.dataset.v),b.dataset.n);
     });
   });
 }
 grp('tO',function(v,n){tM=v;tN=n;rc()});
 grp('gO',function(v,n){gM=v;gN=n;rc()});
+// Profile selection
+var profEl=document.getElementById('profO');
+if(profEl){profEl.querySelectorAll('.cpo').forEach(function(b){
+  b.addEventListener('click',function(){
+    profEl.querySelectorAll('.cpo').forEach(function(x){x.classList.remove('on')});
+    b.classList.add('on');pN=b.dataset.n;rc();
+  });
+});}
 var rW=document.getElementById('rW'),rH=document.getElementById('rH');
 rW.oninput=function(){var v=parseInt(rW.value);document.getElementById('vW').textContent=v.toLocaleString('ru-RU')+' мм';rc()};
 rH.oninput=function(){var v=parseInt(rH.value);document.getElementById('vH').textContent=v.toLocaleString('ru-RU')+' мм';rc()};
@@ -976,6 +1068,7 @@ function rc(){
   document.getElementById('cTot').textContent=tot.toLocaleString('ru-RU')+' руб.';
   document.getElementById('cInst').textContent=fmt(instCost)+' ('+tN+', '+area.toFixed(2)+' м²)';
   document.getElementById('cGlass').textContent=fmt(glassCost)+(lamMult>1?' +20% лам.':'');
+  document.getElementById('cProf').textContent=pN;
   document.getElementById('cOtk').textContent=otkPm>0?fmt(otkCost)+' ('+otkPm+' п.м)':'-';
   document.getElementById('cPod').textContent=podPm>0?fmt(podCost)+' ('+podPm.toFixed(1)+' п.м)':'-';
   document.getElementById('cFloor').textContent=floors>0?fmt(floorCost)+' ('+floors+' эт.)':'-';
@@ -1003,10 +1096,12 @@ function doSub(e){
   document.getElementById('okMsg').style.display='block';
 }
 // SCROLL REVEAL
-var io=new IntersectionObserver(function(en){
-  en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
-},{threshold:.08,rootMargin:'0px 0px -24px 0px'});
-document.querySelectorAll('.fade').forEach(function(el){io.observe(el)});
+try{
+  var io=new IntersectionObserver(function(en){
+    en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('an');io.unobserve(e.target);}});
+  },{threshold:.05,rootMargin:'0px 0px -10px 0px'});
+  document.querySelectorAll('.fade').forEach(function(el){io.observe(el)});
+}catch(err){console.warn('IO error',err);}
 window.addEventListener('scroll',function(){document.getElementById('up').classList.toggle('on',window.scrollY>600)});
 // COUNTER
 function animCount(el){
@@ -1026,7 +1121,7 @@ var qaBase=[
   {k:/балкон|лоджи/i,a:'Остекление балкона/лоджии - от 18 000 руб.\n- Холодное или тёплое остекление\n- Ламинат на стены и потолок\n- Утепление пола\nПод ключ за 1-2 дня.'},
   {k:/замер|измер|приехать|выехать|выезд|консульт/i,a:'Условия замера:\n- Телефонная консультация - бесплатно\n- Выезд без договора - от 1 500 руб.\n- Выезд при заключении договора - бесплатно\n\nТел: 8 961 181-22-48'},
   {k:/гарант/i,a:'Гарантия:\n- На монтажные работы: 2 года\n- На профиль Rehau: до 10 лет\n- На профиль KBE: до 5 лет\n- На стеклопакеты: 3-7 лет'},
-  {k:/профил|rehau|kbe|veka|какой выбрать/i,a:'Профили:\n- Стандарт: хорошая цена, базовые характеристики\n- Rehau / KBE: немецкое качество, 5-камерный профиль\n- Rehau Synego: премиум, максимальная теплоизоляция'},
+  {k:/профил|rehau|kbe|veka|рехау|века|винтек|бруксбокс|профекта|профлекс|грюндер|какой профил|выбор профил/i,a:'Профильные системы, с которыми мы работаем:\n\n— Рехау (Германия): премиум, 5-камерный, 40+ лет срок службы — лучший выбор для тепла и шума\n— Века (Германия): немецкое качество, популярный выбор, 5-камерный профиль\n— Бруксбокс (Россия): армированный, высокая морозостойкость\n— Грюндер (Россия/DE): немецкие технологии, российское производство — хороший выбор по цене\n— Винтек (Россия): надёжный российский производитель, оптимальное качество/цена\n— Профекта (Россия): хорош для жилых помещений, хорошая теплоизоляция\n— Профлекс (Россия): широкий модельный ряд, нестандартные конфигурации\n\nПомогу выбрать под ваш бюджет — звоните: 8 961 181-22-48'},
   {k:/стеклопакет|однокамерн|двухкамерн|энергосберег/i,a:'Стеклопакеты:\n- Однокамерный: для подсобных помещений\n- Двухкамерный: оптимален для квартир\n- Энергосберегающий (i-стекло): снижает теплопотери до 40%'},
   {k:/продуват|холодно|дует|щель|уплотнит/i,a:'Продувает окно? Нужна регулировка прижима или замена уплотнителя - от 500 руб. Приедем и устраним. Тел: 8 961 181-22-48'},
   {k:/не закрывает|заедает|не открывает|ручка болт|фурнитур/i,a:'Ручка болтается или окно заедает? Регулировка петель - от 700 руб. Замена фурнитуры ROTO, SIEGENIA, MACO - от 700 руб.'},
@@ -1049,17 +1144,68 @@ function getAnswer(q){
   for(var i=0;i<qaBase.length;i++){if(qaBase[i].k.test(lq))return qaBase[i].a;}
   return 'Не нашёл точного ответа. Позвоните Александру: 8 961 181-22-48 (ежедн. 8:00-22:00) - ответит на любой вопрос по окнам.';
 }
-function addMsg(c,cls,txt){var m=document.createElement('div');m.className='msg '+cls;m.textContent=txt;c.appendChild(m);c.scrollTop=c.scrollHeight;return m;}
-function addTyping(c){var m=document.createElement('div');m.className='msg typing';m.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';c.appendChild(m);c.scrollTop=c.scrollHeight;return m;}
-function botReply(q,c){
-  addMsg(c,'usr',q);
-  var t=addTyping(c);
-  setTimeout(function(){t.remove();addMsg(c,'bot',getAnswer(q));},700+Math.random()*500);
+// ── CHAT HELPERS ──
+function addMsg(container, cls, txt){
+  var m = document.createElement('div');
+  m.className = 'msg ' + cls;
+  m.textContent = txt;
+  container.appendChild(m);
+  container.scrollTop = container.scrollHeight;
+  return m;
 }
-function sendSec(){var i=document.getElementById('secIn'),c=document.getElementById('secMsgs'),q=i.value.trim();if(!q)return;i.value='';botReply(q,c);}
-function secAsk(q){document.getElementById('secIn').value=q;sendSec();document.getElementById('ai-section').scrollIntoView({behavior:'smooth'});}
-function sendFloat(){var i=document.getElementById('aipIn'),c=document.getElementById('aipMsgs'),q=i.value.trim();if(!q)return;i.value='';botReply(q,c);}
-function askBot(q){document.getElementById('aipIn').value=q;sendFloat();}
+function addTyping(container){
+  var m = document.createElement('div');
+  m.className = 'msg typing';
+  m.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  container.appendChild(m);
+  container.scrollTop = container.scrollHeight;
+  return m;
+}
+function botReply(question, container){
+  if(!container){ console.warn('botReply: no container'); return; }
+  addMsg(container, 'usr', question);
+  var typingEl = addTyping(container);
+  var delay = 400 + Math.floor(Math.random() * 300);
+  setTimeout(function(){
+    if(typingEl && typingEl.parentNode) typingEl.remove();
+    var answer = getAnswer(question);
+    addMsg(container, 'bot', answer);
+  }, delay);
+}
+// ── SECTION CHAT ──
+function sendSec(){
+  var inp = document.getElementById('secIn');
+  var msgs = document.getElementById('secMsgs');
+  if(!inp || !msgs) return;
+  var q = inp.value.trim();
+  if(!q) return;
+  inp.value = '';
+  botReply(q, msgs);
+}
+function secAsk(q){
+  var inp = document.getElementById('secIn');
+  if(!inp) return;
+  inp.value = q;
+  sendSec();
+  var sec = document.getElementById('ai-section');
+  if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+}
+// ── FLOAT CHAT ──
+function sendFloat(){
+  var inp = document.getElementById('aipIn');
+  var msgs = document.getElementById('aipMsgs');
+  if(!inp || !msgs) return;
+  var q = inp.value.trim();
+  if(!q) return;
+  inp.value = '';
+  botReply(q, msgs);
+}
+function askBot(q){
+  var inp = document.getElementById('aipIn');
+  if(!inp) return;
+  inp.value = q;
+  sendFloat();
+}
 var aiOpen=false;
 function toggleAI(){aiOpen=!aiOpen;document.getElementById('aip').classList.toggle('open',aiOpen);document.getElementById('aiFab').innerHTML=aiOpen?'&#215;':'&#128172;';}
 
@@ -1070,3 +1216,5 @@ function showTab(n){
 }
 
 </script>
+</body>
+</html>
