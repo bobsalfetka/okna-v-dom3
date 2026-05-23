@@ -306,6 +306,47 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 /* RESPONSIVE */
 @media(max-width:1100px){nav{display:none}#hdr{padding:0 10px 0 14px}#hero{grid-template-columns:1fr;min-height:auto}.hero-left{padding:88px 5% 30px}.hero-right{padding:20px 5% 60px;justify-content:center}.hero-win-outer{width:clamp(200px,60vw,360px);height:clamp(160px,48vw,300px)}.hero-stats{flex-wrap:wrap}.hs{padding:14px 18px}.calc-wrap{grid-template-columns:1fr}.proc{grid-template-columns:1fr 1fr;gap:16px}.proc-line-wrap{display:none}.gal{column-count:2}.rev-track{grid-template-columns:1fr}.ai-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr 1fr;gap:28px}.consult-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:680px){.sec{padding:60px 4%}h1.ht{font-size:clamp(32px,8vw,48px)}.hero-stats{flex-direction:column;border-radius:var(--r);width:100%}.hs{border-right:none;border-bottom:1px solid var(--border)}.hs:last-child{border-bottom:none}.hero-win-outer{width:min(86vw,300px);height:min(68vw,240px)}.gal{column-count:1}.proc{grid-template-columns:1fr}.fg2{grid-template-columns:1fr}.consult-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr;gap:24px}.ft-bot{flex-direction:column;gap:6px;text-align:center}.ai-panel{width:calc(100vw - 32px)}.sa-h{grid-template-columns:40px 1fr auto}.sa-price{display:none}}
+
+/* ── SERVICE TABS ── */
+.srv-info-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:0;position:relative;z-index:1}
+.sip{padding:8px 16px;background:var(--card);border:1px solid var(--border);border-radius:100px;font-size:13px;color:var(--mid)}
+.sip strong{color:var(--dark)}
+.srv-tabs{position:relative;z-index:1}
+.srv-tab-btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.stb{padding:10px 20px;border:1.5px solid var(--border);border-radius:100px;background:var(--white);color:var(--mid);font-family:'Onest',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.stb:hover{border-color:var(--dark);color:var(--dark)}
+.stb.on{background:var(--dark);border-color:var(--dark);color:#fff}
+.stp-wrap{min-height:300px}
+.stp{display:none;animation:fadeIn .25s ease}
+.stp.on{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.sp-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:20px;transition:all .25s;position:relative;overflow:hidden}
+.sp-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2.5px;background:linear-gradient(90deg,var(--dark),var(--blue-l));transition:width .35s}
+.sp-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(22,82,196,.1);border-color:var(--blue-ll)}
+.sp-card:hover::after{width:100%}
+.sp-card-accent{border-color:var(--blue-ll);background:rgba(22,82,196,.03)}
+.sp-badge{display:inline-block;padding:3px 10px;background:var(--card);border-radius:100px;font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.08em;text-transform:uppercase;margin-bottom:11px}
+.sp-badge-grn{background:#ECFDF5;color:#065F46}
+.sp-badge-org{background:#FFF7ED;color:#9A3412}
+.sp-card h3{font-size:14px;font-weight:600;color:var(--dark);margin-bottom:9px;line-height:1.3}
+.sp-price{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:400;color:var(--dark);line-height:1;margin-bottom:6px}
+.sp-price-free{font-size:24px;color:var(--green)}
+.sp-price span{font-family:'Onest',sans-serif;font-size:12px;font-weight:500;color:var(--muted)}
+.sp-card p{font-size:12px;color:var(--muted);line-height:1.65;margin-top:6px}
+.sp-note{font-size:11px;color:var(--blue);font-weight:600;margin-top:7px;display:block}
+.sp-profiles-row{margin-top:18px;padding:14px 20px;background:var(--card);border-radius:var(--r);font-size:13px;color:var(--mid);border:1px solid var(--border)}
+.sp-profiles-row strong{color:var(--dark)}
+/* Mobile tabs */
+@media(max-width:900px){.sp-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){
+  .stb{padding:8px 13px;font-size:12px}
+  .sp-grid{grid-template-columns:1fr 1fr}
+  .sp-card{padding:14px}
+  .sp-price{font-size:26px}
+}
+@media(max-width:380px){.sp-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -497,35 +538,178 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
   <div class="sdw fade" style="width:88px;height:116px;top:6%;right:3%;--rot:-4deg;--dx:5px;--dy:-14px;animation-duration:14s;animation-delay:0s" aria-hidden="true"></div>
   <div class="sdw fade" style="width:56px;height:74px;bottom:8%;left:2%;--rot:3deg;--dx:-4px;--dy:-10px;animation-duration:18s;animation-delay:2s" aria-hidden="true"></div>
   <div class="sec-hd fade">
-    <span class="ey">Что мы делаем</span>
-    <h2 class="st">Услуги по <strong>окнам ПВХ</strong><br>под <em>любую задачу</em></h2>
+    <span class="ey">Услуги и цены</span>
+    <h2 class="st">Актуальный <strong>прайс-лист</strong></h2>
   </div>
-  <div class="srv-ac fade">
-    <div class="sa-item open">
-      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">01</span><span class="sa-title">Монтаж окон ПВХ</span><span class="sa-price">от 3 500 руб.</span><div class="sa-ico">+</div></div>
-      <div class="sa-body" style="max-height:300px">
-        <div class="sa-in">Профессиональная установка однокамерных, двухкамерных и энергосберегающих стеклопакетов. Работаем с профилями Rehau, KBE и Veka. Монтаж за 1 день.<br><br>
-          <strong>Уборка после монтажа</strong> (по договорённости):<br>
-          - Эконом: вывоз строительного мусора и упаковки<br>
-          - Стандарт: уборка рабочей зоны + вывоз мусора<br>
-          - Всё включено: полная уборка, мойка стёкол и откосов</div>
+  <div class="srv-info-row fade">
+    <div class="sip">Минимальный выезд - <strong>от 1 500 руб.</strong></div>
+    <div class="sip">Дистанционная консультация - <strong>бесплатно</strong></div>
+  </div>
+  <div class="srv-tabs fade" style="margin-top:28px">
+    <div class="srv-tab-btns">
+      <button class="stb on" onclick="showTab(0)">Монтаж и отделка</button>
+      <button class="stb" onclick="showTab(1)">Ремонт и регулировка</button>
+      <button class="stb" onclick="showTab(2)">Стеклопакеты и сетки</button>
+      <button class="stb" onclick="showTab(3)">Доп. работы</button>
+    </div>
+    <div class="stp-wrap">
+      <!-- ─── TAB 0: Монтаж ─── -->
+      <div class="stp on" id="stp0">
+        <div class="sp-grid">
+          <div class="sp-card">
+            <div class="sp-badge">С материалом</div>
+            <h3>Монтаж по ТУ</h3>
+            <div class="sp-price">2 000 <span>руб/м²</span></div>
+            <p>Установка окна ПВХ со всеми расходными материалами - пена, дюбели, крепёж</p>
+          </div>
+          <div class="sp-card sp-card-accent">
+            <div class="sp-badge">С материалом</div>
+            <h3>Монтаж по ГОСТ</h3>
+            <div class="sp-price">3 500 <span>руб/м²</span></div>
+            <p>Монтаж по государственному стандарту с полным соблюдением технологии</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge">С материалом</div>
+            <h3>Откосы</h3>
+            <div class="sp-price">850 <span>руб/п.м</span></div>
+            <p>Пластиковые откосы, чистовая отделка оконного проёма изнутри</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge">С материалом</div>
+            <h3>Балконы и лоджии</h3>
+            <div class="sp-price">2 800-3 500 <span>руб/м²</span></div>
+            <p>Отделка снутри и снаружи, установка крыши. Цена зависит от материала</p>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="sa-item">
-      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">02</span><span class="sa-title">Регулировка и ремонт окон</span><span class="sa-price">от 500 руб.</span><div class="sa-ico">+</div></div>
-      <div class="sa-body"><div class="sa-in">Устраняем продуваемость, заедание ручек, нарушения прижима за один визит. Замена уплотнителей, регулировка петель, восстановление геометрии.</div></div>
-    </div>
-    <div class="sa-item">
-      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">03</span><span class="sa-title">Замена стеклопакетов</span><span class="sa-price">от 2 200 руб.</span><div class="sa-ico">+</div></div>
-      <div class="sa-body"><div class="sa-in">Меняем разбитые, запотевшие или потёкшие стеклопакеты без демонтажа рамы. Изготовление по вашим размерам за 1-2 дня.</div></div>
-    </div>
-    <div class="sa-item">
-      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">04</span><span class="sa-title">Остекление балкона и лоджии</span><span class="sa-price">от 18 000 руб.</span><div class="sa-ico">+</div></div>
-      <div class="sa-body"><div class="sa-in">Холодное и тёплое остекление, укладка ламината на стены и потолок, утепление пола. Балкон под ключ за 1-2 дня.</div></div>
-    </div>
-    <div class="sa-item">
-      <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">05</span><span class="sa-title">Откосы, подоконники, сетки, фурнитура</span><span class="sa-price">от 500 руб.</span><div class="sa-ico">+</div></div>
-      <div class="sa-body"><div class="sa-in">Чистовая отделка откосов пластиком, замена подоконников, москитные сетки любых размеров. Установка детских замков. Замена фурнитуры ROTO, SIEGENIA, MACO.</div></div>
+      <!-- ─── TAB 1: Ремонт ─── -->
+      <div class="stp" id="stp1">
+        <div class="sp-grid">
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-grn">Только работа</div>
+            <h3>Замена стеклопакета</h3>
+            <div class="sp-price">3 000 <span>руб</span></div>
+            <p>Работа по замене. Стоимость изделия рассчитывается отдельно</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-grn">Только работа</div>
+            <h3>Установка/замена ручки</h3>
+            <div class="sp-price">500 <span>руб</span></div>
+            <p>Замена оконной ручки или установка новой фурнитуры</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-grn">Только работа</div>
+            <h3>Детские замки</h3>
+            <div class="sp-price">500 <span>руб</span></div>
+            <p>Установка ограничителя открывания для безопасности детей</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-grn">Только работа</div>
+            <h3>Отлив и нащельник</h3>
+            <div class="sp-price">350 <span>руб/п.м</span></div>
+            <p>Установка наружного отлива или нащельника</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-grn">Только работа</div>
+            <h3>Регулировка окна/двери</h3>
+            <div class="sp-price">800-1 300 <span>руб</span></div>
+            <p>Сезонная регулировка, устранение заеданий. Цена зависит от сложности</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-grn">Только работа</div>
+            <h3>Подоконник</h3>
+            <div class="sp-price">800 <span>руб/п.м</span></div>
+            <p>Монтаж подоконника. Премиальный сегмент - стоимость работ +50%</p>
+          </div>
+        </div>
+      </div>
+      <!-- ─── TAB 2: Стеклопакеты ─── -->
+      <div class="stp" id="stp2">
+        <div class="sp-grid">
+          <div class="sp-card">
+            <div class="sp-badge">Однокамерный</div>
+            <h3>Изделие в 2 стекла</h3>
+            <div class="sp-price">от 10 300 <span>руб/м²</span></div>
+            <p>Стандартный стеклопакет - оптимальный выбор по цене</p>
+            <p class="sp-note">Ламинация +20%</p>
+          </div>
+          <div class="sp-card sp-card-accent">
+            <div class="sp-badge">Двухкамерный</div>
+            <h3>Изделие в 3 стекла</h3>
+            <div class="sp-price">12 000 <span>руб/м²</span></div>
+            <p>Лучшая теплоизоляция и шумозащита для жилых помещений</p>
+            <p class="sp-note">Ламинация +20%</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge">Глухое</div>
+            <h3>Глухое изделие</h3>
+            <div class="sp-price">7 000 <span>руб/м²</span></div>
+            <p>Для неоткрывающихся секций - экономичный вариант</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-org">Сетки</div>
+            <h3>Накладная москитная сетка</h3>
+            <div class="sp-price">от 900 <span>руб/м²</span></div>
+            <p>Стандартная сетка на магнитах, лёгкий монтаж</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-org">Сетки</div>
+            <h3>Вставная сетка</h3>
+            <div class="sp-price">2 500 <span>руб/м²</span></div>
+            <p>Не выступает за пределы рамы, аккуратный вид</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge sp-badge-org">Сетки</div>
+            <h3>Москитная сетка плиссе</h3>
+            <div class="sp-price">14 000 <span>руб/м²</span></div>
+            <p>Для нестандартных проёмов, складной механизм</p>
+          </div>
+        </div>
+        <div class="sp-profiles-row">
+          <strong>Профильные системы:</strong> Века, Винтек, Бруксбокс, Рехау, Профекта, Профлекс
+        </div>
+      </div>
+      <!-- ─── TAB 3: Доп. работы ─── -->
+      <div class="stp" id="stp3">
+        <div class="sp-grid">
+          <div class="sp-card">
+            <div class="sp-badge">Демонтаж</div>
+            <h3>Деревянное изделие</h3>
+            <div class="sp-price">500 <span>руб/шт</span></div>
+            <p>Снятие и вынос одного деревянного окна</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge">Демонтаж</div>
+            <h3>Металлическое изделие</h3>
+            <div class="sp-price">от 750 <span>руб/м²</span></div>
+            <p>Демонтаж металлической конструкции или решётки</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge">Сервис</div>
+            <h3>Подъём изделия</h3>
+            <div class="sp-price">200 <span>руб/этаж</span></div>
+            <p>Ручной подъём конструкции на каждый этаж выше первого</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge">Сервис</div>
+            <h3>Оклейка стен и пола</h3>
+            <div class="sp-price">от 10 000 <span>руб</span></div>
+            <p>Защитная оклейка помещения плёнкой до начала монтажа</p>
+          </div>
+          <div class="sp-card">
+            <div class="sp-badge">Сервис</div>
+            <h3>Вынос мусора</h3>
+            <div class="sp-price">По договорённости</div>
+            <p>Уборка и вывоз строительного мусора после завершения работ</p>
+          </div>
+          <div class="sp-card sp-card-free">
+            <div class="sp-badge sp-badge-grn">Бесплатно</div>
+            <h3>Дистанционная консультация</h3>
+            <div class="sp-price sp-price-free">0 руб</div>
+            <p>Ответы на все вопросы по телефону или в мессенджере</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -535,37 +719,84 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
   <div class="sdw fade" style="width:70px;height:94px;top:5%;right:2%;--rot:3deg;--dx:4px;--dy:-12px;animation-duration:16s;animation-delay:1s" aria-hidden="true"></div>
   <div class="sec-hd fade">
     <span class="ey">Рассчитайте цену</span>
-    <h2 class="st">Калькулятор <strong>стоимости</strong><br><em>онлайн</em></h2>
+    <h2 class="st">Калькулятор <strong>стоимости</strong><br><em>по актуальным ценам</em></h2>
   </div>
   <div class="calc-wrap fade">
-    <div style="display:flex;flex-direction:column;gap:26px">
-      <div><label class="clbl">Тип конструкции</label><div class="copts" id="tO"><button class="co on" data-v="1" data-n="Одностворчатое">Одностворчатое</button><button class="co" data-v="1.35" data-n="Двустворчатое">Двустворчатое</button><button class="co" data-v="1.65" data-n="Трёхстворчатое">Трёхстворчатое</button><button class="co" data-v="2.1" data-n="Балконный блок">Балконный блок</button><button class="co" data-v="0.82" data-n="Глухое">Глухое</button></div></div>
-      <div><label class="clbl">Размеры</label>
-        <div class="rrow"><label>Ширина</label><input type="range" id="rW" min="600" max="2000" step="50" value="1000"><span class="rval" id="vW">1000 мм</span></div>
-        <div class="rrow"><label>Высота</label><input type="range" id="rH" min="500" max="1800" step="50" value="1400"><span class="rval" id="vH">1400 мм</span></div>
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <!-- Тип монтажа -->
+      <div>
+        <label class="clbl">Тип монтажа</label>
+        <div class="copts" id="tO">
+          <button class="co on" data-v="2000" data-n="по ТУ">Монтаж по ТУ</button>
+          <button class="co" data-v="3500" data-n="по ГОСТ">Монтаж по ГОСТ</button>
+          <button class="co" data-v="2800" data-n="балкон/лоджия">Балкон / лоджия</button>
+        </div>
       </div>
-      <div><label class="clbl">Профиль</label><div class="copts" id="pO"><button class="co on" data-v="1" data-n="Стандарт">Стандарт</button><button class="co" data-v="1.25" data-n="Rehau / KBE">Rehau / KBE</button><button class="co" data-v="1.6" data-n="Rehau Synego">Rehau Synego</button></div></div>
-      <div><label class="clbl">Стеклопакет</label><div class="copts" id="gO"><button class="co on" data-v="1" data-n="Однокамерный">Однокамерный</button><button class="co" data-v="1.2" data-n="Двухкамерный">Двухкамерный</button><button class="co" data-v="1.4" data-n="Энергосберегающий">Энергосберегающий</button></div></div>
-      <div><label class="clbl">Дополнительно</label><div class="cc2">
-        <label class="ci"><input type="checkbox" data-p="3500"><span class="cn">Установка откосов</span><span class="cp">+3 500 руб.</span></label>
-        <label class="ci"><input type="checkbox" data-p="2500"><span class="cn">Подоконник</span><span class="cp">+2 500 руб.</span></label>
-        <label class="ci"><input type="checkbox" data-p="900"><span class="cn">Москитная сетка</span><span class="cp">+900 руб.</span></label>
-        <label class="ci"><input type="checkbox" data-p="1500"><span class="cn">Демонтаж старого окна</span><span class="cp">+1 500 руб.</span></label>
-        <label class="ci"><input type="checkbox" data-p="500"><span class="cn">Детский замок</span><span class="cp">+500 руб.</span></label>
-      </div></div>
+      <!-- Размеры -->
+      <div>
+        <label class="clbl">Размеры конструкции</label>
+        <div class="rrow"><label>Ширина</label><input type="range" id="rW" min="400" max="2400" step="50" value="1000"><span class="rval" id="vW">1 000 мм</span></div>
+        <div class="rrow"><label>Высота</label><input type="range" id="rH" min="400" max="2000" step="50" value="1400"><span class="rval" id="vH">1 400 мм</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Площадь: <strong id="cAreaInline">1,40 м²</strong></div>
+      </div>
+      <!-- Стеклопакет -->
+      <div>
+        <label class="clbl">Стеклопакет (изделие)</label>
+        <div class="copts" id="gO">
+          <button class="co on" data-v="10300" data-n="2 стекла (10 300 руб/м²)">2 стекла</button>
+          <button class="co" data-v="12000" data-n="3 стекла (12 000 руб/м²)">3 стекла</button>
+          <button class="co" data-v="7000" data-n="Глухое (7 000 руб/м²)">Глухое</button>
+        </div>
+      </div>
+      <!-- Ламинация -->
+      <div>
+        <label class="clbl">Ламинация стеклопакета</label>
+        <label class="ci" style="max-width:360px">
+          <input type="checkbox" id="lamCheck" onchange="rc()">
+          <span class="cn">Ламинация</span>
+          <span class="cp">+20% к цене изделия</span>
+        </label>
+      </div>
+      <!-- Откосы -->
+      <div>
+        <label class="clbl">Откосы</label>
+        <div class="rrow"><label>Длина</label><input type="range" id="rOtk" min="0" max="30" step="1" value="0" oninput="document.getElementById('vOtk').textContent=this.value+' п.м';rc()"><span class="rval" id="vOtk">0 п.м</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">850 руб/п.м - 0 п.м = отключено</div>
+      </div>
+      <!-- Подоконник -->
+      <div>
+        <label class="clbl">Подоконник</label>
+        <div class="rrow"><label>Длина</label><input type="range" id="rPod" min="0" max="20" step="0.5" value="0" oninput="document.getElementById('vPod').textContent=parseFloat(this.value).toFixed(1)+' п.м';rc()"><span class="rval" id="vPod">0,0 п.м</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">800 руб/п.м - 0 = отключено</div>
+      </div>
+      <!-- Этажи + прочее -->
+      <div>
+        <label class="clbl">Дополнительно</label>
+        <div class="cc2">
+          <label class="ci"><input type="checkbox" data-p="500" onchange="rc()"><span class="cn">Демонтаж деревянного окна</span><span class="cp">+500 руб/шт</span></label>
+          <label class="ci"><input type="checkbox" data-p="500" onchange="rc()"><span class="cn">Детский замок</span><span class="cp">+500 руб</span></label>
+          <label class="ci"><input type="checkbox" data-p="900" onchange="rc()"><span class="cn">Москитная сетка накладная</span><span class="cp">+900 руб</span></label>
+          <label class="ci"><input type="checkbox" data-p="1500" onchange="rc()"><span class="cn">Минимальный выезд (учесть)</span><span class="cp">1 500 руб min</span></label>
+        </div>
+        <div class="rrow" style="margin-top:12px"><label>Подъём</label><input type="range" id="rFloor" min="0" max="20" step="1" value="0" oninput="document.getElementById('vFloor').textContent=this.value+(this.value==0?' (1-й этаж)':' эт.');rc()"><span class="rval" id="vFloor">0 (1-й этаж)</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:2px">200 руб/этаж - выше 1-го</div>
+      </div>
     </div>
+    <!-- RESULT -->
     <div class="cres">
-      <div class="cr-lbl">Итого от</div>
+      <div class="cr-lbl">Итоговая стоимость от</div>
       <div class="cr-price" id="cTot">-</div>
-      <div class="cr-note">* Точная цена - после консультации и замера</div>
+      <div class="cr-note">* Минимальный заказ/выезд - 1 500 руб.<br>Точная цена после замера</div>
       <div class="cr-sep"></div>
-      <div class="cr-row"><span>Тип</span><span id="cTyp">-</span></div>
-      <div class="cr-row"><span>Размер</span><span id="cSz">-</span></div>
-      <div class="cr-row"><span>Профиль</span><span id="cPr">-</span></div>
-      <div class="cr-row"><span>Стеклопакет</span><span id="cGl">-</span></div>
-      <div class="cr-row"><span>Окно + монтаж</span><span id="cWn">-</span></div>
-      <div class="cr-row"><span>Доп. опции</span><span id="cEx">-</span></div>
-      <a href="#booking" class="btn-cr">Узнать точную стоимость &#8594;</a>
+      <div class="cr-row"><span>Монтаж (работы)</span><span id="cInst">-</span></div>
+      <div class="cr-row"><span>Стеклопакет</span><span id="cGlass">-</span></div>
+      <div class="cr-row"><span>Откосы</span><span id="cOtk">-</span></div>
+      <div class="cr-row"><span>Подоконник</span><span id="cPod">-</span></div>
+      <div class="cr-row"><span>Подъём</span><span id="cFloor">-</span></div>
+      <div class="cr-row"><span>Прочее</span><span id="cEx">-</span></div>
+      <div class="cr-sep" style="margin-top:6px"></div>
+      <div class="cr-row" style="font-weight:700"><span style="color:rgba(255,255,255,.8)">Площадь</span><span id="cArea">-</span></div>
+      <a href="#booking" class="btn-cr">Оставить заявку &#8594;</a>
     </div>
   </div>
 </section>
@@ -700,7 +931,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 
 <script>
 // CALCULATOR
-var tM=1,tN='Одностворчатое',pM=1,pN='Стандарт',gM=1,gN='Однокамерный';
+var tM=2000,tN='по ТУ',gM=10300,gN='2 стекла';
 function grp(id,cb){
   document.getElementById(id).querySelectorAll('.co').forEach(function(b){
     b.addEventListener('click',function(){
@@ -710,25 +941,46 @@ function grp(id,cb){
   });
 }
 grp('tO',function(v,n){tM=v;tN=n;rc()});
-grp('pO',function(v,n){pM=v;pN=n;rc()});
 grp('gO',function(v,n){gM=v;gN=n;rc()});
 var rW=document.getElementById('rW'),rH=document.getElementById('rH');
-rW.oninput=function(){document.getElementById('vW').textContent=rW.value+' мм';rc()};
-rH.oninput=function(){document.getElementById('vH').textContent=rH.value+' мм';rc()};
-document.querySelectorAll('.cc2 input').forEach(function(el){el.addEventListener('change',rc)});
+rW.oninput=function(){var v=parseInt(rW.value);document.getElementById('vW').textContent=v.toLocaleString('ru-RU')+' мм';rc()};
+rH.oninput=function(){var v=parseInt(rH.value);document.getElementById('vH').textContent=v.toLocaleString('ru-RU')+' мм';rc()};
+function fmt(n){return n.toLocaleString('ru-RU')+' руб.';}
 function rc(){
-  var w=rW.value/1000,h=rH.value/1000,a=+(w*h).toFixed(2);
-  var win=Math.round(Math.max(7500,a*13500*tM*pM*gM)/100)*100;
-  var ext=0;
-  document.querySelectorAll('.cc2 input:checked').forEach(function(el){ext+=parseInt(el.dataset.p)});
-  var tot=win+ext;
-  document.getElementById('cTyp').textContent=tN;
-  document.getElementById('cSz').textContent=rW.value+' x '+rH.value+' мм';
-  document.getElementById('cPr').textContent=pN;
-  document.getElementById('cGl').textContent=gN;
-  document.getElementById('cWn').textContent=win.toLocaleString('ru-RU')+' руб.';
-  document.getElementById('cEx').textContent=ext>0?ext.toLocaleString('ru-RU')+' руб.':'-';
+  var w=rW.value/1000,h=rH.value/1000;
+  var area=Math.max(parseFloat((w*h).toFixed(2)),0.1);
+  document.getElementById('cAreaInline').textContent=area.toFixed(2).replace('.',',')+' м²';
+  // Installation (work + materials, no glass)
+  var instCost=Math.round(tM*area);
+  // Glass unit
+  var lamMult=document.getElementById('lamCheck').checked?1.2:1;
+  var glassCost=Math.round(gM*area*lamMult);
+  // Откосы
+  var otkPm=parseFloat(document.getElementById('rOtk').value)||0;
+  var otkCost=Math.round(otkPm*850);
+  // Подоконник
+  var podPm=parseFloat(document.getElementById('rPod').value)||0;
+  var podCost=Math.round(podPm*800);
+  // Подъём
+  var floors=parseInt(document.getElementById('rFloor').value)||0;
+  var floorCost=floors*200;
+  // Extras (checkboxes)
+  var extCost=0;
+  document.querySelectorAll('.cc2 input:checked').forEach(function(el){
+    if(el.dataset.p)extCost+=parseInt(el.dataset.p);
+  });
+  // Total
+  var tot=instCost+glassCost+otkCost+podCost+floorCost+extCost;
+  tot=Math.max(tot,1500);
+  // Display
   document.getElementById('cTot').textContent=tot.toLocaleString('ru-RU')+' руб.';
+  document.getElementById('cInst').textContent=fmt(instCost)+' ('+tN+', '+area.toFixed(2)+' м²)';
+  document.getElementById('cGlass').textContent=fmt(glassCost)+(lamMult>1?' +20% лам.':'');
+  document.getElementById('cOtk').textContent=otkPm>0?fmt(otkCost)+' ('+otkPm+' п.м)':'-';
+  document.getElementById('cPod').textContent=podPm>0?fmt(podCost)+' ('+podPm.toFixed(1)+' п.м)':'-';
+  document.getElementById('cFloor').textContent=floors>0?fmt(floorCost)+' ('+floors+' эт.)':'-';
+  document.getElementById('cEx').textContent=extCost>0?fmt(extCost):'-';
+  document.getElementById('cArea').textContent=area.toFixed(2).replace('.',',')+' м²';
 }
 rc();
 
@@ -810,6 +1062,11 @@ function sendFloat(){var i=document.getElementById('aipIn'),c=document.getElemen
 function askBot(q){document.getElementById('aipIn').value=q;sendFloat();}
 var aiOpen=false;
 function toggleAI(){aiOpen=!aiOpen;document.getElementById('aip').classList.toggle('open',aiOpen);document.getElementById('aiFab').innerHTML=aiOpen?'&#215;':'&#128172;';}
+
+// TABS
+function showTab(n){
+  document.querySelectorAll('.stp').forEach(function(p,i){p.classList.toggle('on',i===n)});
+  document.querySelectorAll('.stb').forEach(function(b,i){b.classList.toggle('on',i===n)});
+}
+
 </script>
-</body>
-</html>
