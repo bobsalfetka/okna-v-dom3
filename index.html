@@ -952,11 +952,11 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
     <div class="cg-card"><div class="cg-lbl">Гарантия от производителя</div><div class="cg-val">до 7 лет</div><div class="cg-note">Гарантия монтажа - 2 года</div></div>
   </div>
   <div class="book-inner fade">
-    <form id="bForm" onsubmit="doSub(event)">
+    <form id="bForm" onsubmit="doSub(event)" novalidate>
         <!-- ✉ FORMSPREE: замените YOUR_FORM_ID на ваш ID с formspree.io -->
-        <input type="hidden" name="_subject" value="Новая заявка с сайта Окна в Дом">
-        <input type="hidden" name="_next" value="">
-        <input type="hidden" id="formEmail" name="email_hidden" value="">
+        
+        
+        
       <div class="fg2">
         <div class="fg"><label>Имя *</label><input type="text" placeholder="Иван Иванов" required></div>
         <div class="fg"><label>Телефон *</label><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
@@ -966,7 +966,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
         <div class="fg full"><label>Адрес</label><input type="text" placeholder="Город, улица, дом, квартира"></div>
         <div class="fg full"><label>Комментарий</label><textarea placeholder="Количество окон, этаж, тип дома - любая полезная информация"></textarea></div>
         <button type="submit" class="form-sub">Отправить заявку - это бесплатно</button>
-        <div class="ok-msg" id="okMsg">Заявка отправлена! Александр перезвонит вам в течение дня.</div>
+        <div class="ok-msg" id="okMsg">Заявка отправлена! Александр перезвонит вам в течение дня. Тел: 8 961 181-22-48</div>
         <p class="form-note">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных</p>
       </div>
     </form>
@@ -1263,42 +1263,56 @@ function togFaq(hdr){
 function doSub(e){
   e.preventDefault();
   var form = e.target;
-  var data = new FormData(form);
-  var btn = form.querySelector('.form-sub');
-  if(btn){ try{btn.textContent='Отправляем...'; btn.disabled=true;}catch(e){} }
+  var btn  = form.querySelector('.form-sub');
+  var ok   = document.getElementById('okMsg');
 
-  // ── FORMSPREE endpoint ──
-  // Зарегистрируйтесь на formspree.io, создайте форму и вставьте ваш URL:
-  var ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+  // Collect fields
+  var name    = (form.querySelector('input[type=text]') || {}).value || '';
+  var phone   = (form.querySelector('input[type=tel]')  || {}).value || '';
+  var service = (form.querySelector('select')           || {}).value || '';
+  var address = '';
+  var comment = '';
+  form.querySelectorAll('input[type=text]').forEach(function(el, i){ if(i===1) address = el.value; });
+  var ta = form.querySelector('textarea');
+  if(ta) comment = ta.value;
+
+  if(!name || !phone){
+    alert('Пожалуйста, заполните Имя и Телефон');
+    return;
+  }
+
+  if(btn){ btn.textContent = 'Отправляем...'; btn.disabled = true; }
+
+  // ── FORMSPREE: вставьте ваш ID из formspree.io/f/XXXXXXXX ──
+  var ENDPOINT = 'https://formspree.io/f/mvzybyav';
+
+  var payload = {
+    'Имя':          name,
+    'Телефон':      phone,
+    'Услуга':       service,
+    'Адрес':        address,
+    'Комментарий':  comment
+  };
 
   fetch(ENDPOINT, {
-    method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
+    method:  'POST',
+    body:    JSON.stringify(payload),
+    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
   })
-  .then(function(r){
-    if(r.ok){
-      form.querySelectorAll('input,select,textarea').forEach(function(el){ el.value=''; });
-      if(btn){ btn.style.display='none'; }
-      document.getElementById('okMsg').style.display = 'block';
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    if(data.ok || data.success){
+      form.querySelectorAll('input,select,textarea').forEach(function(el){ el.value = ''; });
+      if(btn) btn.style.display = 'none';
+      if(ok)  ok.style.display  = 'block';
     } else {
-      r.json().then(function(d){
-        if(btn){ try{btn.textContent='Отправить заявку - это бесплатно'; btn.disabled=false;}catch(e){} }
-        // Fallback: открыть mailto если Formspree не настроен
-        if(ENDPOINT.indexOf('YOUR_FORM_ID') !== -1){
-          var nm = data.get ? (data.get('Имя') || '') : '';
-          var ph = data.get ? (data.get('Телефон') || '') : '';
-          window.location.href = 'mailto:'+'' +'?subject=Заявка с сайта&body=Имя: '+nm+'%0AТел: '+ph;
-        }
-      });
+      if(btn){ btn.textContent = 'Отправить заявку — это бесплатно'; btn.disabled = false; }
+      alert('Ошибка: ' + (data.message || 'не удалось отправить') + '\nПозвоните: 8 961 181-22-48');
     }
   })
   .catch(function(){
-    if(btn){ try{btn.textContent='Отправить заявку - это бесплатно'; btn.disabled=false;}catch(e){} }
-    // Fallback: если нет сети или Formspree не настроен
-    if(ENDPOINT.indexOf('YOUR_FORM_ID') !== -1){
-      document.getElementById('okMsg').style.display = 'block';
-    }
+    if(btn){ btn.textContent = 'Отправить заявку — это бесплатно'; btn.disabled = false; }
+    alert('Ошибка сети. Позвоните напрямую: 8 961 181-22-48');
   });
 }
 // SCROLL REVEAL
