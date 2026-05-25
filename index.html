@@ -374,6 +374,37 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 .msg.usr{background:var(--dark);color:#fff;border-bottom-right-radius:4px;align-self:flex-end;max-width:88%;animation:msgIn .2s ease}
 @keyframes msgIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(max-width:680px){.chat-msgs{height:200px}}
+
+/* ── REVIEWS SLIDER ── */
+.reviews-slider{position:relative;z-index:1}
+.rs-viewport{overflow:hidden;border-radius:var(--rL)}
+.rs-track{display:flex;gap:18px;transition:transform .45s cubic-bezier(.4,0,.2,1);will-change:transform}
+.rv{flex:0 0 calc(33.333% - 13px);background:var(--white);border:1.5px solid var(--border);border-radius:var(--rL);padding:24px;position:relative;overflow:hidden;transition:box-shadow .25s}
+.rv:hover{box-shadow:0 8px 28px rgba(22,82,196,.1)}
+.rv::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2.5px;background:linear-gradient(90deg,var(--dark),var(--blue-l));transition:width .35s}
+.rv:hover::after{width:100%}
+.rv-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.rv-av{width:40px;height:40px;border-radius:50%;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rv-meta{flex:1;min-width:0}
+.rv-meta strong{display:block;font-size:14px;font-weight:600;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rv-meta span{font-size:12px;color:var(--muted)}
+.rv-src{font-size:11px;font-weight:600;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;flex-shrink:0}
+.rv-stars{color:#F59E0B;font-size:13px;margin-bottom:10px;letter-spacing:1px}
+.rv-q{font-size:13px;color:var(--mid);line-height:1.7}
+.rs-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:24px}
+.rs-btn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--border);background:var(--white);color:var(--dark);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;line-height:1;flex-shrink:0}
+.rs-btn:hover{background:var(--dark);border-color:var(--dark);color:#fff}
+.rs-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.rs-dots{display:flex;gap:6px;align-items:center}
+.rs-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .25s;border:none;padding:0}
+.rs-dot.on{width:22px;border-radius:4px;background:var(--dark)}
+/* Responsive */
+@media(max-width:900px){.rv{flex:0 0 calc(50% - 9px)}}
+@media(max-width:560px){
+  .rv{flex:0 0 100%;padding:18px}
+  .rv-q{font-size:13px}
+  .rs-btn{width:36px;height:36px;font-size:16px}
+}
 </style>
 </head>
 <body>
@@ -839,13 +870,13 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
       <!-- Откосы -->
       <div>
         <label class="clbl">Откосы</label>
-        <div class="rrow"><label>Длина</label><input type="range" id="rOtk" min="0" max="30" step="1" value="0" oninput="document.getElementById('vOtk').textContent=this.value+' п.м';rc()"><span class="rval" id="vOtk">0 п.м</span></div>
+        <div class="rrow"><label>Длина</label><input type="range" id="rOtk" min="0" max="30" step="1" value="0" oninput="document.setEl('vOtk', this.value+' п.м');rc()"><span class="rval" id="vOtk">0 п.м</span></div>
         <div style="font-size:12px;color:var(--muted);margin-top:2px">850 руб/п.м - 0 п.м = отключено</div>
       </div>
       <!-- Подоконник -->
       <div>
         <label class="clbl">Подоконник</label>
-        <div class="rrow"><label>Длина</label><input type="range" id="rPod" min="0" max="20" step="0.5" value="0" oninput="document.getElementById('vPod').textContent=parseFloat(this.value).toFixed(1)+' п.м';rc()"><span class="rval" id="vPod">0,0 п.м</span></div>
+        <div class="rrow"><label>Длина</label><input type="range" id="rPod" min="0" max="20" step="0.5" value="0" oninput="document.setEl('vPod', parseFloat(this.value).toFixed(1)+' п.м');rc()"><span class="rval" id="vPod">0,0 п.м</span></div>
         <div style="font-size:12px;color:var(--muted);margin-top:2px">800 руб/п.м - 0 = отключено</div>
       </div>
       <!-- Этажи + прочее -->
@@ -857,7 +888,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
           <label class="ci"><input type="checkbox" data-p="900" onchange="rc()"><span class="cn">Москитная сетка накладная</span><span class="cp">+900 руб</span></label>
           <label class="ci"><input type="checkbox" data-p="1500" onchange="rc()"><span class="cn">Минимальный выезд (учесть)</span><span class="cp">1 500 руб min</span></label>
         </div>
-        <div class="rrow" style="margin-top:12px"><label>Подъём</label><input type="range" id="rFloor" min="0" max="20" step="1" value="0" oninput="document.getElementById('vFloor').textContent=this.value+(this.value==0?' (1-й этаж)':' эт.');rc()"><span class="rval" id="vFloor">0 (1-й этаж)</span></div>
+        <div class="rrow" style="margin-top:12px"><label>Подъём</label><input type="range" id="rFloor" min="0" max="20" step="1" value="0" oninput="document.setEl('vFloor', this.value+(this.value==0?' (1-й этаж)':' эт.'));rc()"><span class="rval" id="vFloor">0 (1-й этаж)</span></div>
         <div style="font-size:12px;color:var(--muted);margin-top:2px">200 руб/этаж - выше 1-го</div>
       </div>
     </div>
@@ -869,6 +900,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
       <div class="cr-sep"></div>
       <div class="cr-row"><span>Монтаж (работы)</span><span id="cInst">-</span></div>
       <div class="cr-row"><span>Стеклопакет</span><span id="cGlass">-</span></div>
+      <div class="cr-row"><span>Профиль</span><span id="cProf">-</span></div>
       <div class="cr-row"><span>Откосы</span><span id="cOtk">-</span></div>
       <div class="cr-row"><span>Подоконник</span><span id="cPod">-</span></div>
       <div class="cr-row"><span>Подъём</span><span id="cFloor">-</span></div>
@@ -921,6 +953,10 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
   </div>
   <div class="book-inner fade">
     <form id="bForm" onsubmit="doSub(event)">
+        <!-- ✉ FORMSPREE: замените YOUR_FORM_ID на ваш ID с formspree.io -->
+        <input type="hidden" name="_subject" value="Новая заявка с сайта Окна в Дом">
+        <input type="hidden" name="_next" value="">
+        <input type="hidden" id="formEmail" name="email_hidden" value="">
       <div class="fg2">
         <div class="fg"><label>Имя *</label><input type="text" placeholder="Иван Иванов" required></div>
         <div class="fg"><label>Телефон *</label><input type="tel" placeholder="+7 (___) ___-__-__" required></div>
@@ -940,11 +976,141 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 <!-- REVIEWS -->
 <section class="sec w" id="reviews">
   <div class="sdw fade" style="width:74px;height:98px;top:8%;left:2%;--rot:4deg;--dx:-4px;--dy:-12px;animation-duration:17s;animation-delay:3s" aria-hidden="true"></div>
-  <div class="sec-hd cr fade"><span class="ey">Отзывы</span><h2 class="st">Нас <strong>рекомендуют</strong><br><em>соседям</em></h2></div>
-  <div class="rev-track fade">
-    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Приехали по рекомендации - и не пожалели. Монтаж за три часа, чисто, никаких следов. Третий год стоит без вопросов.»</p><div class="rv-who"><div class="rv-av" style="background:#D8EDF7;color:#1652C4">МК</div><div><strong>Марина К.</strong><span>Замена двух окон + откосы</span></div></div></div>
-    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Балкон под ключ за два дня. Остекление, ламинат, утепление. Цена ниже трёх других компаний.»</p><div class="rv-who"><div class="rv-av" style="background:#ECFDF5;color:#065F46">ДП</div><div><strong>Дмитрий П.</strong><span>Тёплое остекление балкона</span></div></div></div>
-    <div class="rv"><div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="rv-q">«Продувало старое окно - приехали на следующий день, отрегулировали, поменяли уплотнитель. Быстро и по-человечески.»</p><div class="rv-who"><div class="rv-av" style="background:#FEF3C7;color:#92400E">ОС</div><div><strong>Ольга С.</strong><span>Ремонт и регулировка</span></div></div></div>
+  <div class="sec-hd cr fade">
+    <span class="ey">Отзывы клиентов</span>
+    <h2 class="st">Нас <strong>рекомендуют</strong><br><em>соседям</em></h2>
+    <p class="ss">Реальные отзывы с площадки Авито - 10 клиентов о работе Александра</p>
+  </div>
+  <div class="reviews-slider fade" id="reviewsSlider">
+    <div class="rs-viewport">
+      <div class="rs-track" id="rsTrack">
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#EDE9FE;color:#7C3AED">А</div>
+              <div class="rv-meta">
+                <strong>Анна Шойхет</strong>
+                <span>9 января 2025</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Мастер в переписке сразу озвучил цену и договорились по поводу монтажа откосов и подоконника. Спасибо за отличную и качественную работу!</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#DBEAFE;color:#1652C4">М</div>
+              <div class="rv-meta">
+                <strong>Михаил</strong>
+                <span>14 декабря 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Отличный мастер. С ним можно иметь дело.</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#D1FAE5;color:#065F46">А</div>
+              <div class="rv-meta">
+                <strong>Алексей Зырянов</strong>
+                <span>30 ноября 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Цена ок. Качество хорошее. Спасибо большое.</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#FEF3C7;color:#92400E">Е</div>
+              <div class="rv-meta">
+                <strong>Евгений</strong>
+                <span>30 ноября 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Всё было сделано как надо и в срок. В комплекте оконного блока не хватало защёлки и одного прижима двери - привезли, поставили. Всё ответственно.</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#DBEAFE;color:#1652C4">М</div>
+              <div class="rv-meta">
+                <strong>Михаил</strong>
+                <span>29 ноября 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Ребята ответственные, все исполнили четко по договорённости и в срок. Спасибо!</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#F3F4F6;color:#374151">П</div>
+              <div class="rv-meta">
+                <strong>Пользователь</strong>
+                <span>18 ноября 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Работа выполнена в соответствии с заявленной, всё отлично - цена и качество. Спасибо!</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#FCE7F3;color:#9D174D">V</div>
+              <div class="rv-meta">
+                <strong>Vika Sorokina</strong>
+                <span>1 ноября 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Работа соответствует заявленной цене и качеству.</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#FEF3C7;color:#92400E">Е</div>
+              <div class="rv-meta">
+                <strong>Евгения</strong>
+                <span>22 октября 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Цена соответствовала заявленной. Работа выполнена качественно и в срок. Заменили деревянную раму на пластик, обшили и утеплили стены балкона, сделали откосы. Работа выполнена достойно.</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#EDE9FE;color:#7C3AED">А</div>
+              <div class="rv-meta">
+                <strong>Анна Пронина</strong>
+                <span>22 августа 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Огромное спасибо, Александр. Работа выполнена на высшем уровне, в установленные сроки, очень быстро и аккуратно.</p>
+          </div>
+          <div class="rv">
+            <div class="rv-top">
+              <div class="rv-av" style="background:#F3F4F6;color:#374151">П</div>
+              <div class="rv-meta">
+                <strong>Павел</strong>
+                <span>12 июня 2024</span>
+              </div>
+              <div class="rv-src">Авито</div>
+            </div>
+            <div class="rv-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="rv-q">Всё сделано отлично - установили 6 окон в частном доме, несмотря на сложности. Даже самостоятельно уменьшили проём.</p>
+          </div>
+      </div>
+    </div>
+    <div class="rs-nav">
+      <button class="rs-btn rs-prev" id="rsPrev" onclick="rsMove(-1)" aria-label="Назад">&#8592;</button>
+      <div class="rs-dots" id="rsDots"></div>
+      <button class="rs-btn rs-next" id="rsNext" onclick="rsMove(1)" aria-label="Вперёд">&#8594;</button>
+    </div>
   </div>
 </section>
 
@@ -1035,13 +1201,17 @@ if(profEl){profEl.querySelectorAll('.cpo').forEach(function(b){
   });
 });}
 var rW=document.getElementById('rW'),rH=document.getElementById('rH');
-rW.oninput=function(){var v=parseInt(rW.value);document.getElementById('vW').textContent=v.toLocaleString('ru-RU')+' мм';rc()};
-rH.oninput=function(){var v=parseInt(rH.value);document.getElementById('vH').textContent=v.toLocaleString('ru-RU')+' мм';rc()};
+rW.oninput=function(){var v=parseInt(rW.value);setEl('vW', v.toLocaleString('ru-RU')+' мм');rc()};
+rH.oninput=function(){var v=parseInt(rH.value);setEl('vH', v.toLocaleString('ru-RU')+' мм');rc()};
 function fmt(n){return n.toLocaleString('ru-RU')+' руб.';}
+function setEl(id, val){
+  var e=document.getElementById(id);
+  if(e) e.textContent=val;
+}
 function rc(){
   var w=rW.value/1000,h=rH.value/1000;
   var area=Math.max(parseFloat((w*h).toFixed(2)),0.1);
-  document.getElementById('cAreaInline').textContent=area.toFixed(2).replace('.',',')+' м²';
+  setEl('cAreaInline', area.toFixed(2).replace('.',',')+' м²');
   // Installation (work + materials, no glass)
   var instCost=Math.round(tM*area);
   // Glass unit
@@ -1065,15 +1235,15 @@ function rc(){
   var tot=instCost+glassCost+otkCost+podCost+floorCost+extCost;
   tot=Math.max(tot,1500);
   // Display
-  document.getElementById('cTot').textContent=tot.toLocaleString('ru-RU')+' руб.';
-  document.getElementById('cInst').textContent=fmt(instCost)+' ('+tN+', '+area.toFixed(2)+' м²)';
-  document.getElementById('cGlass').textContent=fmt(glassCost)+(lamMult>1?' +20% лам.':'');
-  document.getElementById('cProf').textContent=pN;
-  document.getElementById('cOtk').textContent=otkPm>0?fmt(otkCost)+' ('+otkPm+' п.м)':'-';
-  document.getElementById('cPod').textContent=podPm>0?fmt(podCost)+' ('+podPm.toFixed(1)+' п.м)':'-';
-  document.getElementById('cFloor').textContent=floors>0?fmt(floorCost)+' ('+floors+' эт.)':'-';
-  document.getElementById('cEx').textContent=extCost>0?fmt(extCost):'-';
-  document.getElementById('cArea').textContent=area.toFixed(2).replace('.',',')+' м²';
+  setEl('cTot', tot.toLocaleString('ru-RU')+' руб.');
+  setEl('cInst', fmt(instCost)+' ('+tN+', '+area.toFixed(2)+' м²)');
+  setEl('cGlass', fmt(glassCost)+(lamMult>1?' +20% лам.':''));
+  setEl('cProf', pN);
+  setEl('cOtk', otkPm>0?fmt(otkCost)+' ('+otkPm+' п.м)':'-');
+  setEl('cPod', podPm>0?fmt(podCost)+' ('+podPm.toFixed(1)+' п.м)':'-');
+  setEl('cFloor', floors>0?fmt(floorCost)+' ('+floors+' эт.)':'-');
+  setEl('cEx', extCost>0?fmt(extCost):'-');
+  setEl('cArea', area.toFixed(2).replace('.',',')+' м²');
 }
 rc();
 
@@ -1092,8 +1262,44 @@ function togFaq(hdr){
 // FORM
 function doSub(e){
   e.preventDefault();
-  e.target.querySelectorAll('input,select,textarea,button').forEach(function(el){el.style.display='none'});
-  document.getElementById('okMsg').style.display='block';
+  var form = e.target;
+  var data = new FormData(form);
+  var btn = form.querySelector('.form-sub');
+  if(btn){ try{btn.textContent='Отправляем...'; btn.disabled=true;}catch(e){} }
+
+  // ── FORMSPREE endpoint ──
+  // Зарегистрируйтесь на formspree.io, создайте форму и вставьте ваш URL:
+  var ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+  fetch(ENDPOINT, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(function(r){
+    if(r.ok){
+      form.querySelectorAll('input,select,textarea').forEach(function(el){ el.value=''; });
+      if(btn){ btn.style.display='none'; }
+      document.getElementById('okMsg').style.display = 'block';
+    } else {
+      r.json().then(function(d){
+        if(btn){ try{btn.textContent='Отправить заявку - это бесплатно'; btn.disabled=false;}catch(e){} }
+        // Fallback: открыть mailto если Formspree не настроен
+        if(ENDPOINT.indexOf('YOUR_FORM_ID') !== -1){
+          var nm = data.get ? (data.get('Имя') || '') : '';
+          var ph = data.get ? (data.get('Телефон') || '') : '';
+          window.location.href = 'mailto:'+'' +'?subject=Заявка с сайта&body=Имя: '+nm+'%0AТел: '+ph;
+        }
+      });
+    }
+  })
+  .catch(function(){
+    if(btn){ try{btn.textContent='Отправить заявку - это бесплатно'; btn.disabled=false;}catch(e){} }
+    // Fallback: если нет сети или Formspree не настроен
+    if(ENDPOINT.indexOf('YOUR_FORM_ID') !== -1){
+      document.getElementById('okMsg').style.display = 'block';
+    }
+  });
 }
 // SCROLL REVEAL
 try{
@@ -1106,106 +1312,111 @@ window.addEventListener('scroll',function(){document.getElementById('up').classL
 // COUNTER
 function animCount(el){
   var target=parseInt(el.dataset.count)||0,suffix=el.dataset.suffix||'',start=performance.now(),dur=1800;
-  (function step(now){var p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);el.textContent=Math.round(ease*target)+suffix;if(p<1)requestAnimationFrame(step);})(start);
+  (function step(now){var p=Math.min((now-start)/dur,1),ease=1-Math.pow(1-p,3);if(!el||!el.parentNode)return;el.textContent=Math.round(ease*target)+suffix;if(p<1)requestAnimationFrame(step);})(start);
 }
 var sObs=new IntersectionObserver(function(en){
   en.forEach(function(e){if(e.isIntersecting){e.target.querySelectorAll('[data-count]').forEach(animCount);sObs.unobserve(e.target);}});
 },{threshold:.5});
 var sEl=document.querySelector('.hero-stats');if(sEl)sObs.observe(sEl);
 
-// LOCAL FAQ BOT
-var qaBase=[
-  {k:/цена|стоимост|сколько|дорог|бюджет|прайс/i,a:'Ориентировочные цены на монтаж:\n- Одностворчатое (стандарт): от 8 000 руб.\n- Двустворчатое (Rehau/KBE): от 14 000 руб.\n- Балконный блок: от 25 000 руб.\n\nТочная цена после замера. Тел: 8 961 181-22-48'},
-  {k:/двустворчат/i,a:'Двустворчатое окно ~1200x1400 мм со стандартным профилем и двухкамерным стеклопакетом - ориентировочно 14 000-18 000 руб. с монтажом. С откосами и подоконником: +5 000-8 000 руб.'},
-  {k:/трёхстворчат|трехстворчат/i,a:'Трёхстворчатое окно от 18 000 руб. с монтажом. Точную цену назовём после замера.'},
-  {k:/балкон|лоджи/i,a:'Остекление балкона/лоджии - от 18 000 руб.\n- Холодное или тёплое остекление\n- Ламинат на стены и потолок\n- Утепление пола\nПод ключ за 1-2 дня.'},
-  {k:/замер|измер|приехать|выехать|выезд|консульт/i,a:'Условия замера:\n- Телефонная консультация - бесплатно\n- Выезд без договора - от 1 500 руб.\n- Выезд при заключении договора - бесплатно\n\nТел: 8 961 181-22-48'},
-  {k:/гарант/i,a:'Гарантия:\n- На монтажные работы: 2 года\n- На профиль Rehau: до 10 лет\n- На профиль KBE: до 5 лет\n- На стеклопакеты: 3-7 лет'},
-  {k:/профил|rehau|kbe|veka|рехау|века|винтек|бруксбокс|профекта|профлекс|грюндер|какой профил|выбор профил/i,a:'Профильные системы, с которыми мы работаем:\n\n— Рехау (Германия): премиум, 5-камерный, 40+ лет срок службы — лучший выбор для тепла и шума\n— Века (Германия): немецкое качество, популярный выбор, 5-камерный профиль\n— Бруксбокс (Россия): армированный, высокая морозостойкость\n— Грюндер (Россия/DE): немецкие технологии, российское производство — хороший выбор по цене\n— Винтек (Россия): надёжный российский производитель, оптимальное качество/цена\n— Профекта (Россия): хорош для жилых помещений, хорошая теплоизоляция\n— Профлекс (Россия): широкий модельный ряд, нестандартные конфигурации\n\nПомогу выбрать под ваш бюджет — звоните: 8 961 181-22-48'},
-  {k:/стеклопакет|однокамерн|двухкамерн|энергосберег/i,a:'Стеклопакеты:\n- Однокамерный: для подсобных помещений\n- Двухкамерный: оптимален для квартир\n- Энергосберегающий (i-стекло): снижает теплопотери до 40%'},
-  {k:/продуват|холодно|дует|щель|уплотнит/i,a:'Продувает окно? Нужна регулировка прижима или замена уплотнителя - от 500 руб. Приедем и устраним. Тел: 8 961 181-22-48'},
-  {k:/не закрывает|заедает|не открывает|ручка болт|фурнитур/i,a:'Ручка болтается или окно заедает? Регулировка петель - от 700 руб. Замена фурнитуры ROTO, SIEGENIA, MACO - от 700 руб.'},
-  {k:/запотел|влага внутри|конденсат/i,a:'Запотевание внутри стеклопакета - нарушение герметичности. Замена стеклопакета от 2 200 руб. без демонтажа рамы.'},
-  {k:/трещин|разбит|лопнул/i,a:'Трещина в стекле? Заменим стеклопакет от 2 200 руб. без демонтажа рамы за 1-2 дня.'},
-  {k:/откос|подоконник/i,a:'Откосы - от 1 200 руб./сторону. Подоконники - от 2 500 руб.'},
-  {k:/москитн/i,a:'Москитные сетки - от 900 руб. Изготовление под любой размер.'},
-  {k:/детск.*замок|безопасност/i,a:'Детские замки и ограничители - от 500 руб. Защищают от случайного открытия ребёнком.'},
-  {k:/ремонт|регулировк|починить/i,a:'Ремонт и регулировка - от 500 руб. Устраняем большинство неисправностей за один визит.'},
-  {k:/как долго|срок|дней|быстро/i,a:'Сроки:\n- Консультация - сразу по телефону\n- Изготовление - 1-3 рабочих дня\n- Монтаж - 1 день'},
-  {k:/выходн|суббот|воскрес|праздник|график/i,a:'Работаем 7 дней в неделю с 8:00 до 22:00. Доплат за выходные нет.'},
-  {k:/уборк|мусор/i,a:'Уборка по договорённости:\n- Эконом: вывоз мусора\n- Стандарт: уборка зоны + вывоз\n- Всё включено: полная уборка + мойка стёкол'},
-  {k:/записаться|заявка|заказать/i,a:'Позвоните Александру: 8 961 181-22-48 (ежедн. 8:00-22:00) или оставьте заявку на сайте.'},
-  {k:/привет|здравств|добрый/i,a:'Здравствуйте! Отвечу на любые вопросы об окнах. Спрашивайте!'},
-  {k:/опыт|стаж|надёжн/i,a:'Александр занимается окнами более 20 лет. Выполнено 800+ объектов.'},
-  {k:/скрипит|шумит/i,a:'Скрип при открытии - износ уплотнителя или нужна смазка петель. Регулировка от 500 руб.'},
+// ── AI BOT (simple indexOf, no regex) ──
+var BOT=[
+  {k:['цена','стоимост','сколько','дорог','прайс','почём'],
+   a:'Ориентировочные цены:\n- Монтаж по ТУ: 2 000 руб/м²\n- Монтаж по ГОСТ: 3 500 руб/м²\n- Стеклопакет 2 стекла: от 10 300 руб/м²\n- Стеклопакет 3 стекла: 12 000 руб/м²\n- Двустворчатое окно под ключ: от 14 000 руб\n\nТочная цена после замера. Звоните: 8 961 181-22-48'},
+  {k:['двустворчат'],
+   a:'Двустворчатое ~1200×1400 мм: ориентировочно 14 000-18 000 руб с монтажом. С откосами и подоконником: +5 000-8 000 руб.'},
+  {k:['замер','измер','приехать','выехать','выезд'],
+   a:'Условия замера:\n- Телефонная консультация: бесплатно\n- Выезд без договора: от 1 500 руб\n- Выезд при заключении договора: бесплатно\n- Замер в день договора: бесплатно\n\nЗвоните: 8 961 181-22-48'},
+  {k:['гарант'],
+   a:'Гарантия:\n- На монтажные работы: 2 года\n- Профиль Рехау: до 10 лет\n- Профиль KBE: до 5 лет\n- Стеклопакеты: 3-7 лет'},
+  {k:['профил','рехау','rehau','kbe','veka','века','винтек','бруксбокс','профекта','профлекс','грюндер'],
+   a:'Профильные системы:\n- Рехау (Германия): премиум, 5-камерный\n- Века (Германия): немецкое качество\n- Бруксбокс: армированный, морозостойкий\n- Грюндер: немецкие технологии, рос. производство\n- Винтек, Профекта, Профлекс: российские производители\n\nЗвоните: 8 961 181-22-48'},
+  {k:['стеклопакет','стекл'],
+   a:'Стеклопакеты:\n- 2 стекла: от 10 300 руб/м²\n- 3 стекла: 12 000 руб/м²\n- Глухое: 7 000 руб/м²\n- Ламинация: +20%'},
+  {k:['балкон','лоджи','остекл'],
+   a:'Остекление балкона/лоджии - от 18 000 руб:\n- Холодное или тёплое остекление\n- Ламинат на стены и потолок\n- Утепление пола\nВсё под ключ за 1-2 дня.'},
+  {k:['продуват','дует','щель','уплотн','холодно','продув'],
+   a:'Продувает окно? Нужна регулировка прижима или замена уплотнителя - от 500 руб. Приедем и устраним. Тел: 8 961 181-22-48'},
+  {k:['не закрыв','заедает','ручка','фурнитур','скрип','не открыв'],
+   a:'Ручка болтается или окно заедает? Регулировка петель - от 700 руб. Замена фурнитуры ROTO, SIEGENIA - от 700 руб.'},
+  {k:['запотел','конденсат','влага','туман'],
+   a:'Запотевание внутри стеклопакета - нарушена герметичность. Замена стеклопакета от 2 200 руб без демонтажа рамы.'},
+  {k:['трещин','разбит','лопнул'],
+   a:'Трещина в стекле? Заменим стеклопакет от 2 200 руб без демонтажа, за 1-2 дня.'},
+  {k:['откос'],  a:'Откосы - 850 руб/п.м (с материалом).'},
+  {k:['подоконник'], a:'Установка подоконника - 800 руб/п.м. Премиальный: +50% к стоимости работ.'},
+  {k:['москитн'], a:'Москитные сетки:\n- Накладная: от 900 руб/м²\n- Вставная: 2 500 руб/м²\n- Плиссе: 14 000 руб/м²'},
+  {k:['детск','безопасн'], a:'Детские замки и ограничители - 500 руб. Защита от падения.'},
+  {k:['ремонт','регулировк','починить'], a:'Ремонт и регулировка от 500 руб. Устраняем заедание, продуваемость, нарушение геометрии за один визит.'},
+  {k:['срок','дней','быстро','как долго'], a:'Сроки:\n- Консультация: сразу по телефону\n- Изготовление: 1-3 рабочих дня\n- Монтаж: 1 день'},
+  {k:['выходн','суббот','воскрес','праздник'], a:'Работаем 7 дней в неделю с 8:00 до 22:00. Доплаты за выходные нет.'},
+  {k:['уборк','мусор'], a:'Уборка по договорённости:\n- Эконом: вывоз мусора\n- Стандарт: уборка зоны + вывоз\n- Всё включено: полная уборка + мойка стёкол'},
+  {k:['запис','заявк','заказ','позвон'], a:'Позвоните Александру: 8 961 181-22-48 (ежедн. 8:00-22:00) или оставьте заявку на сайте.'},
+  {k:['привет','здравств','добрый','хай'], a:'Здравствуйте! Задайте вопрос об окнах - отвечу подробно.'},
+  {k:['опыт','стаж','надёжн','отзыв'], a:'Александр занимается окнами более 20 лет, выполнено 800+ объектов. Все отзывы на Авито - 5 звёзд.'},
+  {k:['демонтаж'], a:'Демонтаж деревянного: 500 руб/шт. Металлического: от 750 руб/м². Подъём: 200 руб/этаж.'},
+  {k:['отлив','нащельник'], a:'Установка отлива/нащельника - 350 руб/п.м.'}
 ];
-function getAnswer(q){
-  var lq=q.toLowerCase().trim();
-  for(var i=0;i<qaBase.length;i++){if(qaBase[i].k.test(lq))return qaBase[i].a;}
-  return 'Не нашёл точного ответа. Позвоните Александру: 8 961 181-22-48 (ежедн. 8:00-22:00) - ответит на любой вопрос по окнам.';
+function botAnswer(q){
+  var lq=(q||'').toLowerCase();
+  for(var i=0;i<BOT.length;i++){
+    var ks=BOT[i].k;
+    for(var j=0;j<ks.length;j++){
+      if(lq.indexOf(ks[j])!==-1) return BOT[i].a;
+    }
+  }
+  return 'Позвоните Александру: 8 961 181-22-48 (ежедн. 8:00-22:00). Ответим на все вопросы по окнам.';
 }
-// ── CHAT HELPERS ──
-function addMsg(container, cls, txt){
-  var m = document.createElement('div');
-  m.className = 'msg ' + cls;
-  m.textContent = txt;
-  container.appendChild(m);
-  container.scrollTop = container.scrollHeight;
+function botAddMsg(el, cls, txt){
+  var m=document.createElement('div');
+  m.className='msg '+cls;
+  m.innerHTML=(txt||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  el.appendChild(m);
+  el.scrollTop=el.scrollHeight;
+}
+function botTyping(el){
+  var m=document.createElement('div');
+  m.className='msg typing';
+  m.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  el.appendChild(m); el.scrollTop=el.scrollHeight;
   return m;
 }
-function addTyping(container){
-  var m = document.createElement('div');
-  m.className = 'msg typing';
-  m.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
-  container.appendChild(m);
-  container.scrollTop = container.scrollHeight;
-  return m;
+function botChat(q, msgsId){
+  var el=document.getElementById(msgsId);
+  if(!el||!q) return;
+  botAddMsg(el,'usr',q);
+  var t=botTyping(el);
+  setTimeout(function(){ t.remove(); botAddMsg(el,'bot',botAnswer(q)); },350+Math.random()*250);
 }
-function botReply(question, container){
-  if(!container){ console.warn('botReply: no container'); return; }
-  addMsg(container, 'usr', question);
-  var typingEl = addTyping(container);
-  var delay = 400 + Math.floor(Math.random() * 300);
-  setTimeout(function(){
-    if(typingEl && typingEl.parentNode) typingEl.remove();
-    var answer = getAnswer(question);
-    addMsg(container, 'bot', answer);
-  }, delay);
-}
-// ── SECTION CHAT ──
 function sendSec(){
-  var inp = document.getElementById('secIn');
-  var msgs = document.getElementById('secMsgs');
-  if(!inp || !msgs) return;
-  var q = inp.value.trim();
+  var inp=document.getElementById('secIn');
+  if(!inp) return;
+  var q=inp.value.trim();
   if(!q) return;
-  inp.value = '';
-  botReply(q, msgs);
+  inp.value='';
+  botChat(q,'secMsgs');
 }
 function secAsk(q){
-  var inp = document.getElementById('secIn');
-  if(!inp) return;
-  inp.value = q;
-  sendSec();
-  var sec = document.getElementById('ai-section');
-  if(sec) sec.scrollIntoView({behavior:'smooth', block:'start'});
+  var inp=document.getElementById('secIn');
+  if(inp){ inp.value=q; }
+  botChat(q,'secMsgs');
+  var s=document.getElementById('ai-section');
+  if(s) s.scrollIntoView({behavior:'smooth'});
 }
-// ── FLOAT CHAT ──
 function sendFloat(){
-  var inp = document.getElementById('aipIn');
-  var msgs = document.getElementById('aipMsgs');
-  if(!inp || !msgs) return;
-  var q = inp.value.trim();
+  var inp=document.getElementById('aipIn');
+  if(!inp) return;
+  var q=inp.value.trim();
   if(!q) return;
-  inp.value = '';
-  botReply(q, msgs);
+  inp.value='';
+  botChat(q,'aipMsgs');
 }
 function askBot(q){
-  var inp = document.getElementById('aipIn');
-  if(!inp) return;
-  inp.value = q;
-  sendFloat();
+  var inp=document.getElementById('aipIn');
+  if(inp){ inp.value=q; }
+  botChat(q,'aipMsgs');
 }
+
 var aiOpen=false;
 function toggleAI(){aiOpen=!aiOpen;document.getElementById('aip').classList.toggle('open',aiOpen);document.getElementById('aiFab').innerHTML=aiOpen?'&#215;':'&#128172;';}
 
@@ -1214,6 +1425,67 @@ function showTab(n){
   document.querySelectorAll('.stp').forEach(function(p,i){p.classList.toggle('on',i===n)});
   document.querySelectorAll('.stb').forEach(function(b,i){b.classList.toggle('on',i===n)});
 }
+
+
+// ── REVIEWS SLIDER ──
+(function(){
+  var track  = document.getElementById('rsTrack');
+  var dotsEl = document.getElementById('rsDots');
+  var prev   = document.getElementById('rsPrev');
+  var next   = document.getElementById('rsNext');
+  if(!track) return;
+
+  var cards = track.querySelectorAll('.rv');
+  var idx   = 0;
+  var total = cards.length;
+
+  function getPerView(){
+    var w = window.innerWidth;
+    return w < 560 ? 1 : w < 900 ? 2 : 3;
+  }
+
+  function maxIdx(){ return Math.max(0, total - getPerView()); }
+
+  function buildDots(){
+    dotsEl.innerHTML = '';
+    var n = maxIdx() + 1;
+    for(var i = 0; i < n; i++){
+      var d = document.createElement('button');
+      d.className = 'rs-dot' + (i === idx ? ' on' : '');
+      d.setAttribute('aria-label', 'Отзыв ' + (i+1));
+      (function(ii){ d.onclick = function(){ idx = ii; update(); }; })(i);
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function update(){
+    idx = Math.max(0, Math.min(maxIdx(), idx));
+    var perView  = getPerView();
+    var gap      = 18;
+    var vpWidth  = track.parentElement.offsetWidth;
+    var cardW    = (vpWidth - gap * (perView - 1)) / perView;
+    track.style.transform = 'translateX(-' + (idx * (cardW + gap)) + 'px)';
+    // dots
+    dotsEl.querySelectorAll('.rs-dot').forEach(function(d, i){ d.classList.toggle('on', i === idx); });
+    if(prev) prev.disabled = (idx === 0);
+    if(next) next.disabled = (idx >= maxIdx());
+  }
+
+  window.rsMove = function(dir){ idx += dir; update(); };
+
+  buildDots();
+  update();
+
+  // Touch swipe
+  var startX = 0;
+  track.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend',   function(e){
+    var dx = e.changedTouches[0].clientX - startX;
+    if(Math.abs(dx) > 40){ idx += dx < 0 ? 1 : -1; update(); }
+  }, {passive:true});
+
+  window.addEventListener('resize', function(){ buildDots(); update(); });
+})();
 
 </script>
 </body>
