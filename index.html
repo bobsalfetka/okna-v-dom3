@@ -296,7 +296,8 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 .ftc li{margin-bottom:9px}
 .ftc a{font-size:14px;font-weight:300;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
 .ftc a:hover{color:#fff}
-.ft-bot{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:300;color:rgba(255,255,255,.28)}
+.ft-bot{display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:10px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}
+.ft-bot>*{flex-shrink:1;min-width:0}
 .ft-logo-img{height:34px;width:auto;border-radius:4px;filter:brightness(0) invert(1);opacity:.8}
 
 /* FADE */
@@ -305,7 +306,7 @@ footer::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;he
 
 /* RESPONSIVE */
 @media(max-width:1100px){nav{display:none}#hdr{padding:0 10px 0 14px}#hero{grid-template-columns:1fr;min-height:auto}.hero-left{padding:88px 5% 30px}.hero-right{padding:20px 5% 60px;justify-content:center}.hero-win-outer{width:clamp(200px,60vw,360px);height:clamp(160px,48vw,300px)}.hero-stats{flex-wrap:wrap}.hs{padding:14px 18px}.calc-wrap{grid-template-columns:1fr}.proc{grid-template-columns:1fr 1fr;gap:16px}.proc-line-wrap{display:none}.gal{column-count:2}.rev-track{grid-template-columns:1fr}.ai-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr 1fr;gap:28px}.consult-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:680px){.sec{padding:60px 4%}h1.ht{font-size:clamp(32px,8vw,48px)}.hero-stats{flex-direction:column;border-radius:var(--r);width:100%}.hs{border-right:none;border-bottom:1px solid var(--border)}.hs:last-child{border-bottom:none}.hero-win-outer{width:min(86vw,300px);height:min(68vw,240px)}.gal{column-count:1}.proc{grid-template-columns:1fr}.fg2{grid-template-columns:1fr}.consult-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr;gap:24px}.ft-bot{flex-direction:column;gap:6px;text-align:center}.ai-panel{width:calc(100vw - 32px)}.sa-h{grid-template-columns:40px 1fr auto}.sa-price{display:none}}
+@media(max-width:680px){.sec{padding:60px 4%}h1.ht{font-size:clamp(32px,8vw,48px)}.hero-stats{flex-direction:column;border-radius:var(--r);width:100%}.hs{border-right:none;border-bottom:1px solid var(--border)}.hs:last-child{border-bottom:none}.hero-win-outer{width:min(86vw,300px);height:min(68vw,240px)}.gal{column-count:1}.proc{grid-template-columns:1fr}.fg2{grid-template-columns:1fr}.consult-grid{grid-template-columns:1fr}.ft{grid-template-columns:1fr;gap:24px}.ft-bot{display:flex;align-items:center;flex-wrap:wrap;justify-content:center;gap:8px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1)}.ai-panel{width:calc(100vw - 32px)}.sa-h{grid-template-columns:40px 1fr auto}.sa-price{display:none}}
 
 /* ── SERVICE TABS ── */
 .srv-info-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:0;position:relative;z-index:1}
@@ -626,13 +627,111 @@ nav a{
 
 /* Profile image containers */
 .pf-photo{width:100%;height:100px;object-fit:contain;border-radius:8px;margin-bottom:8px;display:block;background:var(--card)}
-.pf-photo-wrap{width:100%;height:100px;border-radius:8px;margin-bottom:8px;overflow:hidden;background:linear-gradient(135deg,#EFF6FB,#D8EDF7);display:flex;align-items:center;justify-content:center;position:relative}
+.pf-photo-wrap{
+  width:100%;height:130px;border-radius:10px;margin-bottom:12px;
+  overflow:hidden;background:#ffffff;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--border)
+}
+.pf-photo-wrap img{
+  max-width:90%;max-height:120px;
+  object-fit:contain;object-position:center;
+  display:block
+}
 .pf-photo-wrap img{width:100%;height:100%;object-fit:contain;display:block}
 .pf-photo-wrap .pf-no-img{font-size:11px;color:var(--muted);text-align:center;padding:8px}
 .pf-svg{margin-top:4px}
 
 .cpo-tier{font-size:9px;letter-spacing:.06em;opacity:.7;font-weight:400}
 .cpo.on .cpo-tier{opacity:1}
+
+/* Gallery show-more */
+.gi2-extra{display:none}
+.gi2-extra.shown{display:block}
+.btn-more-gal{
+  padding:12px 32px;border-radius:100px;border:1.5px solid var(--dark);
+  background:var(--white);color:var(--dark);font-family:'Onest',sans-serif;
+  font-size:13px;font-weight:600;cursor:pointer;transition:all .2s
+}
+.btn-more-gal:hover{background:var(--dark);color:#fff}
+
+/* ── ADAPTIVE FINAL PASS ── */
+
+/* Calc: proper stacking on mobile */
+@media(max-width:860px){
+  .calc-wrap{grid-template-columns:1fr !important;gap:24px}
+  .cres{position:static !important;min-width:unset;margin-top:0}
+  .calc-left,.calc-right{width:100%}
+}
+@media(max-width:600px){
+  .ktype-grid{gap:8px}
+  .kt{min-width:72px;padding:10px 10px}
+  .kt svg{width:48px;height:56px}
+  .kt span{font-size:10px}
+  .co{padding:6px 10px;font-size:12px}
+  .cpo{padding:5px 9px;font-size:11px}
+  .cres{padding:18px}
+  .cr-price{font-size:36px}
+  .calc-prof-row{gap:4px}
+  .rrow{gap:6px}
+  .rrow label{font-size:11px;width:48px}
+  input[type=range]{flex:1}
+  .ci{padding:10px 12px;font-size:12px}
+}
+
+/* Gallery show-more responsive */
+@media(max-width:560px){
+  .btn-more-gal{padding:10px 24px;font-size:12px}
+}
+
+/* Profile cards responsive */
+@media(max-width:600px){
+  .pf-grid{grid-template-columns:1fr 1fr !important;gap:10px}
+  .pf-card{padding:12px}
+  .pf-name{font-size:15px}
+  .pf-photo-wrap{height:90px}
+}
+@media(max-width:380px){
+  .pf-grid{grid-template-columns:1fr !important}
+}
+
+/* Services accordion on mobile */
+@media(max-width:560px){
+  .sa-h{padding:14px 12px;gap:8px}
+  .sa-price{display:none}
+  .sa-num{font-size:11px;width:24px;height:24px}
+  .sa-in{font-size:13px;line-height:1.6}
+}
+
+/* Reviews slider on mobile */
+@media(max-width:560px){
+  .rv{padding:16px}
+  .rv-meta strong{font-size:13px}
+  .rv-stars{font-size:12px}
+}
+
+/* Booking form fields */
+@media(max-width:560px){
+  .fg2{grid-template-columns:1fr !important;gap:10px}
+  .fg input,.fg select,.fg textarea{font-size:16px}
+  .form-sub{font-size:13px}
+}
+
+/* AI section chat on mobile */
+@media(max-width:560px){
+  .chat-win{border-radius:16px}
+  .chat-msgs{height:180px}
+  .ai-chips{display:none} /* hide chips on very small screens */
+}
+
+/* Fix: inputs don't zoom on iOS */
+input,select,textarea{font-size:16px !important}
+
+/* Fix: horizontal overflow */
+.sec,.rs-viewport,.gal2-grid,.pf-grid,.proc,.consult-grid,.ft{
+  max-width:100%;overflow-x:hidden
+}
+.ft-credit{color:rgba(255,255,255,.3)!important;text-decoration:none;font-size:12px;line-height:1.4;transition:color .2s}.ft-credit:hover{color:rgba(255,255,255,.75)!important}
 </style>
 </head>
 <body>
@@ -831,14 +930,14 @@ nav a{
       <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">01</span><span class="sa-title">Балконы и лоджии - отделка и остекление</span><span class="sa-price">от 2 800 руб/м²</span><div class="sa-ico">+</div></div>
       <div class="sa-body" style="max-height:500px">
         <div class="sa-in">Полный комплекс работ по балкону и лоджии с материалом:<br><br>
-          - Холодное остекление: от 2 800 руб/м²<br>
-          - Тёплое остекление ПВХ: от 3 500 руб/м²<br>
+          - Отделка без утепления: от 2 800 руб/м²<br>
+          - Отделка с утеплением: от 3 500 руб/м²<br>
           - Обшивка стен и потолка: вагонка, сайдинг, пластиковая панель, МДФ-панели, ламинат<br>
           - Утепление пола, стен (пенопласт, минвата)<br>
           - Установка крыши на балкон: от 2 800 руб/м²<br>
           - Монтаж откосов изнутри<br>
           - Установка подоконника<br><br>
-          Работы под ключ за 1–3 дня. Гарантия до 7 лет на изделия от производителя. Гарантия на работы 2 года.
+          Работы под ключ за 1-3 дня. Гарантия до 7 лет на изделия от производителя. Гарантия на работы 2 года.
         </div>
       </div>
     </div>
@@ -856,7 +955,7 @@ nav a{
     </div>
     <div class="sa-item">
       <div class="sa-h" onclick="togSrv(this)"><span class="sa-num">05</span><span class="sa-title">Ремонт, регулировка и замена стеклопакетов</span><span class="sa-price">от 500 руб</span><div class="sa-ico">+</div></div>
-      <div class="sa-body"><div class="sa-in">- Регулировка окна/двери: 800–1 300 руб<br>- Замена уплотнителя: от 500 руб<br>- Замена стеклопакета: от 3 000 руб<br>- Замена ручки/фурнитуры: от 500 руб<br>- Детские замки: от 500 руб<br>- Москитные сетки: от 900 руб/м²</div></div>
+      <div class="sa-body"><div class="sa-in">- Регулировка окна/двери: 800-1 300 руб<br>- Замена уплотнителя: от 500 руб<br>- Замена стеклопакета: от 3 000 руб<br>- Замена ручки/фурнитуры: от 500 руб<br>- Детские замки: от 500 руб<br>- Москитные сетки: от 900 руб/м²</div></div>
     </div>
   </div>
 </section>
@@ -882,8 +981,7 @@ nav a{
               </div>
             </div>
             <div class="pf-photo-wrap">
-              <img src="./img/rehau.jpg" alt="Рехау профиль" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="pf-no-img" style="display:none">Фото<br>скоро</div>
+              <img src="./img/rehau.jpg" alt="Рехау профиль" loading="lazy" onload="this.closest('.pf-photo-wrap').nextElementSibling.style.display='none'" onerror="this.closest('.pf-photo-wrap').style.display='none'">
             </div>
             <!-- <div class="pf-svg"><svg width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="156" height="86" rx="3" fill="#F5F5F0" stroke="#CC0000" stroke-width="2.5"/><rect x="18" y="8" width="19" height="72" rx="1" fill="#E8E5DF"/><rect x="39" y="8" width="19" height="72" rx="1" fill="#EDEBE6"/><line x1="38" y1="8" x2="38" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="60" y="8" width="19" height="72" rx="1" fill="#E8E5DF"/><line x1="59" y1="8" x2="59" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="81" y="8" width="19" height="72" rx="1" fill="#EDEBE6"/><line x1="80" y1="8" x2="80" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="102" y="8" width="19" height="72" rx="1" fill="#E8E5DF"/><line x1="101" y1="8" x2="101" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="123" y="8" width="19" height="72" rx="1" fill="#EDEBE6"/><line x1="122" y1="8" x2="122" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="56" y="4" width="48" height="10" rx="1" fill="#BDE0F5" stroke="#CC0000" stroke-width="1" opacity="0.8"/><rect x="61" y="15" width="25" height="36" rx="1" fill="#4A4A4A" opacity="0.8"/><text x="155" y="89" text-anchor="end" font-size="8" font-family="Arial" font-weight="bold" fill="#CC0000">6-кам.</text><rect x="2" y="82" width="156" height="6" rx="1" fill="#F5F5F0" stroke="#CC0000" stroke-width="1.5"/></svg></div> -->
             <div class="pf-specs">6-камерный · Германия · премиум</div>
@@ -900,8 +998,7 @@ nav a{
               </div>
             </div>
             <div class="pf-photo-wrap">
-              <img src="./img/veka.jpg" alt="Века профиль" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="pf-no-img" style="display:none">Фото<br>скоро</div>
+              <img src="./img/veka.jpg" alt="Века профиль" loading="lazy" onload="this.closest('.pf-photo-wrap').nextElementSibling.style.display='none'" onerror="this.closest('.pf-photo-wrap').style.display='none'">
             </div>
             <!-- <div class="pf-svg"><svg width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="156" height="86" rx="3" fill="#F5F5F0" stroke="#003082" stroke-width="2.5"/><rect x="16" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><rect x="42" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="41" y1="8" x2="41" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="68" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="67" y1="8" x2="67" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="94" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="93" y1="8" x2="93" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="120" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="119" y1="8" x2="119" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="56" y="4" width="48" height="10" rx="1" fill="#BDE0F5" stroke="#003082" stroke-width="1" opacity="0.8"/><rect x="43" y="15" width="32" height="36" rx="1" fill="#4A4A4A" opacity="0.8"/><text x="155" y="89" text-anchor="end" font-size="8" font-family="Arial" font-weight="bold" fill="#003082">5-кам.</text><rect x="2" y="82" width="156" height="6" rx="1" fill="#F5F5F0" stroke="#003082" stroke-width="1.5"/></svg></div> -->
             <div class="pf-specs">5-камерный · Германия · стандарт</div>
@@ -918,8 +1015,7 @@ nav a{
               </div>
             </div>
             <div class="pf-photo-wrap">
-              <img src="./img/brusbox.jpg" alt="Бруксбокс профиль" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="pf-no-img" style="display:none">Фото<br>скоро</div>
+              <img src="./img/brusbox.jpg" alt="Бруксбокс профиль" loading="lazy" onload="this.closest('.pf-photo-wrap').nextElementSibling.style.display='none'" onerror="this.closest('.pf-photo-wrap').style.display='none'">
             </div>
             <!-- <div class="pf-svg"><svg width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="156" height="86" rx="3" fill="#F5F5F0" stroke="#374151" stroke-width="2.5"/><rect x="16" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><rect x="42" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="41" y1="8" x2="41" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="68" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="67" y1="8" x2="67" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="94" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="93" y1="8" x2="93" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="120" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="119" y1="8" x2="119" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="56" y="4" width="48" height="10" rx="1" fill="#BDE0F5" stroke="#374151" stroke-width="1" opacity="0.8"/><rect x="43" y="15" width="32" height="36" rx="1" fill="#4A4A4A" opacity="0.8"/><text x="155" y="89" text-anchor="end" font-size="8" font-family="Arial" font-weight="bold" fill="#374151">5-кам.</text><rect x="2" y="82" width="156" height="6" rx="1" fill="#F5F5F0" stroke="#374151" stroke-width="1.5"/></svg></div> -->
             <div class="pf-specs">5-камерный · Россия · усиленный</div>
@@ -936,8 +1032,7 @@ nav a{
               </div>
             </div>
             <div class="pf-photo-wrap">
-              <img src="./img/grunder.jpg" alt="Грюндер профиль" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="pf-no-img" style="display:none">Фото<br>скоро</div>
+              <img src="./img/grunder.jpg" alt="Грюндер профиль" loading="lazy" onload="this.closest('.pf-photo-wrap').nextElementSibling.style.display='none'" onerror="this.closest('.pf-photo-wrap').style.display='none'">
             </div>
             <!-- <div class="pf-svg"><svg width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="156" height="86" rx="3" fill="#F5F5F0" stroke="#5B21B6" stroke-width="2.5"/><rect x="16" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><rect x="42" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="41" y1="8" x2="41" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="68" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="67" y1="8" x2="67" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="94" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="93" y1="8" x2="93" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="120" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="119" y1="8" x2="119" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="56" y="4" width="48" height="10" rx="1" fill="#BDE0F5" stroke="#5B21B6" stroke-width="1" opacity="0.8"/><rect x="43" y="15" width="32" height="36" rx="1" fill="#4A4A4A" opacity="0.8"/><text x="155" y="89" text-anchor="end" font-size="8" font-family="Arial" font-weight="bold" fill="#5B21B6">5-кам.</text><rect x="2" y="82" width="156" height="6" rx="1" fill="#F5F5F0" stroke="#5B21B6" stroke-width="1.5"/></svg></div> -->
             <div class="pf-specs">5-камерный · Россия / DE · оптимум</div>
@@ -954,8 +1049,7 @@ nav a{
               </div>
             </div>
             <div class="pf-photo-wrap">
-              <img src="./img/wintech.jpg" alt="Винтек профиль" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="pf-no-img" style="display:none">Фото<br>скоро</div>
+              <img src="./img/wintech.jpg" alt="Винтек профиль" loading="lazy" onload="this.closest('.pf-photo-wrap').nextElementSibling.style.display='none'" onerror="this.closest('.pf-photo-wrap').style.display='none'">
             </div>
             <!-- <div class="pf-svg"><svg width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="156" height="86" rx="3" fill="#F5F5F0" stroke="#1652C4" stroke-width="2.5"/><rect x="16" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><rect x="42" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="41" y1="8" x2="41" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="68" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="67" y1="8" x2="67" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="94" y="8" width="24" height="72" rx="1" fill="#EDEBE6"/><line x1="93" y1="8" x2="93" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="120" y="8" width="24" height="72" rx="1" fill="#E8E5DF"/><line x1="119" y1="8" x2="119" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="56" y="4" width="48" height="10" rx="1" fill="#BDE0F5" stroke="#1652C4" stroke-width="1" opacity="0.8"/><rect x="43" y="15" width="32" height="36" rx="1" fill="#4A4A4A" opacity="0.8"/><text x="155" y="89" text-anchor="end" font-size="8" font-family="Arial" font-weight="bold" fill="#1652C4">5-кам.</text><rect x="2" y="82" width="156" height="6" rx="1" fill="#F5F5F0" stroke="#1652C4" stroke-width="1.5"/></svg></div> -->
             <div class="pf-specs">5-камерный · Россия · стандарт</div>
@@ -972,8 +1066,7 @@ nav a{
               </div>
             </div>
             <div class="pf-photo-wrap">
-              <img src="./img/exprofecta.jpg" alt="Профекта профиль" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="pf-no-img" style="display:none">Фото<br>скоро</div>
+              <img src="./img/exprofecta.jpg" alt="Профекта профиль" loading="lazy" onload="this.closest('.pf-photo-wrap').nextElementSibling.style.display='none'" onerror="this.closest('.pf-photo-wrap').style.display='none'">
             </div>
             <!-- <div class="pf-svg"><svg width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="156" height="86" rx="3" fill="#F5F5F0" stroke="#374151" stroke-width="2.5"/><rect x="17" y="8" width="30" height="72" rx="1" fill="#E8E5DF"/><rect x="49" y="8" width="30" height="72" rx="1" fill="#EDEBE6"/><line x1="48" y1="8" x2="48" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="81" y="8" width="30" height="72" rx="1" fill="#E8E5DF"/><line x1="80" y1="8" x2="80" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="113" y="8" width="30" height="72" rx="1" fill="#EDEBE6"/><line x1="112" y1="8" x2="112" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="56" y="4" width="48" height="10" rx="1" fill="#BDE0F5" stroke="#374151" stroke-width="1" opacity="0.8"/><rect x="50" y="15" width="40" height="36" rx="1" fill="#4A4A4A" opacity="0.8"/><text x="155" y="89" text-anchor="end" font-size="8" font-family="Arial" font-weight="bold" fill="#374151">4-кам.</text><rect x="2" y="82" width="156" height="6" rx="1" fill="#F5F5F0" stroke="#374151" stroke-width="1.5"/></svg></div> -->
             <div class="pf-specs">4-камерный · Россия · эконом</div>
@@ -990,8 +1083,7 @@ nav a{
               </div>
             </div>
             <div class="pf-photo-wrap">
-              <img src="./img/proplex.jpg" alt="Профлекс профиль" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="pf-no-img" style="display:none">Фото<br>скоро</div>
+              <img src="./img/proplex.jpg" alt="Профлекс профиль" loading="lazy" onload="this.closest('.pf-photo-wrap').nextElementSibling.style.display='none'" onerror="this.closest('.pf-photo-wrap').style.display='none'">
             </div>
             <!-- <div class="pf-svg"><svg width="160" height="90" viewBox="0 0 160 90" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="156" height="86" rx="3" fill="#F5F5F0" stroke="#374151" stroke-width="2.5"/><rect x="17" y="8" width="30" height="72" rx="1" fill="#E8E5DF"/><rect x="49" y="8" width="30" height="72" rx="1" fill="#EDEBE6"/><line x1="48" y1="8" x2="48" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="81" y="8" width="30" height="72" rx="1" fill="#E8E5DF"/><line x1="80" y1="8" x2="80" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="113" y="8" width="30" height="72" rx="1" fill="#EDEBE6"/><line x1="112" y1="8" x2="112" y2="80" stroke="#D0CEC6" stroke-width="1.5"/><rect x="56" y="4" width="48" height="10" rx="1" fill="#BDE0F5" stroke="#374151" stroke-width="1" opacity="0.8"/><rect x="50" y="15" width="40" height="36" rx="1" fill="#4A4A4A" opacity="0.8"/><text x="155" y="89" text-anchor="end" font-size="8" font-family="Arial" font-weight="bold" fill="#374151">4-кам.</text><rect x="2" y="82" width="156" height="6" rx="1" fill="#F5F5F0" stroke="#374151" stroke-width="1.5"/></svg></div> -->
             <div class="pf-specs">4-камерный · Россия · эконом</div>
@@ -1103,7 +1195,7 @@ nav a{
           <button class="cpo" data-n="Винтек" data-m="1.1" onclick="profSelect(this)">Винтек<small class="cpo-tier"> · Стандарт</small></button>
           <button class="cpo" data-n="Века" data-m="1.17" onclick="profSelect(this)">Века<small class="cpo-tier"> · Стандарт</small></button>
         </div>
-        <div style="font-size:11px;color:var(--muted);margin-top:5px">Все профили одинаковой стоимости - выберите предпочитаемый</div>
+        <!-- <div style="font-size:11px;color:var(--muted);margin-top:5px">Все профили одинаковой стоимости - выберите предпочитаемый</div> -->
       </div>
       <!-- Ламинация -->
       <div>
@@ -1179,12 +1271,12 @@ nav a{
   <div class="sec-hd fade">
     <span class="ey">Наши работы</span>
     <h2 class="st">Фото <strong>выполненных объектов</strong></h2>
-    <p class="ss" style="max-width:560px">Более 800 объектов - фотографии выполненных нами работ</p>
+    <p class="ss" style="max-width:560px">Более 50 объектов - фотографии выполненных нами работ</p>
   </div>
   <!-- TABS -->
   <div class="gal2-tabs fade">
-    <button class="g2tb on" onclick="galTab('win',this)">Окна ПВХ (12 фото)</button>
-    <button class="g2tb" onclick="galTab('lam',this)">Отделка и ламинат (6 фото)</button>
+    <button class="g2tb on" onclick="galTab('win',this)">Окна ПВХ (16 фото)</button>
+    <button class="g2tb" onclick="galTab('lam',this)">Отделка и ламинат (10 фото)</button>
   </div>
   <!-- GRID -->
   <div class="gal2-grid fade" id="gal2Grid">
@@ -1236,33 +1328,172 @@ nav a{
             <img src="img/12.jpg" alt="Два квадратных окна - загородный дом" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
             <div class="gi2-overlay"><span>Два квадратных окна - загородный дом</span></div>
           </div>
-          <div class="gi2" data-tab="lam" onclick="openLB(12)">
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(12)">
             <img src="img/l1.jpg" alt="Ламинат на балконе - образец 1" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
             <div class="gi2-overlay"><span>Ламинат на балконе - образец 1</span></div>
           </div>
-          <div class="gi2" data-tab="lam" onclick="openLB(13)">
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(13)">
             <img src="img/l2.jpg" alt="Ламинат на балконе - образец 2" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
             <div class="gi2-overlay"><span>Ламинат на балконе - образец 2</span></div>
           </div>
-          <div class="gi2" data-tab="lam" onclick="openLB(14)">
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(14)">
             <img src="img/l3.jpg" alt="Отделка стен - пример 3" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
             <div class="gi2-overlay"><span>Отделка стен - пример 3</span></div>
           </div>
-          <div class="gi2" data-tab="lam" onclick="openLB(15)">
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(15)">
             <img src="img/l4.jpg" alt="Отделка стен - пример 4" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
             <div class="gi2-overlay"><span>Отделка стен - пример 4</span></div>
           </div>
-          <div class="gi2" data-tab="lam" onclick="openLB(16)">
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(16)">
             <img src="img/l5.jpg" alt="Ламинат + откосы - пример 5" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
             <div class="gi2-overlay"><span>Ламинат + откосы - пример 5</span></div>
           </div>
-          <div class="gi2" data-tab="lam" onclick="openLB(17)">
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(17)">
             <img src="img/l6.jpg" alt="Отделка балкона - пример 6" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
             <div class="gi2-overlay"><span>Отделка балкона - пример 6</span></div>
+          </div>
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(18)">
+            <img src="img/l7.jpg" alt="Ламинат - пример 7" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Ламинат - пример 7</span></div>
+          </div>
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(19)">
+            <img src="img/l8.jpg" alt="Ламинат - пример 8" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Ламинат - пример 8</span></div>
+          </div>
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(20)">
+            <img src="img/l9.jpg" alt="Ламинат - пример 9" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Ламинат - пример 9</span></div>
+          </div>
+          <div class="gi2" data-tab="lam" style="display:none" onclick="openLB(21)">
+            <img src="img/l10.jpg" alt="Ламинат - пример 10" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Ламинат - пример 10</span></div>
+          </div>
+          <div class="gi2" data-tab="win" onclick="openLB(12)">
+            <img src="img/13.jpg" alt="Фото работы 13" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Фото работы</span></div>
+          </div>
+          <div class="gi2" data-tab="win" onclick="openLB(13)">
+            <img src="img/14.jpg" alt="Фото работы 14" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Фото работы</span></div>
+          </div>
+          <div class="gi2" data-tab="win" onclick="openLB(14)">
+            <img src="img/15.jpg" alt="Фото работы 15" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Фото работы</span></div>
+          </div>
+          <div class="gi2" data-tab="win" onclick="openLB(15)">
+            <img src="img/16.jpg" alt="Фото работы 16" loading="lazy" onerror="this.parentElement.classList.add('gi2-err')">
+            <div class="gi2-overlay"><span>Фото работы</span></div>
+          </div>
+          <!-- <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/17.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/18.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/19.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/20.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/21.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/22.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/23.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/24.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/25.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/26.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/27.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/28.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/29.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/30.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/31.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="win" onclick="openLB(0)">
+            <img src="img/32.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div> -->
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l7.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l8.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l9.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l10.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l11.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l12.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l13.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l14.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l15.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
+          </div>
+          <div class="gi2  gi2-extra" style="display:none" data-tab="lam" style="display:none" onclick="openLB(0)">
+            <img src="img/l16.jpg" alt="Фото работы" loading="lazy" onerror="this.parentElement.style.display='none'">
+            <div class="gi2-overlay"><span></span></div>
           </div>
   </div>
   <!-- hint -->
   <p style="text-align:center;margin-top:16px;font-size:13px;color:var(--muted)">Нажмите на фото для просмотра</p>
+  <div style="display:none" id="galMoreWrap">
+    <button class="btn-more-gal" id="galMoreBtn" onclick="galShowMore()">Показать ещё фото ↓</button>
+  </div>
 </section>
 
 <!-- LIGHTBOX -->
@@ -1567,22 +1798,22 @@ nav a{
     <div class="ftb">      <a href="#hero" class="logo">    <img src="data:image/jpeg;base64,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" alt="Окна в Дом" class="logo-img">  </a>
 
          <a href="tel:89611812248" class="ft-ph">8 961 181-22-48</a>
-      <span class="ft-phn">Александр - пн–вс, 8:00–22:00</span>
+      <span class="ft-phn">Александр - пн-вс, 8:00-22:00</span>
       <div style="margin-top:18px;display:flex;flex-direction:column;gap:8px">
         <a href="mailto:okovdom@gmail.com" style="font-size:14px;color:rgba(255,255,255,.55);text-decoration:none;font-weight:300" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">&#9993;&nbsp;okovdom@gmail.com</a>
         <a href="https://vk.com/club236383210" target="_blank" style="font-size:14px;color:rgba(255,255,255,.55);text-decoration:none;font-weight:300" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.55)'">Сообщество ВКонтакте</a>
       </div>
     </div>
     <div class="ftc"><h4>Услуги</h4><ul><li><a href="#services">Монтаж окон ПВХ</a></li><li><a href="#services">Ремонт и регулировка</a></li><li><a href="#services">Замена стеклопакетов</a></li><li><a href="#services">Остекление балкона</a></li><li><a href="#services">Откосы, москитки</a></li></ul></div>
-    <div class="ftc"><h4>Информация</h4><ul><li><a href="#profiles">Профили</a><a href="#calc">Калькулятор</a></li><li><a href="#process">Как работаем</a></li><li><a href="#gallery">Наши работы</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+    <div class="ftc"><h4>Информация</h4><ul><li><a href="#profiles">Профили</a></li><li></li><a href="#calc">Калькулятор</a></li><li></li><li><a href="#gallery">Наши работы</a></li><li><a href="#reviews">Отзывы</a></li><li><a href="#faq">FAQ</a></li></ul></div>
     <div class="ftc"><h4>Контакты</h4><ul><li><a href="tel:89611812248">8 961 181-22-48</a></li><li><a href="#booking">Записаться</a></li><li><a href="#ai-section">Умный помощник</a></li>
           <li><a href="https://vk.com/ВАША_ГРУППА_VK" target="_blank">ВКонтакте</a></li></ul></div>
   </div>
-  <div class="ft-bot">
-  <span>© 2026 Окна в Дом. Все права защищены.</span>
-  <span>Александр - профессиональный монтаж</span>
-  <a href="https://serov-dev.ru/" target="_blank" rel="noopener" style="color:rgba(255,255,255,.28);text-decoration:none;font-size:12px;font-weight:300;transition:color .2s" onmouseover="this.style.color='rgba(255,255,255,.6)'" onmouseout="this.style.color='rgba(255,255,255,.28)'">Сайт разработан Serov.dev</a>
-</div>
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);position:relative;z-index:1001;">
+    <span style="font-size:12px;color:rgba(255,255,255,.3);white-space:nowrap">© 2026 Окна в Дом. Все права защищены.</span>
+    <span style="font-size:12px;color:rgba(255,255,255,.3);white-space:nowrap">Александр — профессиональный монтаж</span>
+    <a href="https://serov-dev.ru/" target="_blank" rel="noopener" style="font-size:12px;color:rgba(255,255,255,.4);text-decoration:none;white-space:nowrap;position:relative;z-index:1002;pointer-events:auto" onmouseover="this.style.color='rgba(255,255,255,.85)'" onmouseout="this.style.color='rgba(255,255,255,.4)'">Сайт разработан Serov.dev</a>
+  </div>
 </footer>
 
 <script>
@@ -1932,13 +2163,26 @@ function galTab(tab, btn){
   document.querySelectorAll('.g2tb').forEach(function(b){b.classList.remove('on')});
   btn.classList.add('on');
   document.querySelectorAll('.gi2').forEach(function(el){
-    el.classList.toggle('hidden', el.dataset.tab !== tab);
+    if(el.dataset.tab !== tab){
+      el.style.display='none';
+    } else {
+      el.style.display='';
+    }
   });
   lbCurrentTab = tab;
 }
-// Show windows by default
-document.querySelectorAll('.gi2[data-tab="lam"]').forEach(function(el){el.classList.add('hidden')});
+function galShowMore(){
+  var extras = document.querySelectorAll('.gi2-extra[data-tab="'+lbCurrentTab+'"]');
+  extras.forEach(function(el){ el.style.display='block'; el.classList.add('shown'); });
+  var wrap = document.getElementById('galMoreWrap');
+  if(wrap) wrap.style.display='none';
+}
+// Gallery init — activate "Окна ПВХ" tab by default
 var lbCurrentTab = 'win';
+(function(){
+  var firstBtn = document.querySelector('.g2tb');
+  if(firstBtn) galTab('win', firstBtn);
+})();
 
 // ── LIGHTBOX ──
 var PHOTOS=[
